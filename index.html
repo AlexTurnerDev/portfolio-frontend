@@ -3,279 +3,1970 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Turner | AI & Systems Portfolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="no-referrer">
+    <title>Alex Turner — AI Engineer</title>
+    <meta name="description"
+        content="AI Engineer and Systems Developer. Agentic workflows, RAG pipelines, self-hosted infrastructure, and embedded systems. BYU-Idaho, graduating 2026.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
-
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #08080a;
+        /* ── RESET ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
         }
 
-        .font-mono {
+        :root {
+            --bg: #060608;
+            --bg2: #09090c;
+            --bg3: #0d0d11;
+            --wire: #141418;
+            --wire2: #1c1c22;
+            --wire3: #252530;
+            --mid: #444;
+            --muted: #2e2e36;
+            --text: #a0a8a4;
+            --white: #edeae4;
+            --green: #00e5a0;
+            --gd: rgba(0, 229, 160, .07);
+            --gb: rgba(0, 229, 160, .2);
+            --purple: #a78bfa;
+            --pd: rgba(167, 139, 250, .07);
+            --pb: rgba(167, 139, 250, .18);
+            --cyan: #00d4ff;
+            --cd: rgba(0, 212, 255, .06);
+            --cb: rgba(0, 212, 255, .18);
+            --amber: #fbbf24;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
             font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: hidden
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            display: block
+        }
+
+        /* ── NAV ── */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 500;
+            height: 54px;
+            padding: 0 clamp(20px, 4vw, 48px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 6, 8, .85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+        }
+
+        .nav-brand {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--white);
+            letter-spacing: .06em
+        }
+
+        .nav-brand span {
+            color: var(--green)
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(14px, 2.5vw, 28px)
+        }
+
+        .nav-links a {
+            font-size: 9px;
+            letter-spacing: .18em;
+            color: var(--mid);
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color .2s
+        }
+
+        .nav-links a:hover {
+            color: var(--green)
+        }
+
+        .nav-cta {
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: .14em;
+            color: var(--green);
+            border: 1px solid var(--gb);
+            padding: 7px 16px;
+            background: var(--gd);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .nav-cta:hover {
+            background: rgba(0, 229, 160, .14)
+        }
+
+        @media(max-width:680px) {
+            .nav-links {
+                display: none
+            }
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            padding: 80px clamp(20px, 5vw, 60px) 60px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(0, 229, 160, .04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 160, .04) 1px, transparent 1px);
+            background-size: 56px 56px;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 560px;
+            height: 560px;
+            background: radial-gradient(circle, rgba(0, 229, 160, .07) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 45fr 55fr;
+            gap: clamp(32px, 5vw, 64px);
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        @media(max-width:860px) {
+            .hero-inner {
+                grid-template-columns: 1fr
+            }
+
+            .hero-orbit {
+                display: none
+            }
+        }
+
+        .hero-left {}
+
+        .hero-tag {
+            font-size: 9px;
+            letter-spacing: .22em;
+            color: var(--green);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 22px;
+            height: 1px;
+            background: var(--green)
+        }
+
+        .hero-name {
+            font-size: clamp(52px, 7vw, 80px);
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white);
+            line-height: .9;
+            letter-spacing: -.02em;
+            margin-bottom: 20px
+        }
+
+        .hero-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 22px
+        }
+
+        .role {
+            font-size: 9px;
+            letter-spacing: .12em;
+            padding: 5px 12px;
+            border: 1px solid var(--wire2);
+            color: #777;
+            background: var(--bg2)
+        }
+
+        .role.r0 {
+            border-color: var(--gb);
+            color: var(--green);
+            background: var(--gd)
+        }
+
+        .hero-hook {
+            font-size: 14px;
+            color: #5a5a68;
+            line-height: 1.75;
+            margin-bottom: 32px;
+            max-width: 440px;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .hero-hook em {
+            color: #999;
+            font-style: normal
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: var(--bg);
+            padding: 13px 28px;
+            border: none;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #888;
+            padding: 13px 22px;
+            border: 1px solid var(--wire2);
+            font-size: 10px;
+            letter-spacing: .1em
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--mid);
+            color: var(--white)
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: clamp(20px, 4vw, 36px);
+            padding-top: 28px;
+            border-top: 1px solid var(--wire)
+        }
+
+        .stat-val {
+            font-size: clamp(18px, 3vw, 26px);
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white);
+            line-height: 1
+        }
+
+        .stat-label {
+            font-size: 8px;
+            letter-spacing: .14em;
+            color: var(--mid);
+            margin-top: 4px
+        }
+
+        /* orbit diagram */
+        .hero-orbit {
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        @keyframes spin1 {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes spin2 {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(-360deg)
+            }
+        }
+
+        @keyframes spin3 {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes pd {
+
+            0%,
+            100% {
+                opacity: .25
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes da {
+            to {
+                stroke-dashoffset: -200
+            }
+        }
+
+        @keyframes da2 {
+            to {
+                stroke-dashoffset: -280
+            }
+        }
+
+        @keyframes da3 {
+            to {
+                stroke-dashoffset: -140
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .15
+            }
+        }
+
+        .r1 {
+            animation: spin1 32s linear infinite;
+            transform-origin: center
+        }
+
+        .r2 {
+            animation: spin2 22s linear infinite;
+            transform-origin: center
+        }
+
+        .r3 {
+            animation: spin3 15s linear infinite;
+            transform-origin: center
+        }
+
+        .pd {
+            animation: pd 2.5s ease-in-out infinite
+        }
+
+        /* ── TRANSITION SVG ZONE ── */
+        .transition-zone {
+            background: var(--bg);
+            padding: 0;
+            overflow: hidden
+        }
+
+        .transition-svg {
+            width: 100%;
+            display: block
+        }
+
+        /* ── LAYER SECTIONS ── */
+        .layer {
+            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px)
+        }
+
+        .layer+.layer,
+        .layer+.synthesis {
+            border-top: 1px solid var(--wire)
+        }
+
+        .l-head {
+            margin-bottom: 28px
+        }
+
+        .l-tag {
+            font-size: 9px;
+            letter-spacing: .22em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .l-tag::before {
+            content: '';
+            width: 16px;
+            height: 1px
+        }
+
+        .l-tag.tg {
+            color: var(--green)
+        }
+
+        .l-tag.tg::before {
+            background: var(--green)
+        }
+
+        .l-tag.tp {
+            color: var(--purple)
+        }
+
+        .l-tag.tp::before {
+            background: var(--purple)
+        }
+
+        .l-tag.tc {
+            color: var(--cyan)
+        }
+
+        .l-tag.tc::before {
+            background: var(--cyan)
+        }
+
+        .l-title {
+            font-size: clamp(28px, 4vw, 36px);
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white);
+            margin-bottom: 6px;
+            line-height: 1
+        }
+
+        .l-sub {
+            font-size: 12px;
+            color: var(--mid);
+            line-height: 1.65;
+            max-width: 640px;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        /* cards grid */
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        @media(max-width:600px) {
+            .cards {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 22px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .25s, background .25s
+        }
+
+        .card:hover {
+            border-color: var(--wire2);
+            background: var(--bg3)
+        }
+
+        .card-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px
+        }
+
+        .c-id {
+            font-size: 8px;
+            letter-spacing: .18em;
+            margin-bottom: 10px
+        }
+
+        .c-name {
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white);
+            margin-bottom: 8px
+        }
+
+        .c-desc {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.65;
+            margin-bottom: 14px;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .c-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px
+        }
+
+        .c-tag {
+            font-size: 8px;
+            padding: 3px 8px;
+            border: 1px solid;
+            letter-spacing: .05em
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            font-size: 10px;
+            color: var(--mid);
+            opacity: 0;
+            transition: opacity .2s
+        }
+
+        .card:hover .card-arrow {
+            opacity: 1
+        }
+
+        /* layer color systems */
+        .lg .card-accent {
+            background: var(--green)
+        }
+
+        .lg .c-id {
+            color: var(--green)
+        }
+
+        .lg .c-tag {
+            color: var(--green);
+            border-color: var(--gb);
+            background: var(--gd)
+        }
+
+        .lp .card-accent {
+            background: var(--purple)
+        }
+
+        .lp .c-id {
+            color: var(--purple)
+        }
+
+        .lp .c-tag {
+            color: var(--purple);
+            border-color: var(--pb);
+            background: var(--pd)
+        }
+
+        .lc .card-accent {
+            background: var(--cyan)
+        }
+
+        .lc .c-id {
+            color: var(--cyan)
+        }
+
+        .lc .c-tag {
+            color: var(--cyan);
+            border-color: var(--cb);
+            background: var(--cd)
+        }
+
+        /* hw quote */
+        .hw-quote {
+            background: var(--bg2);
+            border-left: 2px solid var(--cyan);
+            padding: 20px 24px;
+            margin-bottom: 16px
+        }
+
+        .hw-q {
+            font-size: 14px;
+            color: #aaa;
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.72;
+            margin-bottom: 14px;
+            font-style: italic
+        }
+
+        .hw-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px
+        }
+
+        .hw-pill {
+            font-size: 8px;
+            color: var(--cyan);
+            border: 1px solid var(--cb);
+            padding: 3px 10px;
+            background: var(--cd);
+            letter-spacing: .06em
+        }
+
+        /* ── SYNTHESIS ── */
+        .synthesis {
+            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px);
+            background: var(--bg2)
+        }
+
+        .syn-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 9px;
+            letter-spacing: .18em;
+            color: var(--green);
+            border: 1px solid var(--gb);
+            padding: 4px 10px;
+            background: var(--gd);
+            margin-bottom: 16px
+        }
+
+        .syn-badge::before {
+            content: '●';
+            font-size: 7px;
+            animation: blink 1.5s infinite
+        }
+
+        .syn-title {
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white);
+            margin-bottom: 6px;
+            line-height: 1
+        }
+
+        .syn-sub {
+            font-size: 12px;
+            color: var(--mid);
+            margin-bottom: 28px;
+            max-width: 640px;
+            line-height: 1.65;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .arch-box {
+            background: var(--bg3);
+            border: 1px solid var(--wire2);
+            padding: 24px
+        }
+
+        .arch-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px
+        }
+
+        .arch-lbl {
+            font-size: 9px;
+            letter-spacing: .2em;
+            color: var(--green)
+        }
+
+        .arch-status {
+            font-size: 8px;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .arch-status::before {
+            content: '●';
+            font-size: 7px;
+            animation: blink 1.5s infinite
+        }
+
+        .nodes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px
+        }
+
+        @media(max-width:500px) {
+            .nodes {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .anode {
+            background: var(--bg2);
+            border: 1px solid var(--wire2);
+            padding: 14px;
+            position: relative
+        }
+
+        .anode-sys {
+            font-size: 8px;
+            color: var(--green);
+            margin-bottom: 5px;
+            letter-spacing: .1em
+        }
+
+        .anode-name {
+            font-size: 11px;
+            color: #777;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .anode-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 2s infinite
+        }
+
+        .syn-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .syn-btn {
+            font-size: 10px;
+            color: var(--green);
+            border: 1px solid var(--gb);
+            padding: 10px 22px;
+            background: var(--gd);
+            transition: all .2s;
+            letter-spacing: .08em;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .syn-btn:hover {
+            background: rgba(0, 229, 160, .14)
+        }
+
+        /* ── SKILLS ── */
+        .skills {
+            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px);
+            border-top: 1px solid var(--wire);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px
+        }
+
+        @media(max-width:700px) {
+            .skills {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .sk-col {}
+
+        .sk-head {
+            font-size: 9px;
+            letter-spacing: .18em;
+            color: var(--green);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--wire)
+        }
+
+        .sk-item {
+            font-size: 11px;
+            color: #555;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--wire);
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .sk-item:last-child {
+            border-bottom: none
+        }
+
+        /* ── CERTS ── */
+        .certs {
+            padding: 0 clamp(20px, 5vw, 60px) clamp(40px, 6vw, 64px);
+            border-top: 1px solid var(--wire);
+            padding-top: clamp(32px, 5vw, 48px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .cert {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 16px 20px;
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .cert-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg3);
+            border: 1px solid var(--wire2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: var(--amber);
+            text-align: center;
+            line-height: 1.3;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .cert-name {
+            font-size: 12px;
+            color: var(--white);
+            margin-bottom: 3px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600
+        }
+
+        .cert-type {
+            font-size: 8px;
+            letter-spacing: .12em
+        }
+
+        .cert-more {
+            background: rgba(0, 229, 160, .03);
+            border-color: var(--gb);
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+            text-align: center
+        }
+
+        /* ── CONTACT ── */
+        .contact {
+            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px);
+            border-top: 1px solid var(--wire)
+        }
+
+        .con-tag {
+            font-size: 9px;
+            letter-spacing: .22em;
+            color: var(--green);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .con-tag::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: var(--green)
+        }
+
+        .con-title {
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white);
+            margin-bottom: 6px;
+            line-height: 1
+        }
+
+        .con-sub {
+            font-size: 13px;
+            color: var(--mid);
+            margin-bottom: 28px;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .con-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px
+        }
+
+        @media(max-width:600px) {
+            .con-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .con-item {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 16px
+        }
+
+        .con-key {
+            font-size: 8px;
+            letter-spacing: .15em;
+            color: var(--muted);
+            margin-bottom: 6px
+        }
+
+        .con-val {
+            font-size: 12px;
+            color: #888;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .con-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(4, 4, 6, .92);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex
+        }
+
+        .modal-box {
+            background: var(--bg2);
+            border: 1px solid var(--wire2);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        @media(max-width:680px) {
+            .modal-box {
+                grid-template-columns: 1fr;
+                max-height: 85vh
+            }
+        }
+
+        .modal-left {
+            padding: 28px;
+            overflow-y: auto;
+            border-right: 1px solid var(--wire)
+        }
+
+        .modal-right {
+            padding: 28px;
+            background: var(--bg3);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--bg3);
+            border: 1px solid var(--wire2);
+            color: var(--text);
+            padding: 6px 12px;
+            font-size: 9px;
+            letter-spacing: .1em;
+            transition: all .2s
+        }
+
+        .modal-close:hover {
+            border-color: var(--mid);
+            color: var(--white)
+        }
+
+        .modal-header {
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--wire);
+            margin-bottom: 16px;
+            position: relative
+        }
+
+        .modal-id {
+            font-size: 9px;
+            letter-spacing: .2em;
+            margin-bottom: 6px
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--white)
+        }
+
+        .modal-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.75;
+            font-family: 'DM Sans', sans-serif;
+            margin-bottom: 16px
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px
+        }
+
+        .modal-tag {
+            font-size: 8px;
+            padding: 3px 8px;
+            border: 1px solid;
+            letter-spacing: .05em
+        }
+
+        .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto
+        }
+
+        .modal-link {
+            font-size: 10px;
+            color: var(--green);
+            border: 1px solid var(--gb);
+            padding: 9px 16px;
+            background: var(--gd);
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: .08em;
+            transition: all .2s;
+            display: block
+        }
+
+        .modal-link:hover {
+            background: rgba(0, 229, 160, .14)
+        }
+
+        .modal-link.secondary {
+            color: #888;
+            border-color: var(--wire2);
+            background: transparent
+        }
+
+        .modal-link.secondary:hover {
+            border-color: var(--mid);
+            color: var(--white)
+        }
+
+        .media-item {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            overflow: hidden
+        }
+
+        .media-item video,
+        .media-item img,
+        .media-item audio {
+            width: 100%;
+            display: block
+        }
+
+        .media-item audio {
+            padding: 8px
+        }
+
+        .media-caption {
+            font-size: 9px;
+            color: var(--mid);
+            padding: 8px;
+            line-height: 1.5;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .arch-svg-wrap {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 12px
+        }
+
+        .arch-svg-label {
+            font-size: 8px;
+            letter-spacing: .15em;
+            color: var(--green);
+            margin-bottom: 8px
+        }
+
+        .verilog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .vl-item {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 14px;
+            border-left: 2px solid var(--cyan)
+        }
+
+        .vl-title {
+            font-size: 11px;
+            color: var(--cyan);
+            letter-spacing: .1em;
+            margin-bottom: 5px
+        }
+
+        .vl-desc {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.6;
+            font-family: 'DM Sans', sans-serif
         }
     </style>
 </head>
 
-<body class="text-[#e5e5e5] antialiased selection:bg-[#00e5a0] selection:text-[#08080a]">
+<body>
 
-    <div
-        class="pointer-events-none fixed inset-0 z-50 bg-[radial-gradient(rgba(0,0,0,0)_0%,rgba(0,0,0,0.2)_100%)] opacity-40">
-    </div>
+    <!-- NAV -->
+    <nav id="nav">
+        <div class="nav-brand">ALEX<span>_</span>TURNER</div>
+        <div class="nav-links">
+            <a href="#ai-cloud">AI / CLOUD</a>
+            <a href="#software">SOFTWARE</a>
+            <a href="#hardware">HARDWARE</a>
+            <a href="#synthesis">FEATURED</a>
+            <a href="#contact">CONTACT</a>
+        </div>
+        <a href="assets/docs/resume.pdf" class="nav-cta" download>↓ RESUME</a>
+    </nav>
 
-    <div class="flex flex-col lg:flex-row min-h-screen">
-
-        <aside
-            class="w-full lg:w-[35%] bg-[#0c0c0f] border-b lg:border-b-0 lg:border-r border-[#1a1a22] p-8 lg:p-12 flex flex-col justify-between lg:sticky lg:top-0 lg:h-screen z-20">
-            <div class="space-y-8">
-                <div>
-                    <div
-                        class="inline-flex items-center gap-2 px-2 py-1 bg-[#13131a] border border-[#22222a] rounded text-[10px] text-[#00e5a0] font-mono tracking-wider mb-4">
-                        <span>// SYSTEM_INIT_OK</span>
-                    </div>
-                    <h1 class="text-4xl lg:text-5xl font-black text-white tracking-tight">Alex Turner</h1>
-                    <p class="text-sm font-mono text-[#00e5a0] mt-2 tracking-wide">
-                        AI Engineer | Agentic Workflows
-                    </p>
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-tag">// POWER_INPUT — OPEN TO WORK</div>
+                <h1 class="hero-name">Alex<br>Turner</h1>
+                <div class="hero-roles">
+                    <span class="role r0">AI Engineer</span>
+                    <span class="role">AI Automation</span>
+                    <span class="role">Full-Stack Dev</span>
+                    <span class="role">Systems Developer</span>
                 </div>
-
-                <p class="text-sm text-[#888895] leading-relaxed">
-                    I build production AI systems that actually work — from multi-tenant RAG pipelines to self-hosted
-                    automation infrastructure. Currently seeking remote engineering roles.
+                <p class="hero-hook">BYU-Idaho Computer Engineering student building <em>production AI systems</em> —
+                    from LangGraph agents and RAG pipelines to self-hosted cloud infrastructure and embedded hardware.
                 </p>
-
-                <div class="bg-[#111116] border border-[#1a1a24] rounded-lg p-4 font-mono text-[11px] space-y-2">
-                    <div
-                        class="text-[#555565] uppercase text-[9px] tracking-widest font-bold border-b border-[#1a1a24] pb-1.5 mb-2 flex justify-between items-center">
-                        <span>SYSTEM OBSERVABILITY</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#00e5a0] animate-pulse"></span>
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="window.open('assets/docs/resume.pdf')">↓ DOWNLOAD
+                        RESUME</button>
+                    <button class="btn-secondary" onclick="window.open('https://github.com/AlexTurnerDev')">//
+                        GITHUB</button>
+                    <button class="btn-secondary"
+                        onclick="document.getElementById('ai-cloud').scrollIntoView({behavior:'smooth'})">EXPLORE THE
+                        STACK ↓</button>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="stat-val">4+</div>
+                        <div class="stat-label">PRODUCTION SYSTEMS</div>
                     </div>
-                    <div class="flex justify-between"><span class="text-[#666]">CORE ENGINE:</span><span
-                            class="text-[#00e5a0]">● ACTIVE</span></div>
-                    <div class="flex justify-between"><span class="text-[#666]">OWASP GUARD:</span><span
-                            class="text-[#00e5a0]">● SECURE</span></div>
-                    <div class="flex justify-between"><span class="text-[#666]">REPOS:</span><span
-                            class="text-[#888]">github.com/AlexTurnerDev</span></div>
+                    <div>
+                        <div class="stat-val">4</div>
+                        <div class="stat-label">STACK LAYERS</div>
+                    </div>
+                    <div>
+                        <div class="stat-val">AWS</div>
+                        <div class="stat-label">CERTIFIED</div>
+                    </div>
+                    <div>
+                        <div class="stat-val">2026</div>
+                        <div class="stat-label">GRADUATING</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="mt-8 lg:mt-0 pt-6 border-t border-[#1a1a24] space-y-4">
-                <a href="mailto:your_email@domain.com"
-                    class="block w-full text-center bg-[#00e5a0] hover:bg-[#00cd8f] text-[#08080a] font-mono font-bold text-xs py-3 px-4 rounded tracking-wider transition-colors uppercase">
-                    Request System Resume
-                </a>
-                <div class="text-center font-mono text-[10px] text-[#444452]">
-                    SECURE CHANNEL // OVER TLS 1.3
-                </div>
+            <!-- Orbit Diagram -->
+            <div class="hero-orbit">
+                <svg width="420" height="420" viewBox="0 0 420 420">
+                    <!-- Grid background -->
+                    <defs>
+                        <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                            <path d="M28 0L0 0 0 28" fill="none" stroke="rgba(0,229,160,.04)" stroke-width="1" />
+                        </pattern>
+                    </defs>
+                    <rect width="420" height="420" fill="url(#grid)" />
+                    <!-- Outer ring — Cloud (green) -->
+                    <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.08)" stroke-width="1"
+                        stroke-dasharray="5,7" />
+                    <g class="r1">
+                        <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.35)" stroke-width="1"
+                            stroke-dasharray="28,312" />
+                    </g>
+                    <!-- Mid ring — Software (purple) -->
+                    <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(167,139,250,.08)" stroke-width="1"
+                        stroke-dasharray="4,6" />
+                    <g class="r2">
+                        <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(167,139,250,.4)" stroke-width="1"
+                            stroke-dasharray="20,200" />
+                    </g>
+                    <!-- Inner ring — Hardware (cyan) -->
+                    <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.08)" stroke-width="1"
+                        stroke-dasharray="3,5" />
+                    <g class="r3">
+                        <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.45)" stroke-width="1.5"
+                            stroke-dasharray="12,90" />
+                    </g>
+                    <!-- Center -->
+                    <circle cx="210" cy="210" r="24" fill="#09090c" stroke="rgba(0,229,160,.5)" stroke-width="1" />
+                    <circle cx="210" cy="210" r="9" fill="#00e5a0" opacity=".7" class="pd" />
+                    <text x="210" y="248" text-anchor="middle" fill="rgba(0,229,160,.6)" font-size="7"
+                        font-family="JetBrains Mono" letter-spacing="1">SYNTHESIS</text>
+                    <!-- Spokes: Cloud layer -->
+                    <line x1="210" y1="186" x2="210" y2="42" stroke="rgba(0,229,160,.18)" stroke-width="1" />
+                    <line x1="210" y1="186" x2="359" y2="125" stroke="rgba(0,229,160,.18)" stroke-width="1" />
+                    <line x1="210" y1="186" x2="61" y2="125" stroke="rgba(0,229,160,.18)" stroke-width="1" />
+                    <!-- Animated signals cloud -->
+                    <line x1="210" y1="186" x2="210" y2="42" stroke="#00e5a0" stroke-width="1.5"
+                        stroke-dasharray="10,90" class="pd" style="animation:da 4s linear infinite" />
+                    <line x1="210" y1="186" x2="359" y2="125" stroke="#00e5a0" stroke-width="1.5"
+                        stroke-dasharray="10,90" style="animation:da 4s linear infinite;animation-delay:1.3s" />
+                    <!-- Cloud nodes -->
+                    <circle cx="210" cy="40" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd" />
+                    <circle cx="362" cy="122" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
+                        style="animation-delay:.5s" />
+                    <circle cx="58" cy="122" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
+                        style="animation-delay:1s" />
+                    <text x="210" y="30" text-anchor="middle" fill="rgba(0,229,160,.7)" font-size="7"
+                        font-family="JetBrains Mono">AWS</text>
+                    <text x="374" y="120" fill="rgba(0,229,160,.7)" font-size="7"
+                        font-family="JetBrains Mono">n8n</text>
+                    <text x="20" y="120" fill="rgba(0,229,160,.7)" font-size="7"
+                        font-family="JetBrains Mono">Docker</text>
+                    <!-- Spokes: Software layer -->
+                    <line x1="268" y1="210" x2="378" y2="210" stroke="rgba(167,139,250,.18)" stroke-width="1" />
+                    <line x1="152" y1="210" x2="42" y2="210" stroke="rgba(167,139,250,.18)" stroke-width="1" />
+                    <!-- Animated signals software -->
+                    <line x1="268" y1="210" x2="378" y2="210" stroke="#a78bfa" stroke-width="1.5"
+                        stroke-dasharray="8,60" style="animation:da2 3s linear infinite" />
+                    <line x1="152" y1="210" x2="42" y2="210" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="8,60"
+                        style="animation:da2 3s linear infinite;animation-delay:.8s" />
+                    <circle cx="380" cy="210" r="4" fill="none" stroke="#a78bfa" stroke-width="1.5" class="pd"
+                        style="animation-delay:.3s" />
+                    <circle cx="40" cy="210" r="4" fill="none" stroke="#a78bfa" stroke-width="1.5" class="pd"
+                        style="animation-delay:.9s" />
+                    <text x="390" y="213" fill="rgba(167,139,250,.7)" font-size="7"
+                        font-family="JetBrains Mono">API</text>
+                    <text x="2" y="213" fill="rgba(167,139,250,.7)" font-size="7"
+                        font-family="JetBrains Mono">RAG</text>
+                    <!-- Spokes: Hardware layer -->
+                    <line x1="210" y1="234" x2="210" y2="378" stroke="rgba(0,212,255,.18)" stroke-width="1" />
+                    <line x1="260" y1="258" x2="345" y2="330" stroke="rgba(0,212,255,.18)" stroke-width="1" />
+                    <line x1="160" y1="258" x2="75" y2="330" stroke="rgba(0,212,255,.18)" stroke-width="1" />
+                    <!-- Animated signals hardware -->
+                    <line x1="210" y1="234" x2="210" y2="378" stroke="#00d4ff" stroke-width="1.5"
+                        stroke-dasharray="8,70" style="animation:da3 3.5s linear infinite" />
+                    <circle cx="210" cy="380" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
+                        style="animation-delay:.4s" />
+                    <circle cx="347" cy="332" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
+                        style="animation-delay:1s" />
+                    <circle cx="73" cy="332" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
+                        style="animation-delay:1.6s" />
+                    <text x="210" y="396" text-anchor="middle" fill="rgba(0,212,255,.7)" font-size="7"
+                        font-family="JetBrains Mono">STM32</text>
+                    <text x="352" y="340" fill="rgba(0,212,255,.7)" font-size="7"
+                        font-family="JetBrains Mono">FPGA</text>
+                    <text x="36" y="340" fill="rgba(0,212,255,.7)" font-size="7"
+                        font-family="JetBrains Mono">ESP32</text>
+                </svg>
             </div>
-        </aside>
+        </div>
+    </section>
 
-        <main class="w-full lg:w-[65%] p-8 lg:p-16 space-y-16">
+    <!-- TRANSITION: Hero → Cloud/AI -->
+    <div class="transition-zone">
+        <svg class="transition-svg" height="320" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet">
+            <!-- Cloud nodes top row -->
+            <rect x="60" y="18" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
+            <text x="104" y="33" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">AWS</text>
+            <text x="104" y="46" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">LIGHTSAIL</text>
+            <circle cx="104" cy="18" r="3" fill="#00e5a0" class="pd" />
 
-            <section class="space-y-6">
-                <div class="border-b border-[#1a1a24] pb-2">
-                    <span class="font-mono text-[11px] text-[#00e5a0] tracking-widest block uppercase">//
-                        DEPLOYED_SOFTWARE_ARCHITECTURES</span>
-                </div>
+            <rect x="200" y="8" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
+            <text x="244" y="23" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">DOCKER</text>
+            <text x="244" y="36" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">CONTAINERS</text>
+            <circle cx="244" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:.4s" />
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <rect x="345" y="4" width="100" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
+            <text x="395" y="19" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">CLOUDFLARE</text>
+            <text x="395" y="32" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">TUNNELS</text>
+            <circle cx="395" cy="4" r="3" fill="#00e5a0" class="pd" style="animation-delay:.8s" />
 
-                    <div onclick="openModal('sleepscribe')"
-                        class="group relative bg-[#0e0e12] border border-[#1a1a24] hover:border-[#00e5a0]/40 rounded-lg p-6 cursor-pointer transition-all duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between font-mono text-[10px] text-[#555565] mb-3">
-                                <span>0x01 // WORKFLOW</span>
-                                <span
-                                    class="px-2 py-0.5 rounded text-[9px] border border-[#00e5a0]/20 text-[#00e5a0] bg-[#00e5a0]/5 uppercase">ENGINEERING</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white group-hover:text-[#00e5a0] transition-colors">
-                                SleepScribe</h3>
-                            <p class="text-xs text-[#555565] font-mono mt-0.5 mb-3">Intelligent Data Analysis Agent</p>
-                            <p class="text-xs text-[#888895] line-clamp-3 leading-relaxed">AI agent with non-linear
-                                state machines that critiques, refines, and executes code for data reporting tasks
-                                autonomously.</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-[#13131c] flex flex-wrap gap-1.5">
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#a0a0b0]">Python</span>
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#a0a0b0]">LangGraph</span>
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#a0a0b0]">Groq</span>
-                        </div>
-                    </div>
+            <rect x="500" y="8" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
+            <text x="544" y="23" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">SUPABASE</text>
+            <text x="544" y="36" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">pgvector</text>
+            <circle cx="544" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:.5s" />
 
-                    <div onclick="openModal('voicelens')"
-                        class="group relative bg-[#0e0e12] border border-[#1a1a24] hover:border-[#00e5a0]/40 rounded-lg p-6 cursor-pointer transition-all duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between font-mono text-[10px] text-[#555565] mb-3">
-                                <span>0x02 // PIPELINE</span>
-                                <span
-                                    class="px-2 py-0.5 rounded text-[9px] border border-[#00e5a0]/20 text-[#00e5a0] bg-[#00e5a0]/5 uppercase">ENGINEERING</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white group-hover:text-[#00e5a0] transition-colors">
-                                VoiceLens</h3>
-                            <p class="text-xs text-[#555565] font-mono mt-0.5 mb-3">Multi-Speaker Audio Pipeline</p>
-                            <p class="text-xs text-[#888895] line-clamp-3 leading-relaxed">Production audio processing
-                                engine with asynchronous task handling for voice-to-action workflows. Backend Lead role.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-[#13131c] flex flex-wrap gap-1.5">
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#a0a0b0]">FastAPI</span>
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#a0a0b0]">Celery</span>
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#a0a0b0]">Redis</span>
-                        </div>
-                    </div>
+            <rect x="648" y="18" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
+            <text x="692" y="33" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">n8n</text>
+            <text x="692" y="46" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">WORKFLOWS</text>
+            <circle cx="692" cy="18" r="3" fill="#00e5a0" class="pd" style="animation-delay:1s" />
 
-                </div>
-            </section>
+            <rect x="795" y="8" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
+            <text x="839" y="23" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">PINECONE</text>
+            <text x="839" y="36" text-anchor="middle" fill="#2e2e38" font-size="7" font-family="JetBrains Mono">VECTOR
+                DB</text>
+            <circle cx="839" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:1.3s" />
 
-            <section class="space-y-6">
-                <div class="border-b border-[#1a1a24] pb-2">
-                    <span class="font-mono text-[11px] text-purple-400 tracking-widest block uppercase">//
-                        CREATIVE_AI_MEDIA_LAB</span>
-                </div>
+            <!-- Cloud interconnects -->
+            <path d="M148,37 Q174,24 200,27" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+                stroke-dasharray="4,4" />
+            <path d="M288,27 Q316,16 345,23" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+                stroke-dasharray="4,4" />
+            <path d="M445,23 Q472,16 500,27" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+                stroke-dasharray="4,4" />
+            <path d="M588,27 Q620,22 648,37" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+                stroke-dasharray="4,4" />
+            <path d="M736,37 Q765,24 795,27" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+                stroke-dasharray="4,4" />
+            <!-- Animated cloud signals -->
+            <path d="M148,37 Q174,24 200,27" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
+                stroke-dasharray="12,55" style="animation:da 4s linear infinite" />
+            <path d="M288,27 Q316,16 345,23" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
+                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:.6s" />
+            <path d="M445,23 Q472,16 500,27" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
+                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:1.2s" />
+            <path d="M588,27 Q620,22 648,37" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
+                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:1.8s" />
+            <path d="M736,37 Q765,24 795,27" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
+                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:2.4s" />
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Cloud descends to Software -->
+            <path d="M104,56 Q104,152 220,180" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".08"
+                stroke-dasharray="5,5" />
+            <path d="M395,42 Q395,120 395,180" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".08"
+                stroke-dasharray="5,5" />
+            <path d="M692,56 Q692,140 570,180" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".08"
+                stroke-dasharray="5,5" />
+            <path d="M104,56 Q104,152 220,180" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".45"
+                stroke-dasharray="16,100" style="animation:da2 5s linear infinite" />
+            <path d="M395,42 Q395,120 395,180" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".45"
+                stroke-dasharray="16,100" style="animation:da2 5s linear infinite;animation-delay:1s" />
+            <path d="M692,56 Q692,140 570,180" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".45"
+                stroke-dasharray="16,100" style="animation:da2 5s linear infinite;animation-delay:2s" />
 
-                    <div onclick="openModal('aimedia')"
-                        class="group relative bg-[#0e0e12] border border-[#1a1a24] hover:border-purple-500/40 rounded-lg p-6 cursor-pointer transition-all duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between font-mono text-[10px] text-[#555565] mb-3">
-                                <span>0x03 // MEDIA</span>
-                                <span
-                                    class="px-2 py-0.5 rounded text-[9px] border border-purple-500/20 text-purple-400 bg-purple-500/5 uppercase">SYNTHETIC</span>
-                            </div>
-                            <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">
-                                Volumetric Prompt Modeling</h3>
-                            <p class="text-xs text-[#555565] font-mono mt-0.5 mb-3">Hyper-Realistic Vector Synthetics
-                            </p>
-                            <p class="text-xs text-[#888895] line-clamp-3 leading-relaxed">Exploration analyzing
-                                rendering outputs, mapping spatial prompt weight thresholds to preserve vector
-                                illumination consistency across open models.</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-[#13131c] flex flex-wrap gap-1.5">
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#b0a0e0]">Midjourney
-                                v6</span>
-                            <span
-                                class="text-[10px] font-mono bg-[#13131a] border border-[#1e1e28] px-2 py-0.5 rounded text-[#b0a0e0]">Runway
-                                Gen-3</span>
-                        </div>
-                    </div>
+            <text x="500" y="172" text-anchor="middle" fill="#1c1c24" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="2">CLOUD → SOFTWARE_LAYER</text>
 
-                </div>
-            </section>
+            <!-- Software nodes middle row -->
+            <rect x="120" y="188" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="164" y="203" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">LANGGRAPH</text>
+            <text x="164" y="216" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">AGENTS</text>
+            <circle cx="164" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.3s" />
 
-        </main>
+            <rect x="264" y="182" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="308" y="197" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">FASTAPI</text>
+            <text x="308" y="210" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">PYTHON</text>
+            <circle cx="308" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:.7s" />
+
+            <rect x="402" y="178" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="446" y="193" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">RAG</text>
+            <text x="446" y="206" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">PIPELINES</text>
+            <circle cx="446" cy="178" r="3" fill="#a78bfa" class="pd" style="animation-delay:.1s" />
+
+            <rect x="540" y="182" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="584" y="197" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">CELERY</text>
+            <text x="584" y="210" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">ASYNC</text>
+            <circle cx="584" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:1.1s" />
+
+            <rect x="680" y="188" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="724" y="203" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">REDIS</text>
+            <text x="724" y="216" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">CACHE</text>
+            <circle cx="724" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.6s" />
+
+            <!-- Software interconnects -->
+            <path d="M208,207 Q236,202 264,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
+                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:.3s" />
+            <path d="M352,201 Q377,197 402,197" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
+                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:.9s" />
+            <path d="M490,197 Q515,199 540,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
+                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:1.5s" />
+            <path d="M628,201 Q654,202 680,207" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
+                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:2.1s" />
+
+            <!-- Software descends to Hardware -->
+            <path d="M164,226 Q150,282 230,302" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".08"
+                stroke-dasharray="5,5" />
+            <path d="M446,216 Q446,270 446,302" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".08"
+                stroke-dasharray="5,5" />
+            <path d="M724,226 Q724,270 660,302" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".08"
+                stroke-dasharray="5,5" />
+            <path d="M164,226 Q150,282 230,302" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".4"
+                stroke-dasharray="14,90" style="animation:da3 4s linear infinite" />
+            <path d="M446,216 Q446,270 446,302" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".4"
+                stroke-dasharray="14,90" style="animation:da3 4s linear infinite;animation-delay:1.3s" />
+            <path d="M724,226 Q724,270 660,302" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".4"
+                stroke-dasharray="14,90" style="animation:da3 4s linear infinite;animation-delay:2.6s" />
+
+            <text x="500" y="296" text-anchor="middle" fill="#151518" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="2">SOFTWARE → SILICON_LAYER</text>
+
+            <!-- Hardware nodes bottom row -->
+            <rect x="170" y="306" width="88" height="38" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="214" y="321" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">STM32</text>
+            <text x="214" y="334" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">MICROCONTROL</text>
+            <circle cx="214" cy="306" r="3" fill="#00d4ff" class="pd" style="animation-delay:.4s" />
+
+            <rect x="356" y="312" width="88" height="38" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="400" y="327" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">FPGA</text>
+            <text x="400" y="340" text-anchor="middle" fill="#2e2e38" font-size="7"
+                font-family="JetBrains Mono">VERILOG</text>
+            <circle cx="400" cy="312" r="3" fill="#00d4ff" class="pd" style="animation-delay:.9s" />
+
+            <rect x="542" y="306" width="88" height="38" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="586" y="321" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="1">ESP32</text>
+            <text x="586" y="334" text-anchor="middle" fill="#2e2e38" font-size="7" font-family="JetBrains Mono">IoT
+                BRIDGE</text>
+            <circle cx="586" cy="306" r="3" fill="#00d4ff" class="pd" style="animation-delay:1.4s" />
+
+            <!-- Hardware interconnects -->
+            <path d="M258,325 Q307,330 356,331" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".5"
+                stroke-dasharray="8,36" style="animation:da3 3s linear infinite;animation-delay:.5s" />
+            <path d="M444,331 Q493,328 542,325" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".5"
+                stroke-dasharray="8,36" style="animation:da3 3s linear infinite;animation-delay:1.3s" />
+
+            <text x="500" y="356" text-anchor="middle" fill="#0d0d10" font-size="8" font-family="JetBrains Mono"
+                letter-spacing="3">SILICON // FULL_STACK_ACTIVE</text>
+        </svg>
     </div>
 
-    <div id="projectModal"
-        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050507]/90 backdrop-blur-md">
-        <div
-            class="bg-[#0e0e12] border border-[#22222b] w-full max-w-4xl rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-auto md:h-[550px]">
-
-            <div
-                class="w-full md:w-[55%] p-6 md:p-8 flex flex-col justify-between overflow-y-auto border-b md:border-b-0 md:border-r border-[#22222b]">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between border-b border-[#1a1a24] pb-3">
-                        <div>
-                            <span id="modalMeta"
-                                class="font-mono text-[10px] text-[#00e5a0] tracking-widest uppercase block">//
-                                ACCESS_GRANTED</span>
-                            <h2 id="modalTitle" class="text-2xl font-black text-white mt-1">Project Title</h2>
-                        </div>
-                        <button onclick="closeModal()"
-                            class="p-1.5 bg-[#171722] hover:bg-[#222230] border border-[#2d2d3d] text-white rounded transition-colors md:hidden">
-                            ✕
-                        </button>
-                    </div>
-                    <p id="modalDesc" class="text-xs leading-relaxed text-[#a0a0b5]">Detailed description placeholder...
-                    </p>
-                </div>
-                <div id="modalTags" class="mt-8 pt-4 border-t border-[#1a1a24] flex flex-wrap gap-1.5"></div>
+    <!-- AI / CLOUD LAYER -->
+    <section id="ai-cloud" class="layer lg">
+        <div class="l-head">
+            <div class="l-tag tg">// LAYER_0 — AI & CLOUD</div>
+            <h2 class="l-title">AI & Cloud</h2>
+            <p class="l-sub">Production agentic systems, self-hosted infrastructure, multi-LLM orchestration. This is
+                the primary stack.</p>
+        </div>
+        <div class="cards">
+            <div class="card" onclick="openModal('vapi')">
+                <div class="card-accent"></div>
+                <div class="c-id">// 0xVAPI · VOICE AGENT</div>
+                <div class="c-name">Intelligent Voice Receptionist</div>
+                <div class="c-desc">Real-time Voice AI agent handling phone calls with sub-second latency. Connected to
+                    GoHighLevel CRM for live appointment booking with latency masking.</div>
+                <div class="c-tags"><span class="c-tag">Vapi.ai</span><span class="c-tag">n8n</span><span
+                        class="c-tag">Supabase</span><span class="c-tag">GoHighLevel</span><span
+                        class="c-tag">RAG</span></div>
+                <span class="card-arrow">VIEW PROJECT →</span>
             </div>
+            <div class="card" onclick="openModal('sms')">
+                <div class="card-accent"></div>
+                <div class="c-id">// 0xSMS · AGENTIC BOT</div>
+                <div class="c-name">Context-Aware SMS Agent</div>
+                <div class="c-desc">Stateful SMS bot with 15-message sliding window memory, human-like typing delays,
+                    and semantic HANDOFF guardrails routing to human operators.</div>
+                <div class="c-tags"><span class="c-tag">n8n</span><span class="c-tag">Supabase</span><span
+                        class="c-tag">Twilio</span><span class="c-tag">Google Drive API</span></div>
+                <span class="card-arrow">VIEW PROJECT →</span>
+            </div>
+        </div>
+    </section>
 
-            <div class="w-full md:w-[45%] bg-[#08080a] p-6 flex flex-col justify-between relative">
-                <button onclick="closeModal()"
-                    class="hidden md:flex absolute top-4 right-4 z-30 p-2 bg-[#121218] hover:bg-[#1a1a24] border border-[#22222e] text-white rounded-md transition-colors items-center gap-1.5 font-mono text-[10px]">
-                    ✕ CLOSE_SYS
-                </button>
-
-                <div id="mediaContainer"
-                    class="flex-1 flex flex-col items-center justify-center bg-[#111116] border border-[#1a1a26] rounded-lg text-center p-6 font-mono my-auto max-h-[260px] md:max-h-none">
+    <!-- SOFTWARE LAYER -->
+    <section id="software" class="layer lp">
+        <div class="l-head">
+            <div class="l-tag tp">// LAYER_1 — SOFTWARE & PIPELINES</div>
+            <h2 class="l-title">Software & Pipelines</h2>
+            <p class="l-sub">Async processing engines, agentic workflows, API architecture.</p>
+        </div>
+        <div class="cards">
+            <div class="card" onclick="openModal('sleepscribe')">
+                <div class="card-accent"></div>
+                <div class="c-id">// 0xSLEEP · LANGGRAPH</div>
+                <div class="c-name">SleepScribe</div>
+                <div class="c-desc">Intelligent data analysis agent. Non-linear LangGraph state machines that
+                    dynamically critique, refine, and execute reporting tasks autonomously without human intervention.
                 </div>
+                <div class="c-tags"><span class="c-tag">LangGraph</span><span class="c-tag">Groq</span><span
+                        class="c-tag">Python</span><span class="c-tag">Agentic AI</span></div>
+                <span class="card-arrow">VIEW PROJECT →</span>
+            </div>
+            <div class="card" onclick="openModal('voicelens')">
+                <div class="card-accent"></div>
+                <div class="c-id">// 0xVOICE · PIPELINE</div>
+                <div class="c-name">VoiceLens <span style="font-size:9px;color:var(--mid)">— Coming Soon</span></div>
+                <div class="c-desc">Production-grade multi-speaker audio analysis and voice-to-action pipeline. Celery +
+                    Redis async engine handles heavy audio workloads without blocking the UI.</div>
+                <div class="c-tags"><span class="c-tag">FastAPI</span><span class="c-tag">Celery</span><span
+                        class="c-tag">Redis</span><span class="c-tag">Voice AI</span></div>
+                <span class="card-arrow">VIEW PROJECT →</span>
+            </div>
+        </div>
+    </section>
 
-                <div
-                    class="mt-4 md:mt-0 bg-[#0c0c10] border border-[#1a1a26] rounded p-3 font-mono text-[10px] text-[#555565] flex items-center gap-2.5">
-                    <div class="w-2 h-2 rounded-full bg-[#00e5a0] animate-ping"></div>
-                    <span>LOCAL_STREAM_STATUS :: ATTACHED</span>
+    <!-- HARDWARE LAYER -->
+    <section id="hardware" class="layer lc">
+        <div class="l-head">
+            <div class="l-tag tc">// LAYER_2 — HARDWARE & EMBEDDED</div>
+            <h2 class="l-title">Hardware & Embedded</h2>
+            <p class="l-sub">The foundation. Understanding what happens on the wire before writing the API.</p>
+        </div>
+        <div class="hw-quote">
+            <p class="hw-q">"Most AI engineers have never touched a microcontroller. I have. That changes how you think
+                about latency, memory constraints, and real-time systems."</p>
+            <div class="hw-pills">
+                <span class="hw-pill">STM32</span><span class="hw-pill">ESP32</span><span class="hw-pill">UART</span>
+                <span class="hw-pill">SPI/DMA</span><span class="hw-pill">Verilog</span><span
+                    class="hw-pill">FPGA</span>
+                <span class="hw-pill">C/C++</span><span class="hw-pill">Interrupts</span>
+            </div>
+        </div>
+        <div class="cards">
+            <div class="card" onclick="openModal('iot')">
+                <div class="card-accent"></div>
+                <div class="c-id">// 0xIOT · ECEN260 FINAL</div>
+                <div class="c-name">IoT Home Control System</div>
+                <div class="c-desc">Full-duplex IoT bridge (ECEN 260 final project). Telegram → n8n → Python serial
+                    bridge → STM32. DMA-optimized SPI renders images on ST7735 LCD without blocking real-time
+                    interrupts.</div>
+                <div class="c-tags"><span class="c-tag">STM32</span><span class="c-tag">C++</span><span
+                        class="c-tag">UART</span><span class="c-tag">DMA/SPI</span><span class="c-tag">n8n</span><span
+                        class="c-tag">Python</span></div>
+                <span class="card-arrow">VIEW PROJECT →</span>
+            </div>
+            <div class="card" onclick="openModal('fpga')">
+                <div class="card-accent"></div>
+                <div class="c-id">// 0xFPGA · DIGITAL LOGIC</div>
+                <div class="c-name">FPGA Digital Logic Design</div>
+                <div class="c-desc">Suite of Verilog modules on Basys3 FPGA — from 7-segment decoders and 8-bit
+                    multipliers to a full capstone reaction game with LFSR, RAM-based high score system, and 11-state
+                    FSM.</div>
+                <div class="c-tags"><span class="c-tag">Verilog</span><span class="c-tag">FPGA</span><span
+                        class="c-tag">Vivado</span><span class="c-tag">FSM</span><span class="c-tag">LFSR</span></div>
+                <span class="card-arrow">VIEW PROJECT →</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYNTHESIS -->
+    <section id="synthesis" class="synthesis">
+        <div class="syn-badge">ACTIVE_BUILD</div>
+        <h2 class="syn-title">Multi-Tenant AI Agent Platform</h2>
+        <p class="syn-sub">// Production RAG system with intelligent handoffs — cloud architecture, software pipelines,
+            and hardware intuition working together. Self-hosted on AWS. Live now.</p>
+        <div class="arch-box">
+            <div class="arch-top">
+                <div class="arch-lbl">// LIVE SYSTEM ARCHITECTURE</div>
+                <div class="arch-status">SYSTEM ONLINE</div>
+            </div>
+            <div class="nodes">
+                <div class="anode">
+                    <div class="anode-dot"></div>
+                    <div class="anode-sys">n8n</div>
+                    <div class="anode-name">Orchestrator</div>
+                </div>
+                <div class="anode">
+                    <div class="anode-dot"></div>
+                    <div class="anode-sys">FastAPI</div>
+                    <div class="anode-name">Python Sidecar</div>
+                </div>
+                <div class="anode">
+                    <div class="anode-dot"></div>
+                    <div class="anode-sys">pgvector</div>
+                    <div class="anode-name">RAG Pipeline</div>
+                </div>
+                <div class="anode">
+                    <div class="anode-dot"></div>
+                    <div class="anode-sys">Claude/GPT/Gemini</div>
+                    <div class="anode-name">LLM Router</div>
+                </div>
+                <div class="anode">
+                    <div class="anode-dot"></div>
+                    <div class="anode-sys">Supabase</div>
+                    <div class="anode-name">PostgreSQL DB</div>
+                </div>
+                <div class="anode">
+                    <div class="anode-dot"></div>
+                    <div class="anode-sys">AWS + Cloudflare</div>
+                    <div class="anode-name">Infrastructure</div>
                 </div>
             </div>
+            <div class="syn-btns">
+                <!-- DEMO_URL: update when domain finalizes -->
+                <a href="https://demo.alexturner-portfolio.com" class="syn-btn" target="_blank">// LIVE_DEMO →</a>
+                <a href="https://github.com/AlexTurnerDev" class="syn-btn" target="_blank">// GITHUB →</a>
+            </div>
+        </div>
+    </section>
 
+    <!-- SKILLS -->
+    <div class="skills">
+        <div class="sk-col">
+            <div class="sk-head">LANGUAGES</div>
+            <div class="sk-item">Python</div>
+            <div class="sk-item">C / C++</div>
+            <div class="sk-item">JavaScript / TypeScript</div>
+            <div class="sk-item">Verilog</div>
+            <div class="sk-item">Rust</div>
+            <div class="sk-item">Assembly</div>
+        </div>
+        <div class="sk-col">
+            <div class="sk-head">AI / ML</div>
+            <div class="sk-item">LangGraph / LangChain</div>
+            <div class="sk-item">RAG Pipelines</div>
+            <div class="sk-item">pgvector / Pinecone</div>
+            <div class="sk-item">Claude, GPT-4, Gemini</div>
+            <div class="sk-item">Groq / Llama</div>
+            <div class="sk-item">OpenCV</div>
+        </div>
+        <div class="sk-col">
+            <div class="sk-head">BACKEND / CLOUD</div>
+            <div class="sk-item">FastAPI</div>
+            <div class="sk-item">Docker</div>
+            <div class="sk-item">AWS Lightsail</div>
+            <div class="sk-item">Supabase / PostgreSQL</div>
+            <div class="sk-item">Celery / Redis</div>
+            <div class="sk-item">Cloudflare</div>
+        </div>
+        <div class="sk-col">
+            <div class="sk-head">HARDWARE</div>
+            <div class="sk-item">STM32 / ESP32</div>
+            <div class="sk-item">UART / SPI / DMA</div>
+            <div class="sk-item">FPGA / Verilog</div>
+            <div class="sk-item">Circuit Design</div>
+            <div class="sk-item">Fusion 360</div>
+            <div class="sk-item">Raspberry Pi</div>
+        </div>
+    </div>
+
+    <!-- CERTS -->
+    <div class="certs">
+        <div class="cert">
+            <img class="cert-icon" src="assets/Achievements/aws-cloud-quest-cloud-practitioner-training-badge.png"
+                alt="AWS Cloud Practitioner"
+                style="width:40px;height:40px;object-fit:contain;background:#0d0d11;padding:4px">
+            <div>
+                <div class="cert-name">AWS Cloud Practitioner</div>
+                <div class="cert-type" style="color:var(--amber)">CERTIFICATION · FEB 2026</div>
+            </div>
+        </div>
+        <div class="cert">
+            <img class="cert-icon" src="assets/Achievements/aws-educate-introduction-to-generative-ai-training-.png"
+                alt="AWS Generative AI"
+                style="width:40px;height:40px;object-fit:contain;background:#0d0d11;padding:4px">
+            <div>
+                <div class="cert-name">AWS Generative AI</div>
+                <div class="cert-type" style="color:var(--mid)">TRAINING BADGE · FEB 2026</div>
+            </div>
+        </div>
+        <div class="cert cert-more" style="min-width:0">
+            <div style="font-size:9px;color:var(--muted);letter-spacing:.12em">MORE INCOMING</div>
+            <div style="font-size:9px;color:var(--green);letter-spacing:.1em">IN PROGRESS</div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <div class="con-tag">OUTPUT — CONTACT_GATEWAY</div>
+        <h2 class="con-title">Let's Build Something</h2>
+        <p class="con-sub">Open to remote AI engineering roles. Graduating 2026. Available for interviews now.</p>
+        <div class="con-grid">
+            <div class="con-item">
+                <div class="con-key">EMAIL</div>
+                <div class="con-val">alex@alexturner-portfolio.com</div>
+            </div>
+            <div class="con-item">
+                <div class="con-key">GITHUB</div>
+                <div class="con-val">github.com/AlexTurnerDev</div>
+            </div>
+            <div class="con-item">
+                <div class="con-key">LOCATION</div>
+                <div class="con-val">Rexburg, ID — Remote</div>
+            </div>
+        </div>
+        <div class="con-btns">
+            <button class="btn-primary" onclick="window.open('assets/docs/resume.pdf')">↓ DOWNLOAD RESUME</button>
+            <a href="https://github.com/AlexTurnerDev" class="btn-secondary" target="_blank">// GITHUB →</a>
+            <a href="mailto:alex@alexturner-portfolio.com" class="btn-secondary">// EMAIL →</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div
+        style="text-align:center;padding:24px;border-top:1px solid var(--wire);font-size:9px;color:var(--muted);letter-spacing:.12em">
+        © 2026 ALEX TURNER &nbsp;·&nbsp;
+        <a href="privacy.html" style="color:var(--muted)">PRIVACY</a> &nbsp;·&nbsp;
+        <a href="terms.html" style="color:var(--muted)">TERMS</a>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+        <div class="modal-box" style="position:relative">
+            <button class="modal-close" style="position:absolute;top:12px;right:12px;z-index:10"
+                onclick="closeModal()">✕ CLOSE</button>
+            <div class="modal-left">
+                <div class="modal-header">
+                    <div class="modal-id" id="m-id"></div>
+                    <div class="modal-title" id="m-title"></div>
+                </div>
+                <div class="modal-desc" id="m-desc"></div>
+                <div class="modal-tags" id="m-tags"></div>
+                <div class="modal-links" id="m-links"></div>
+            </div>
+            <div class="modal-right" id="m-media"></div>
         </div>
     </div>
 
     <script>
-        const PROJECTS_DATABASE = {
+        const DATA = {
+            vapi: {
+                id: '// 0xVAPI · VOICE AGENT',
+                title: 'Intelligent Voice Receptionist',
+                color: '#00e5a0',
+                desc: `Engineered a voice AI agent capable of handling real-time phone calls with near-human latency. The agent connects to the GoHighLevel CRM API via n8n to check availability, create contacts, and book appointments in real-time.\n\n• Latency Masking: Implemented "filler phrases" and optimistic tool execution to mask the delay of external API calls, making responses feel instantaneous.\n\n• Tool Use: Custom JavaScript middleware parses relative dates ("Next Tuesday") into ISO timestamps. Modular tool definitions route conversations autonomously to the correct backend workflow.\n\n• Post-Call Pipeline: Asynchronous LLM-powered call summarization automatically structures and files call summaries.`,
+                tags: ['Vapi.ai', 'n8n', 'Supabase', 'GoHighLevel', 'RAG'],
+                links: [],
+                media: [
+                    { type: 'video', src: 'assets/videos/AI_VapiAgentDemo.mp4', cap: 'Watch the agent handle a natural interruption and execute a real-time write operation to the CRM with sub-second latency.' },
+                    { type: 'audio', src: 'assets/Audio/AI_VapiAgent_Audio.wav', cap: 'Raw latency test — high-fidelity recording demonstrating sub-second response time and natural turn-taking during a complex booking scenario.' },
+                    { type: 'img', src: 'assets/images/AI_VapiAgent_VapiTools.png', cap: 'Modular tool definitions allowing the AI to autonomously route conversations to the correct backend workflow.' },
+                    { type: 'img', src: 'assets/images/AI_VapiAgent_BookAppointmentWorkflow.png', cap: 'Transactional booking workflow syncing CRM data with sub-second latency.' },
+                    { type: 'img', src: 'assets/images/AI_VapiAgent_SummaryWorkflow.png', cap: 'Asynchronous post-call pipeline using an LLM to structure and file call summaries automatically.' },
+                ]
+            },
+            sms: {
+                id: '// 0xSMS · AGENTIC BOT',
+                title: 'Context-Aware SMS Agent',
+                color: '#00e5a0',
+                desc: `Architected a robust conversational SMS interface solving "hallucination risk" for local service businesses.\n\n• Context Retention: Sliding window memory system in Supabase retaining the last 15 messages — the agent remembers names, specific problems, and conversation context across sessions.\n\n• Human-Like UX: Variable latency algorithm delays responses based on message length, mimicking natural human typing speed.\n\n• Automated Knowledge Base: Google Drive sync pipeline — uploading files to a specific folder automatically updates the vector store embeddings.\n\n• Semantic Guardrails: System prompt protocol where the LLM flags unknown topics with HANDOFF codes. A deterministic router detects these flags and physically redirects the query to Telegram for human-in-the-loop review.`,
+                tags: ['n8n', 'Supabase', 'Twilio', 'Google Drive API', 'RAG'],
+                links: [{ label: '// Live Demo →', url: 'https://demo.alexturner-portfolio.com', primary: true }],
+                media: [
+                    { type: 'arch', cap: 'System Architecture' },
+                    { type: 'img', src: 'assets/images/AI_TextingBot_n8n.png', cap: 'Event-driven architecture: the semantic router workflow connecting Twilio, Supabase memory, and the RAG knowledge base.' },
+                    { type: 'img', src: 'assets/images/AI_TextingBot_Telegram.png', cap: 'Dual-channel routing: AI answers the customer (top) while instantly escalating safety risks to the owner (bottom).' },
+                    { type: 'img', src: 'assets/images/Portfolio_RAG_Agent.png', cap: 'Automated ingestion pipeline: detects Google Drive changes, calculates file deltas, and updates Supabase embeddings instantly.' },
+                ]
+            },
             sleepscribe: {
-                title: "SleepScribe",
-                meta: "// ARCHITECTURE_DEEP_DIVE · AGENT",
-                color: "#00e5a0",
-                desc: "Architected a self-correcting autonomous agent layer using LangGraph non-linear state machines. The pipeline is built to ingest multi-source unstructured text data, parse it via low-latency compute clusters, autonomously evaluate its own processing operations against standard relational validation matrices, and write out dynamic data reports.",
-                tags: ["Python", "LangGraph", "Groq", "Data Automation"],
-                mediaHtml: `<span class="text-[#00e5a0] text-2xl mb-2">▶</span><span class="text-xs text-white uppercase tracking-wider">Video Stream Pipeline</span><span class="text-[10px] text-[#555565] mt-1">/assets/videos/AI_assistant_demo.mp4</span>`
+                id: '// 0xSLEEP · LANGGRAPH',
+                title: 'SleepScribe',
+                color: '#a78bfa',
+                desc: `Intelligent data analysis agent built with LangGraph agentic state machines.\n\nThe pipeline ingests multi-source unstructured data, processes it through LangGraph's non-linear state machine architecture, autonomously critiques its own analysis for accuracy, refines the approach, and produces structured data reports — without human intervention at any stage.\n\nKey design choice: LangGraph over LangChain for its ability to handle loops, conditionals, and human-in-the-loop validation points within the agent graph. This makes the system robust to bad data and unexpected inputs rather than failing silently.`,
+                tags: ['LangGraph', 'Groq', 'Python', 'Agentic AI', 'Data Analysis'],
+                links: [],
+                media: [
+                    { type: 'note', cap: 'Assets for this project are being prepared. Check back soon or visit GitHub for the source code.' }
+                ]
             },
             voicelens: {
-                title: "VoiceLens",
-                meta: "// PIPELINE_TELEMETRY · ASYNC",
-                color: "#00e5a0",
-                desc: "Served as Backend Lead orchestrating heavy multi-speaker voice token extraction configurations. Implemented non-blocking API access frameworks using FastAPI sidecars connected into asynchronous worker threads handled through Celery workers and Redis in-memory caches.",
-                tags: ["FastAPI", "Celery", "Redis", "Audio AI"],
-                mediaHtml: `<span class="text-[#00e5a0] text-2xl mb-2">🔊</span><span class="text-xs text-white uppercase tracking-wider">Audio Interface Node</span><span class="text-[10px] text-[#555565] mt-1">/assets/audio/AI_VapiAgent_Audio.wav</span>`
+                id: '// 0xVOICE · PIPELINE',
+                title: 'VoiceLens',
+                color: '#a78bfa',
+                desc: `Production-grade multi-speaker audio analysis and voice-to-action pipeline.\n\nRole: Backend Lead — architected the asynchronous processing engine from the ground up.\n\nCelery workers handle heavy audio processing workloads in the background, with Redis as the message broker and result cache. FastAPI provides the non-blocking API layer so the frontend is never stalled waiting for audio processing results.\n\nThis project demonstrates production async architecture patterns: task queues, worker pools, result backends, and failure handling.`,
+                tags: ['FastAPI', 'Celery', 'Redis', 'Voice AI', 'Python'],
+                links: [{ label: '// Live Demo — Coming Soon', url: '#', primary: false }],
+                media: [
+                    { type: 'note', cap: 'Live demo is being hosted. Full project page coming soon.' }
+                ]
             },
-            aimedia: {
-                title: "Volumetric Prompt Modeling",
-                meta: "// RENDERING_LAB · RESEARCH",
-                color: "#a78bfa",
-                desc: "An exploration into advanced synthetic generation constraints. This workflow tracks visual parameter consistency changes inside diffusion nodes, allowing terminal-based prompt setups to preserve hyper-realistic illumination metrics without relying on standard 3D rendering overhead engines.",
-                tags: ["Midjourney v6", "Runway Gen-3", "ComfyUI"],
-                mediaHtml: `<span class="text-purple-400 text-2xl mb-2">⚙</span><span class="text-xs text-white uppercase tracking-wider">Generative Media Node</span><span class="text-[10px] text-[#555565] mt-1">/assets/images/3d-isometric_man_cleaning_elephant.png</span>`
+            iot: {
+                id: '// 0xIOT · ECEN260 FINAL',
+                title: 'IoT Home Control System',
+                color: '#00d4ff',
+                desc: `ECEN 260 (Microprocessor Based System Design) final project — a full-duplex IoT bridge connecting a smartphone to embedded STM32 hardware via the cloud.\n\n• Protocol Translation: n8n workflow listens to Telegram webhooks and parses multi-modal commands (text, audio, images). Commands are serialized and sent via UART to a Python serial bridge running on a laptop.\n\n• DMA Image Rendering: Images sent via Telegram are received by the STM32 and rendered on an ST7735 1.8" LCD using DMA (Direct Memory Access) over SPI. DMA offloads the massive pixel array transfer from the CPU, allowing the processor to handle real-time lighting interrupts simultaneously.\n\n• Use Cases: Remote LED control, image display, audio-triggered commands. Designed as a household assistant — "JARVIS-style" responses from an AI agent confirm actions.`,
+                tags: ['STM32', 'Nucleo-L476RG', 'C++', 'UART', 'DMA', 'SPI', 'n8n', 'Python', 'Telegram'],
+                links: [
+                    { label: '// View Source Code →', url: 'https://github.com/awesomedude33/ecen-260-final-project/tree/main', primary: true },
+                    { label: '// View Technical Report (PDF)', url: 'assets/docs/STM_final_project.pdf', primary: false }
+                ],
+                media: [
+                    { type: 'video', src: 'assets/videos/AI_assistant_demo.mp4', orient: 'vertical', cap: 'Live hardware demo — controlling lights and rendering images on the ST7735 display via Telegram.' },
+                    { type: 'video', src: 'assets/videos/AI_assistant_explanation.mp4', cap: 'Deep dive — STM32 architecture, DMA logic, and the full system data flow explained.' },
+                    { type: 'img', src: 'assets/images/AI_assistant_n8n.png', cap: 'n8n workflow orchestrating Telegram, Vision AI, and serial communication to the microcontroller.' },
+                ]
+            },
+            fpga: {
+                id: '// 0xFPGA · DIGITAL LOGIC',
+                title: 'FPGA Digital Logic Design',
+                color: '#00d4ff',
+                desc: `Suite of Verilog hardware modules designed and verified on the Basys3 FPGA (Artix-7) using Xilinx Vivado. Each project builds on the previous — from basic decoders to a full capstone game.`,
+                tags: ['Verilog', 'Basys3 FPGA', 'Artix-7', 'Vivado', 'Xilinx'],
+                links: [{ label: '// View Source Code on GitHub →', url: 'https://github.com/AlexTurnerDev/portfolio-site/tree/main/projects/Verlog', primary: true }],
+                media: [{ type: 'verilog' }]
             }
         };
 
-        function openModal(projectId) {
-            const target = PROJECTS_DATABASE[projectId];
-            if (!target) return;
+        function openModal(id) {
+            const d = DATA[id];
+            if (!d) return;
+            document.getElementById('m-id').textContent = d.id;
+            document.getElementById('m-id').style.color = d.color;
+            document.getElementById('m-title').textContent = d.title;
+            document.getElementById('m-desc').textContent = d.desc;
 
-            document.getElementById('modalTitle').innerText = target.title;
-            document.getElementById('modalMeta').innerText = target.meta;
-            document.getElementById('modalMeta').style.color = target.color;
-            document.getElementById('modalDesc').innerText = target.desc;
-            document.getElementById('mediaContainer').innerHTML = target.mediaHtml;
+            // Tags
+            const tagsEl = document.getElementById('m-tags');
+            tagsEl.innerHTML = d.tags.map(t => `<span class="modal-tag" style="color:${d.color};border-color:${d.color}33;background:${d.color}10">${t}</span>`).join('');
 
-            const tagsContainer = document.getElementById('modalTags');
-            tagsContainer.innerHTML = '';
-            target.tags.forEach(tag => {
-                tagsContainer.innerHTML += `<span class="text-[10px] font-mono bg-[#13131a] border border-[#22222e] px-2 py-1 rounded text-[#00e5a0]">${tag}</span>`;
-            });
+            // Links
+            const linksEl = document.getElementById('m-links');
+            linksEl.innerHTML = d.links.map(l => `<a href="${l.url}" class="modal-link${l.primary ? '' : ' secondary'}" target="_blank">${l.label}</a>`).join('');
 
-            document.getElementById('projectModal').classList.remove('hidden');
+            // Media
+            const mediaEl = document.getElementById('m-media');
+            let html = '';
+            if (d.media) {
+                d.media.forEach(m => {
+                    if (m.type === 'video') {
+                        html += `<div class="media-item"><video controls ${m.orient === 'vertical' ? 'style="max-height:240px;margin:0 auto"' : ''}><source src="${m.src}"></video><div class="media-caption">${m.cap}</div></div>`;
+                    } else if (m.type === 'img') {
+                        html += `<div class="media-item"><img src="${m.src}" alt="${m.cap}" loading="lazy"><div class="media-caption">${m.cap}</div></div>`;
+                    } else if (m.type === 'audio') {
+                        html += `<div class="media-item"><audio controls style="width:100%;padding:8px"><source src="${m.src}"></audio><div class="media-caption">${m.cap}</div></div>`;
+                    } else if (m.type === 'note') {
+                        html += `<div style="background:var(--bg2);border:1px solid var(--wire);padding:20px;font-size:11px;color:var(--mid);font-family:'DM Sans',sans-serif;line-height:1.6">${m.cap}</div>`;
+                    } else if (m.type === 'arch') {
+                        html += `<div class="arch-svg-wrap"><div class="arch-svg-label">// SMS AGENT ARCHITECTURE</div>
+<svg width="100%" viewBox="0 0 320 200">
+  <rect x="10" y="10" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
+  <text x="50" y="30" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">CUSTOMER SMS</text>
+  <rect x="120" y="10" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
+  <text x="160" y="30" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">TWILIO</text>
+  <rect x="230" y="10" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
+  <text x="270" y="30" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">n8n ROUTER</text>
+  <rect x="60" y="85" width="80" height="30" rx="2" fill="#0d0a18" stroke="#181424"/>
+  <text x="100" y="105" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">RAG + LLM</text>
+  <rect x="180" y="85" width="80" height="30" rx="2" fill="#0d0a18" stroke="#181424"/>
+  <text x="220" y="105" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">SUPABASE MEM</text>
+  <rect x="120" y="155" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
+  <text x="160" y="170" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">RESPONSE / HANDOFF</text>
+  <line x1="90" y1="40" x2="120" y2="40" stroke="#00e5a0" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="200" y1="40" x2="230" y2="40" stroke="#00e5a0" stroke-width="1"/>
+  <line x1="270" y1="40" x2="270" y2="85" stroke="#00e5a0" stroke-width="1" opacity=".4"/>
+  <line x1="160" y1="40" x2="160" y2="85" stroke="#00e5a0" stroke-width="1" opacity=".6"/>
+  <line x1="100" y1="115" x2="100" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".5"/>
+  <line x1="100" y1="155" x2="120" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".5"/>
+  <line x1="220" y1="115" x2="160" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".4" stroke-dasharray="3,3"/>
+  <text x="280" y="130" fill="#ff6b6b" font-size="6" font-family="JetBrains Mono">HANDOFF</text>
+  <text x="280" y="142" fill="#ff6b6b" font-size="6" font-family="JetBrains Mono">→ TELEGRAM</text>
+</svg>
+<div class="media-caption" style="margin-top:0">Signal flow: Customer SMS → Twilio → n8n semantic router → RAG + Supabase memory → Response (or HANDOFF to human operator)</div></div>`;
+                    } else if (m.type === 'verilog') {
+                        html += `<div class="verilog-list">
+<div class="vl-item"><div class="vl-title">// REACTION GAUNTLET (CAPSTONE)</div><div class="vl-desc">Fast-paced "Bop-It" style reaction game. LFSR-based pseudo-random command generation, RAM-backed high score system, scrolling text engine across 4-digit display, and 11-state FSM managing gameplay loops, menus, and memory I/O.</div></div>
+<div class="vl-item"><div class="vl-title">// TRAFFIC LIGHT FSM</div><div class="vl-desc">Moore FSM controlling a 4-way intersection with parameterized timers (3s, 10s, 15s). Modular design: separate timer, clock divider (100MHz → 1Hz), and top-level state machine modules.</div></div>
+<div class="vl-item"><div class="vl-title">// 8-BIT SIGNED MULTIPLIER</div><div class="vl-desc">Shift-and-add partial product accumulation supporting signed 2's complement arithmetic. Handles negative integer multiplication (e.g. -4 × 6 = -24) using the signed Verilog keyword.</div></div>
+<div class="vl-item"><div class="vl-title">// 7-SEGMENT HEX DECODER</div><div class="vl-desc">BCD-to-7-segment decoder for Basys3 FPGA. Case-statement lookup maps 4-bit binary inputs to active-low segment patterns. Includes testbench simulation and waveform verification.</div></div>
+</div>`;
+                    }
+                });
+            }
+            mediaEl.innerHTML = html;
+
+            document.getElementById('modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            document.getElementById('projectModal').classList.add('hidden');
+            document.getElementById('modal').classList.remove('open');
+            document.body.style.overflow = '';
+            document.getElementById('m-media').innerHTML = '';
         }
+
+        // Nav active state on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 80) current = s.id;
+            });
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+            });
+        });
+
+        // Escape key closes modal
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal() });
     </script>
 </body>
 
