@@ -4,18 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta name="referrer" content="no-referrer">
     <title>Alex Turner — AI Engineer</title>
     <meta name="description"
-        content="AI Engineer and Systems Developer. Agentic workflows, RAG pipelines, self-hosted infrastructure, and embedded systems. BYU-Idaho, graduating 2026.">
+        content="AI Engineer and Systems Developer. Agentic workflows, RAG pipelines, self-hosted infrastructure, and embedded systems.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
-        /* ── RESET ── */
         *,
         *::before,
         *::after {
@@ -26,21 +23,19 @@
 
         :root {
             --bg: #060608;
-            --bg2: #09090c;
-            --bg3: #0d0d11;
-            --wire: #141418;
-            --wire2: #1c1c22;
-            --wire3: #252530;
-            --mid: #444;
-            --muted: #2e2e36;
-            --text: #a0a8a4;
+            --bg2: #09090d;
+            --bg3: #0d0d12;
+            --wire: #18181e;
+            --wire2: #222230;
+            --mid: #666;
+            --text: #b8b5b0;
             --white: #edeae4;
             --green: #00e5a0;
             --gd: rgba(0, 229, 160, .07);
-            --gb: rgba(0, 229, 160, .2);
+            --gb: rgba(0, 229, 160, .22);
             --purple: #a78bfa;
             --pd: rgba(167, 139, 250, .07);
-            --pb: rgba(167, 139, 250, .18);
+            --pb: rgba(167, 139, 250, .2);
             --cyan: #00d4ff;
             --cd: rgba(0, 212, 255, .06);
             --cb: rgba(0, 212, 255, .18);
@@ -57,7 +52,8 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             line-height: 1.6;
-            overflow-x: hidden
+            overflow-x: hidden;
+            margin-left: 52px
         }
 
         button {
@@ -71,29 +67,150 @@
             display: block
         }
 
-        /* ── NAV ── */
-        #nav {
+        @media(max-width:768px) {
+            body {
+                margin-left: 0
+            }
+        }
+
+        /* SCROLL PROGRESS */
+        #progress {
             position: fixed;
             top: 0;
             left: 0;
+            height: 2px;
+            background: var(--green);
+            z-index: 9999;
+            width: 0%;
+            transition: width .08s linear;
+            pointer-events: none
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 52px;
+            background: rgba(6, 6, 8, .97);
+            border-right: 1px solid var(--wire);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 0 20px;
+            z-index: 400;
+        }
+
+        .sb-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            width: 100%
+        }
+
+        .sb-node {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .sb-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: 1px solid #2a2a35;
+            background: transparent;
+            transition: all .3s
+        }
+
+        .sb-connector {
+            width: 1px;
+            height: 16px;
+            background: var(--wire);
+            margin: 0 auto
+        }
+
+        .sb-node:hover .sb-dot {
+            border-color: var(--mid)
+        }
+
+        .sb-node.active-g .sb-dot {
+            background: var(--green);
+            border-color: var(--green);
+            box-shadow: 0 0 10px rgba(0, 229, 160, .6)
+        }
+
+        .sb-node.active-p .sb-dot {
+            background: var(--purple);
+            border-color: var(--purple);
+            box-shadow: 0 0 10px rgba(167, 139, 250, .6)
+        }
+
+        .sb-node.active-c .sb-dot {
+            background: var(--cyan);
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 212, 255, .6)
+        }
+
+        .sb-node.active-w .sb-dot {
+            background: var(--white);
+            border-color: var(--white);
+            box-shadow: 0 0 10px rgba(237, 234, 228, .4)
+        }
+
+        .sb-tip {
+            position: absolute;
+            left: calc(100% + 10px);
+            background: var(--bg3);
+            border: 1px solid var(--wire2);
+            padding: 3px 8px;
+            font-size: 8px;
+            letter-spacing: .12em;
+            color: var(--white);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .15s;
+        }
+
+        .sb-node:hover .sb-tip {
+            opacity: 1
+        }
+
+        @media(max-width:768px) {
+            #sidebar {
+                display: none
+            }
+        }
+
+        /* TOP NAV */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 52px;
             right: 0;
-            z-index: 500;
-            height: 54px;
+            z-index: 300;
+            height: 52px;
             padding: 0 clamp(20px, 4vw, 48px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(6, 6, 8, .85);
+            background: rgba(6, 6, 8, .88);
             backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
             border-bottom: 1px solid rgba(255, 255, 255, .04);
         }
 
         .nav-brand {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             color: var(--white);
-            letter-spacing: .06em
+            letter-spacing: .07em
         }
 
         .nav-brand span {
@@ -102,48 +219,49 @@
 
         .nav-links {
             display: flex;
-            gap: clamp(14px, 2.5vw, 28px)
+            gap: clamp(12px, 2vw, 24px)
         }
 
         .nav-links a {
             font-size: 9px;
-            letter-spacing: .18em;
+            letter-spacing: .16em;
             color: var(--mid);
             text-transform: uppercase;
             text-decoration: none;
             transition: color .2s
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--green)
         }
 
-        .nav-cta {
+        .nav-connect {
             font-size: 9px;
             font-weight: 500;
-            letter-spacing: .14em;
+            letter-spacing: .12em;
             color: var(--green);
             border: 1px solid var(--gb);
             padding: 7px 16px;
             background: var(--gd);
             text-decoration: none;
-            transition: all .2s
+            transition: all .2s;
         }
 
-        .nav-cta:hover {
-            background: rgba(0, 229, 160, .14)
+        .nav-connect:hover {
+            background: rgba(0, 229, 160, .16)
         }
 
-        @media(max-width:680px) {
+        @media(max-width:640px) {
             .nav-links {
                 display: none
             }
         }
 
-        /* ── HERO ── */
+        /* HERO */
         #hero {
             min-height: 100vh;
-            padding: 80px clamp(20px, 5vw, 60px) 60px;
+            padding: 80px clamp(24px, 5vw, 64px) 60px;
             display: flex;
             align-items: center;
             position: relative;
@@ -154,30 +272,31 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background-image: linear-gradient(rgba(0, 229, 160, .04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 229, 160, .04) 1px, transparent 1px);
-            background-size: 56px 56px;
+            background-image:
+                linear-gradient(rgba(0, 229, 160, .035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 160, .035) 1px, transparent 1px);
+            background-size: 52px 52px;
         }
 
         .hero-glow {
             position: absolute;
-            top: -120px;
-            right: -120px;
-            width: 560px;
-            height: 560px;
-            background: radial-gradient(circle, rgba(0, 229, 160, .07) 0%, transparent 65%);
-            pointer-events: none;
+            top: -100px;
+            right: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 229, 160, .06) 0%, transparent 65%);
+            pointer-events: none
         }
 
         .hero-inner {
             position: relative;
             z-index: 2;
             display: grid;
-            grid-template-columns: 45fr 55fr;
-            gap: clamp(32px, 5vw, 64px);
+            grid-template-columns: 48fr 52fr;
+            gap: clamp(32px, 5vw, 72px);
             align-items: center;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1200px
         }
 
         @media(max-width:860px) {
@@ -190,13 +309,76 @@
             }
         }
 
-        .hero-left {}
+        /* hero entrance animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .fade-up-1 {
+            animation: fadeUp .6s ease forwards;
+            animation-delay: .1s;
+            opacity: 0
+        }
+
+        .fade-up-2 {
+            animation: fadeUp .6s ease forwards;
+            animation-delay: .25s;
+            opacity: 0
+        }
+
+        .fade-up-3 {
+            animation: fadeUp .6s ease forwards;
+            animation-delay: .4s;
+            opacity: 0
+        }
+
+        .fade-up-4 {
+            animation: fadeUp .6s ease forwards;
+            animation-delay: .55s;
+            opacity: 0
+        }
+
+        .fade-up-5 {
+            animation: fadeUp .6s ease forwards;
+            animation-delay: .7s;
+            opacity: 0
+        }
+
+        .fade-up-6 {
+            animation: fadeUp .6s ease forwards;
+            animation-delay: .85s;
+            opacity: 0
+        }
+
+        .fade-in-orbit {
+            animation: fadeIn 1.2s ease forwards;
+            animation-delay: .4s;
+            opacity: 0
+        }
 
         .hero-tag {
             font-size: 9px;
-            letter-spacing: .22em;
+            letter-spacing: .24em;
             color: var(--green);
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 10px
@@ -204,35 +386,51 @@
 
         .hero-tag::before {
             content: '';
-            width: 22px;
+            width: 20px;
             height: 1px;
             background: var(--green)
         }
 
+        .hero-name-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px
+        }
+
+        .hero-photo {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gb);
+            flex-shrink: 0
+        }
+
         .hero-name {
-            font-size: clamp(52px, 7vw, 80px);
+            font-size: clamp(48px, 6.5vw, 76px);
             font-weight: 800;
             font-family: 'DM Sans', sans-serif;
             color: var(--white);
             line-height: .9;
-            letter-spacing: -.02em;
-            margin-bottom: 20px
+            letter-spacing: -.02em
         }
 
         .hero-roles {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 22px
+            gap: 7px;
+            margin-bottom: 20px
         }
 
         .role {
             font-size: 9px;
-            letter-spacing: .12em;
-            padding: 5px 12px;
+            letter-spacing: .1em;
+            padding: 5px 11px;
             border: 1px solid var(--wire2);
-            color: #777;
-            background: var(--bg2)
+            color: #888;
+            background: var(--bg2);
+            transition: all .2s
         }
 
         .role.r0 {
@@ -243,23 +441,58 @@
 
         .hero-hook {
             font-size: 14px;
-            color: #5a5a68;
-            line-height: 1.75;
-            margin-bottom: 32px;
-            max-width: 440px;
+            color: #888;
+            line-height: 1.78;
+            margin-bottom: 28px;
+            max-width: 460px;
             font-family: 'DM Sans', sans-serif
         }
 
         .hero-hook em {
-            color: #999;
-            font-style: normal
+            color: #bbb;
+            font-style: normal;
+            font-weight: 500
+        }
+
+        /* status pill */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 9px;
+            letter-spacing: .14em;
+            color: var(--green);
+            border: 1px solid var(--gb);
+            padding: 5px 12px;
+            background: var(--gd);
+            margin-bottom: 24px
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 1.5s infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .2
+            }
         }
 
         .hero-btns {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 40px
+            margin-bottom: 36px
         }
 
         .btn-primary {
@@ -269,32 +502,39 @@
             border: none;
             font-size: 10px;
             font-weight: 700;
-            letter-spacing: .14em
+            letter-spacing: .14em;
+            transition: all .2s
         }
 
-        .btn-secondary {
+        .btn-primary:hover {
+            background: #00ffb3
+        }
+
+        .btn-ghost {
             background: transparent;
-            color: #888;
+            color: #999;
             padding: 13px 22px;
             border: 1px solid var(--wire2);
             font-size: 10px;
-            letter-spacing: .1em
+            letter-spacing: .1em;
+            transition: all .2s
         }
 
-        .btn-secondary:hover {
+        .btn-ghost:hover {
             border-color: var(--mid);
             color: var(--white)
         }
 
+        /* stats */
         .hero-stats {
             display: flex;
-            gap: clamp(20px, 4vw, 36px);
-            padding-top: 28px;
+            gap: clamp(16px, 3vw, 32px);
+            padding-top: 24px;
             border-top: 1px solid var(--wire)
         }
 
         .stat-val {
-            font-size: clamp(18px, 3vw, 26px);
+            font-size: clamp(20px, 2.5vw, 28px);
             font-weight: 800;
             font-family: 'DM Sans', sans-serif;
             color: var(--white);
@@ -303,12 +543,12 @@
 
         .stat-label {
             font-size: 8px;
-            letter-spacing: .14em;
+            letter-spacing: .12em;
             color: var(--mid);
-            margin-top: 4px
+            margin-top: 3px
         }
 
-        /* orbit diagram */
+        /* ORBIT */
         .hero-orbit {
             display: flex;
             align-items: center;
@@ -349,7 +589,7 @@
 
             0%,
             100% {
-                opacity: .25
+                opacity: .2
             }
 
             50% {
@@ -375,61 +615,44 @@
             }
         }
 
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: .15
-            }
-        }
-
         .r1 {
-            animation: spin1 32s linear infinite;
-            transform-origin: center
+            animation: spin1 34s linear infinite;
+            transform-origin: 210px 210px
         }
 
         .r2 {
             animation: spin2 22s linear infinite;
-            transform-origin: center
+            transform-origin: 210px 210px
         }
 
         .r3 {
-            animation: spin3 15s linear infinite;
-            transform-origin: center
+            animation: spin3 14s linear infinite;
+            transform-origin: 210px 210px
         }
 
         .pd {
             animation: pd 2.5s ease-in-out infinite
         }
 
-        /* ── TRANSITION SVG ZONE ── */
+        /* TRANSITION SVG */
         .transition-zone {
-            background: var(--bg);
-            padding: 0;
-            overflow: hidden
+            overflow: hidden;
+            background: var(--bg)
         }
 
-        .transition-svg {
+        .t-svg {
             width: 100%;
             display: block
         }
 
-        /* ── LAYER SECTIONS ── */
+        /* LAYERS */
         .layer {
-            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px)
+            padding: clamp(48px, 7vw, 72px) clamp(24px, 5vw, 64px)
         }
 
         .layer+.layer,
         .layer+.synthesis {
             border-top: 1px solid var(--wire)
-        }
-
-        .l-head {
-            margin-bottom: 28px
         }
 
         .l-tag {
@@ -443,7 +666,7 @@
 
         .l-tag::before {
             content: '';
-            width: 16px;
+            width: 14px;
             height: 1px
         }
 
@@ -472,23 +695,24 @@
         }
 
         .l-title {
-            font-size: clamp(28px, 4vw, 36px);
+            font-size: clamp(26px, 3.5vw, 34px);
             font-weight: 800;
             font-family: 'DM Sans', sans-serif;
             color: var(--white);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             line-height: 1
         }
 
         .l-sub {
-            font-size: 12px;
-            color: var(--mid);
+            font-size: 13px;
+            color: #888;
             line-height: 1.65;
             max-width: 640px;
-            font-family: 'DM Sans', sans-serif
+            font-family: 'DM Sans', sans-serif;
+            margin-bottom: 28px
         }
 
-        /* cards grid */
+        /* CARDS */
         .cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -508,15 +732,15 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transition: border-color .25s, background .25s
+            transition: border-color .2s, background .2s
         }
 
         .card:hover {
-            border-color: var(--wire2);
-            background: var(--bg3)
+            background: var(--bg3);
+            border-color: var(--wire2)
         }
 
-        .card-accent {
+        .card-bar {
             position: absolute;
             top: 0;
             left: 0;
@@ -539,9 +763,9 @@
         }
 
         .c-desc {
-            font-size: 11px;
-            color: #555;
-            line-height: 1.65;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.68;
             margin-bottom: 14px;
             font-family: 'DM Sans', sans-serif
         }
@@ -556,25 +780,25 @@
             font-size: 8px;
             padding: 3px 8px;
             border: 1px solid;
-            letter-spacing: .05em
+            letter-spacing: .04em
         }
 
-        .card-arrow {
+        .c-arrow {
             position: absolute;
-            bottom: 16px;
+            bottom: 14px;
             right: 16px;
-            font-size: 10px;
+            font-size: 9px;
             color: var(--mid);
             opacity: 0;
             transition: opacity .2s
         }
 
-        .card:hover .card-arrow {
+        .card:hover .c-arrow {
             opacity: 1
         }
 
-        /* layer color systems */
-        .lg .card-accent {
+        /* layer color tokens */
+        .lg .card-bar {
             background: var(--green)
         }
 
@@ -588,7 +812,7 @@
             background: var(--gd)
         }
 
-        .lp .card-accent {
+        .lp .card-bar {
             background: var(--purple)
         }
 
@@ -602,7 +826,7 @@
             background: var(--pd)
         }
 
-        .lc .card-accent {
+        .lc .card-bar {
             background: var(--cyan)
         }
 
@@ -620,16 +844,16 @@
         .hw-quote {
             background: var(--bg2);
             border-left: 2px solid var(--cyan);
-            padding: 20px 24px;
+            padding: 18px 22px;
             margin-bottom: 16px
         }
 
         .hw-q {
             font-size: 14px;
-            color: #aaa;
+            color: #bbb;
             font-family: 'DM Sans', sans-serif;
             line-height: 1.72;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-style: italic
         }
 
@@ -645,12 +869,12 @@
             border: 1px solid var(--cb);
             padding: 3px 10px;
             background: var(--cd);
-            letter-spacing: .06em
+            letter-spacing: .05em
         }
 
-        /* ── SYNTHESIS ── */
+        /* SYNTHESIS */
         .synthesis {
-            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px);
+            padding: clamp(48px, 7vw, 72px) clamp(24px, 5vw, 64px);
             background: var(--bg2)
         }
 
@@ -659,12 +883,12 @@
             align-items: center;
             gap: 6px;
             font-size: 9px;
-            letter-spacing: .18em;
+            letter-spacing: .16em;
             color: var(--green);
             border: 1px solid var(--gb);
             padding: 4px 10px;
             background: var(--gd);
-            margin-bottom: 16px
+            margin-bottom: 14px
         }
 
         .syn-badge::before {
@@ -674,7 +898,7 @@
         }
 
         .syn-title {
-            font-size: clamp(28px, 4vw, 38px);
+            font-size: clamp(26px, 3.5vw, 36px);
             font-weight: 800;
             font-family: 'DM Sans', sans-serif;
             color: var(--white);
@@ -683,12 +907,57 @@
         }
 
         .syn-sub {
-            font-size: 12px;
-            color: var(--mid);
-            margin-bottom: 28px;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
             max-width: 640px;
             line-height: 1.65;
             font-family: 'DM Sans', sans-serif
+        }
+
+        /* demo callout */
+        .demo-callout {
+            background: var(--bg3);
+            border: 1px solid var(--gb);
+            padding: 14px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .demo-callout-left {
+            font-size: 11px;
+            color: var(--green);
+            letter-spacing: .06em;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .demo-callout-left span {
+            display: block;
+            font-size: 9px;
+            color: var(--mid);
+            letter-spacing: .1em;
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .demo-callout-btn {
+            font-size: 10px;
+            color: var(--bg);
+            background: var(--green);
+            padding: 9px 20px;
+            border: none;
+            letter-spacing: .1em;
+            font-weight: 700;
+            transition: all .2s;
+            white-space: nowrap
+        }
+
+        .demo-callout-btn:hover {
+            background: #00ffb3
         }
 
         .arch-box {
@@ -701,12 +970,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px
+            margin-bottom: 14px
         }
 
         .arch-lbl {
             font-size: 9px;
-            letter-spacing: .2em;
+            letter-spacing: .18em;
             color: var(--green)
         }
 
@@ -728,7 +997,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-bottom: 20px
+            margin-bottom: 16px
         }
 
         @media(max-width:500px) {
@@ -747,13 +1016,13 @@
         .anode-sys {
             font-size: 8px;
             color: var(--green);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             letter-spacing: .1em
         }
 
         .anode-name {
             font-size: 11px;
-            color: #777;
+            color: #999;
             font-family: 'DM Sans', sans-serif
         }
 
@@ -768,44 +1037,27 @@
             animation: blink 2s infinite
         }
 
-        .syn-btns {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px
+        /* SKILLS */
+        .skills-wrap {
+            padding: clamp(48px, 7vw, 72px) clamp(24px, 5vw, 64px);
+            border-top: 1px solid var(--wire)
         }
 
-        .syn-btn {
-            font-size: 10px;
-            color: var(--green);
-            border: 1px solid var(--gb);
-            padding: 10px 22px;
-            background: var(--gd);
-            transition: all .2s;
-            letter-spacing: .08em;
-            text-decoration: none;
-            display: inline-block
+        .skills-head {
+            margin-bottom: 24px
         }
 
-        .syn-btn:hover {
-            background: rgba(0, 229, 160, .14)
-        }
-
-        /* ── SKILLS ── */
-        .skills {
-            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px);
-            border-top: 1px solid var(--wire);
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px
         }
 
         @media(max-width:700px) {
-            .skills {
+            .skills-grid {
                 grid-template-columns: repeat(2, 1fr)
             }
         }
-
-        .sk-col {}
 
         .sk-head {
             font-size: 9px;
@@ -817,20 +1069,16 @@
         }
 
         .sk-item {
-            font-size: 11px;
-            color: #555;
+            font-size: 12px;
+            color: #999;
             padding: 4px 0;
             border-bottom: 1px solid var(--wire);
             font-family: 'DM Sans', sans-serif
         }
 
-        .sk-item:last-child {
-            border-bottom: none
-        }
-
-        /* ── CERTS ── */
-        .certs {
-            padding: 0 clamp(20px, 5vw, 60px) clamp(40px, 6vw, 64px);
+        /* CERTS */
+        .certs-wrap {
+            padding: 0 clamp(24px, 5vw, 64px) clamp(48px, 7vw, 72px);
             border-top: 1px solid var(--wire);
             padding-top: clamp(32px, 5vw, 48px);
             display: flex;
@@ -843,15 +1091,24 @@
             border: 1px solid var(--wire);
             padding: 16px 20px;
             flex: 1;
-            min-width: 220px;
+            min-width: 200px;
             display: flex;
             align-items: center;
             gap: 14px
         }
 
-        .cert-icon {
-            width: 40px;
-            height: 40px;
+        .cert-badge-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            flex-shrink: 0;
+            background: var(--bg3);
+            padding: 4px
+        }
+
+        .cert-badge-placeholder {
+            width: 44px;
+            height: 44px;
             background: var(--bg3);
             border: 1px solid var(--wire2);
             display: flex;
@@ -859,10 +1116,10 @@
             justify-content: center;
             font-size: 8px;
             color: var(--amber);
-            text-align: center;
-            line-height: 1.3;
             font-weight: 700;
-            flex-shrink: 0
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.3
         }
 
         .cert-name {
@@ -878,18 +1135,9 @@
             letter-spacing: .12em
         }
 
-        .cert-more {
-            background: rgba(0, 229, 160, .03);
-            border-color: var(--gb);
-            justify-content: center;
-            flex-direction: column;
-            gap: 4px;
-            text-align: center
-        }
-
-        /* ── CONTACT ── */
-        .contact {
-            padding: clamp(40px, 6vw, 64px) clamp(20px, 5vw, 60px);
+        /* CONTACT */
+        .contact-wrap {
+            padding: clamp(48px, 7vw, 72px) clamp(24px, 5vw, 64px);
             border-top: 1px solid var(--wire)
         }
 
@@ -905,25 +1153,27 @@
 
         .con-tag::before {
             content: '';
-            width: 16px;
+            width: 14px;
             height: 1px;
             background: var(--green)
         }
 
         .con-title {
-            font-size: clamp(28px, 4vw, 38px);
+            font-size: clamp(26px, 3.5vw, 36px);
             font-weight: 800;
             font-family: 'DM Sans', sans-serif;
             color: var(--white);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             line-height: 1
         }
 
         .con-sub {
             font-size: 13px;
-            color: var(--mid);
-            margin-bottom: 28px;
-            font-family: 'DM Sans', sans-serif
+            color: #888;
+            margin-bottom: 24px;
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.65;
+            max-width: 560px
         }
 
         .con-grid {
@@ -948,13 +1198,13 @@
         .con-key {
             font-size: 8px;
             letter-spacing: .15em;
-            color: var(--muted);
+            color: var(--mid);
             margin-bottom: 6px
         }
 
         .con-val {
             font-size: 12px;
-            color: #888;
+            color: #bbb;
             font-family: 'DM Sans', sans-serif
         }
 
@@ -964,17 +1214,74 @@
             gap: 10px
         }
 
-        /* ── MODAL ── */
+        .connect-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--green);
+            color: var(--bg);
+            padding: 14px 32px;
+            border: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .connect-btn:hover {
+            background: #00ffb3
+        }
+
+        .gh-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: #bbb;
+            padding: 14px 24px;
+            border: 1px solid var(--wire2);
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .gh-btn:hover {
+            border-color: var(--mid);
+            color: var(--white)
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--wire);
+            font-size: 9px;
+            color: #444;
+            letter-spacing: .1em
+        }
+
+        .footer a {
+            color: #444;
+            text-decoration: none
+        }
+
+        .footer a:hover {
+            color: var(--green)
+        }
+
+        /* MODAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(4, 4, 6, .92);
+            background: rgba(4, 4, 6, .94);
             backdrop-filter: blur(20px);
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px
         }
 
         .modal-overlay.open {
@@ -985,17 +1292,18 @@
             background: var(--bg2);
             border: 1px solid var(--wire2);
             width: 100%;
-            max-width: 900px;
-            max-height: 90vh;
+            max-width: 880px;
+            max-height: 88vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
             overflow: hidden;
+            position: relative
         }
 
-        @media(max-width:680px) {
+        @media(max-width:660px) {
             .modal-box {
                 grid-template-columns: 1fr;
-                max-height: 85vh
+                max-height: 82vh
             }
         }
 
@@ -1006,18 +1314,19 @@
         }
 
         .modal-right {
-            padding: 28px;
+            padding: 20px;
             background: var(--bg3);
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 16px
+            gap: 14px
         }
 
         .modal-close {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
             background: var(--bg3);
             border: 1px solid var(--wire2);
             color: var(--text);
@@ -1032,15 +1341,8 @@
             color: var(--white)
         }
 
-        .modal-header {
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--wire);
-            margin-bottom: 16px;
-            position: relative
-        }
-
         .modal-id {
-            font-size: 9px;
+            font-size: 8px;
             letter-spacing: .2em;
             margin-bottom: 6px
         }
@@ -1049,15 +1351,19 @@
             font-size: 22px;
             font-weight: 800;
             font-family: 'DM Sans', sans-serif;
-            color: var(--white)
+            color: var(--white);
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--wire);
+            margin-bottom: 14px
         }
 
         .modal-desc {
             font-size: 12px;
-            color: #666;
-            line-height: 1.75;
+            color: #aaa;
+            line-height: 1.78;
+            margin-bottom: 14px;
             font-family: 'DM Sans', sans-serif;
-            margin-bottom: 16px
+            white-space: pre-line
         }
 
         .modal-tags {
@@ -1071,14 +1377,16 @@
             font-size: 8px;
             padding: 3px 8px;
             border: 1px solid;
-            letter-spacing: .05em
+            letter-spacing: .04em
         }
 
         .modal-links {
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-top: auto
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--wire)
         }
 
         .modal-link {
@@ -1089,22 +1397,22 @@
             background: var(--gd);
             text-align: center;
             text-decoration: none;
-            letter-spacing: .08em;
+            letter-spacing: .07em;
             transition: all .2s;
             display: block
         }
 
         .modal-link:hover {
-            background: rgba(0, 229, 160, .14)
+            background: rgba(0, 229, 160, .16)
         }
 
-        .modal-link.secondary {
-            color: #888;
+        .modal-link.sec {
+            color: #999;
             border-color: var(--wire2);
             background: transparent
         }
 
-        .modal-link.secondary:hover {
+        .modal-link.sec:hover {
             border-color: var(--mid);
             color: var(--white)
         }
@@ -1116,38 +1424,25 @@
         }
 
         .media-item video,
-        .media-item img,
-        .media-item audio {
+        .media-item img {
             width: 100%;
             display: block
         }
 
         .media-item audio {
+            width: 100%;
             padding: 8px
         }
 
-        .media-caption {
-            font-size: 9px;
-            color: var(--mid);
-            padding: 8px;
+        .media-cap {
+            font-size: 10px;
+            color: #777;
+            padding: 8px 10px;
             line-height: 1.5;
             font-family: 'DM Sans', sans-serif
         }
 
-        .arch-svg-wrap {
-            background: var(--bg2);
-            border: 1px solid var(--wire);
-            padding: 12px
-        }
-
-        .arch-svg-label {
-            font-size: 8px;
-            letter-spacing: .15em;
-            color: var(--green);
-            margin-bottom: 8px
-        }
-
-        .verilog-list {
+        .vl-list {
             display: flex;
             flex-direction: column;
             gap: 10px
@@ -1156,12 +1451,12 @@
         .vl-item {
             background: var(--bg2);
             border: 1px solid var(--wire);
-            padding: 14px;
-            border-left: 2px solid var(--cyan)
+            border-left: 2px solid var(--cyan);
+            padding: 14px
         }
 
         .vl-title {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--cyan);
             letter-spacing: .1em;
             margin-bottom: 5px
@@ -1169,14 +1464,75 @@
 
         .vl-desc {
             font-size: 11px;
-            color: #666;
-            line-height: 1.6;
+            color: #888;
+            line-height: 1.65;
             font-family: 'DM Sans', sans-serif
+        }
+
+        .arch-modal-svg {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 14px
+        }
+
+        .arch-modal-lbl {
+            font-size: 8px;
+            letter-spacing: .14em;
+            color: var(--green);
+            margin-bottom: 10px
+        }
+
+        .media-note {
+            background: var(--bg2);
+            border: 1px solid var(--wire);
+            padding: 16px;
+            font-size: 11px;
+            color: #888;
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6
         }
     </style>
 </head>
 
 <body>
+
+    <!-- SCROLL PROGRESS -->
+    <div id="progress"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <div class="sb-section">
+            <div class="sb-node active-w" data-target="hero" onclick="scrollTo('hero')">
+                <div class="sb-dot"></div>
+                <div class="sb-tip">POWER_INPUT</div>
+            </div>
+            <div class="sb-connector"></div>
+            <div class="sb-node" data-target="ai-cloud" data-color="g" onclick="scrollTo('ai-cloud')">
+                <div class="sb-dot"></div>
+                <div class="sb-tip">AI & CLOUD</div>
+            </div>
+            <div class="sb-connector"></div>
+            <div class="sb-node" data-target="software" data-color="p" onclick="scrollTo('software')">
+                <div class="sb-dot"></div>
+                <div class="sb-tip">SOFTWARE</div>
+            </div>
+            <div class="sb-connector"></div>
+            <div class="sb-node" data-target="hardware" data-color="c" onclick="scrollTo('hardware')">
+                <div class="sb-dot"></div>
+                <div class="sb-tip">HARDWARE</div>
+            </div>
+            <div class="sb-connector"></div>
+            <div class="sb-node" data-target="synthesis" data-color="g" onclick="scrollTo('synthesis')">
+                <div class="sb-dot"></div>
+                <div class="sb-tip">FEATURED</div>
+            </div>
+            <div class="sb-connector"></div>
+            <div class="sb-node" data-target="contact" data-color="w" onclick="scrollTo('contact')">
+                <div class="sb-dot"></div>
+                <div class="sb-tip">CONTACT</div>
+            </div>
+        </div>
+    </div>
 
     <!-- NAV -->
     <nav id="nav">
@@ -1188,7 +1544,7 @@
             <a href="#synthesis">FEATURED</a>
             <a href="#contact">CONTACT</a>
         </div>
-        <a href="assets/docs/resume.pdf" class="nav-cta" download>↓ RESUME</a>
+        <a href="mailto:alex@alexturner-portfolio.com" class="nav-connect">LET'S CONNECT →</a>
     </nav>
 
     <!-- HERO -->
@@ -1197,33 +1553,39 @@
         <div class="hero-glow"></div>
         <div class="hero-inner">
             <div class="hero-left">
-                <div class="hero-tag">// POWER_INPUT — OPEN TO WORK</div>
-                <h1 class="hero-name">Alex<br>Turner</h1>
-                <div class="hero-roles">
+                <div class="hero-tag fade-up-1">// POWER_INPUT — CURRENTLY AVAILABLE</div>
+                <div class="hero-name-row fade-up-2">
+                    <img src="assets/self/myphoto.png" alt="Alex Turner" class="hero-photo"
+                        onerror="this.style.display='none'">
+                    <h1 class="hero-name">Alex<br>Turner</h1>
+                </div>
+                <div class="hero-roles fade-up-3">
                     <span class="role r0">AI Engineer</span>
                     <span class="role">AI Automation</span>
                     <span class="role">Full-Stack Dev</span>
                     <span class="role">Systems Developer</span>
                 </div>
-                <p class="hero-hook">BYU-Idaho Computer Engineering student building <em>production AI systems</em> —
-                    from LangGraph agents and RAG pipelines to self-hosted cloud infrastructure and embedded hardware.
-                </p>
-                <div class="hero-btns">
-                    <button class="btn-primary" onclick="window.open('assets/docs/resume.pdf')">↓ DOWNLOAD
-                        RESUME</button>
-                    <button class="btn-secondary" onclick="window.open('https://github.com/AlexTurnerDev')">//
-                        GITHUB</button>
-                    <button class="btn-secondary"
+                <div class="status-pill fade-up-3">
+                    <span class="status-dot"></span>
+                    OPEN TO WORK — PART-TIME & CONTRACT
+                </div>
+                <p class="hero-hook fade-up-4">BYU-Idaho Computer Engineering student building <em>production AI
+                        systems</em> — from LangGraph agents and multi-tenant RAG pipelines to self-hosted cloud
+                    infrastructure and embedded hardware.</p>
+                <div class="hero-btns fade-up-5">
+                    <a href="mailto:alex@alexturner-portfolio.com" class="connect-btn">LET'S CONNECT →</a>
+                    <a href="https://github.com/AlexTurnerDev" class="gh-btn" target="_blank">// GITHUB</a>
+                    <button class="btn-ghost"
                         onclick="document.getElementById('ai-cloud').scrollIntoView({behavior:'smooth'})">EXPLORE THE
                         STACK ↓</button>
                 </div>
-                <div class="hero-stats">
+                <div class="hero-stats fade-up-6">
                     <div>
-                        <div class="stat-val">4+</div>
+                        <div class="stat-val" data-count="4">0</div>
                         <div class="stat-label">PRODUCTION SYSTEMS</div>
                     </div>
                     <div>
-                        <div class="stat-val">4</div>
+                        <div class="stat-val" data-count="4">0</div>
                         <div class="stat-label">STACK LAYERS</div>
                     </div>
                     <div>
@@ -1231,396 +1593,370 @@
                         <div class="stat-label">CERTIFIED</div>
                     </div>
                     <div>
-                        <div class="stat-val">2026</div>
+                        <div class="stat-val" data-count="2026" data-prefix="">0</div>
                         <div class="stat-label">GRADUATING</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Orbit Diagram -->
-            <div class="hero-orbit">
+            <!-- ORBIT -->
+            <div class="hero-orbit fade-in-orbit">
                 <svg width="420" height="420" viewBox="0 0 420 420">
-                    <!-- Grid background -->
                     <defs>
-                        <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-                            <path d="M28 0L0 0 0 28" fill="none" stroke="rgba(0,229,160,.04)" stroke-width="1" />
+                        <pattern id="pgrid" width="28" height="28" patternUnits="userSpaceOnUse">
+                            <path d="M28 0L0 0 0 28" fill="none" stroke="rgba(0,229,160,.035)" stroke-width="1" />
                         </pattern>
                     </defs>
-                    <rect width="420" height="420" fill="url(#grid)" />
-                    <!-- Outer ring — Cloud (green) -->
-                    <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.08)" stroke-width="1"
-                        stroke-dasharray="5,7" />
+                    <rect width="420" height="420" fill="url(#pgrid)" />
+                    <!-- Rings -->
+                    <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.07)" stroke-width="1"
+                        stroke-dasharray="4,8" />
                     <g class="r1">
-                        <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.35)" stroke-width="1"
-                            stroke-dasharray="28,312" />
+                        <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.3)" stroke-width="1"
+                            stroke-dasharray="26,314" />
                     </g>
-                    <!-- Mid ring — Software (purple) -->
-                    <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(167,139,250,.08)" stroke-width="1"
-                        stroke-dasharray="4,6" />
+                    <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(167,139,250,.07)" stroke-width="1"
+                        stroke-dasharray="3,7" />
                     <g class="r2">
-                        <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(167,139,250,.4)" stroke-width="1"
-                            stroke-dasharray="20,200" />
+                        <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(167,139,250,.35)" stroke-width="1"
+                            stroke-dasharray="18,202" />
                     </g>
-                    <!-- Inner ring — Hardware (cyan) -->
-                    <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.08)" stroke-width="1"
+                    <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.07)" stroke-width="1"
                         stroke-dasharray="3,5" />
                     <g class="r3">
-                        <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.45)" stroke-width="1.5"
-                            stroke-dasharray="12,90" />
+                        <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.4)" stroke-width="1.5"
+                            stroke-dasharray="10,92" />
                     </g>
                     <!-- Center -->
-                    <circle cx="210" cy="210" r="24" fill="#09090c" stroke="rgba(0,229,160,.5)" stroke-width="1" />
-                    <circle cx="210" cy="210" r="9" fill="#00e5a0" opacity=".7" class="pd" />
-                    <text x="210" y="248" text-anchor="middle" fill="rgba(0,229,160,.6)" font-size="7"
+                    <circle cx="210" cy="210" r="22" fill="#08080c" stroke="rgba(0,229,160,.45)" stroke-width="1" />
+                    <circle cx="210" cy="210" r="8" fill="#00e5a0" opacity=".65" class="pd" />
+                    <text x="210" y="246" text-anchor="middle" fill="rgba(0,229,160,.55)" font-size="7"
                         font-family="JetBrains Mono" letter-spacing="1">SYNTHESIS</text>
-                    <!-- Spokes: Cloud layer -->
-                    <line x1="210" y1="186" x2="210" y2="42" stroke="rgba(0,229,160,.18)" stroke-width="1" />
-                    <line x1="210" y1="186" x2="359" y2="125" stroke="rgba(0,229,160,.18)" stroke-width="1" />
-                    <line x1="210" y1="186" x2="61" y2="125" stroke="rgba(0,229,160,.18)" stroke-width="1" />
-                    <!-- Animated signals cloud -->
-                    <line x1="210" y1="186" x2="210" y2="42" stroke="#00e5a0" stroke-width="1.5"
-                        stroke-dasharray="10,90" class="pd" style="animation:da 4s linear infinite" />
-                    <line x1="210" y1="186" x2="359" y2="125" stroke="#00e5a0" stroke-width="1.5"
-                        stroke-dasharray="10,90" style="animation:da 4s linear infinite;animation-delay:1.3s" />
+                    <!-- Cloud spokes -->
+                    <line x1="210" y1="188" x2="210" y2="42" stroke="rgba(0,229,160,.15)" stroke-width="1" />
+                    <line x1="210" y1="188" x2="360" y2="126" stroke="rgba(0,229,160,.15)" stroke-width="1" />
+                    <line x1="210" y1="188" x2="60" y2="126" stroke="rgba(0,229,160,.15)" stroke-width="1" />
+                    <line x1="210" y1="188" x2="42" y2="210" stroke="rgba(0,229,160,.1)" stroke-width="1" />
+                    <!-- Animated signals -->
+                    <line x1="210" y1="188" x2="210" y2="42" stroke="#00e5a0" stroke-width="1.5" stroke-dasharray="8,90"
+                        style="animation:da 4s linear infinite" />
+                    <line x1="210" y1="188" x2="360" y2="126" stroke="#00e5a0" stroke-width="1.5"
+                        stroke-dasharray="8,90" style="animation:da 4s linear infinite;animation-delay:1.3s" />
                     <!-- Cloud nodes -->
                     <circle cx="210" cy="40" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd" />
-                    <circle cx="362" cy="122" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
+                    <circle cx="362" cy="124" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
                         style="animation-delay:.5s" />
-                    <circle cx="58" cy="122" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
+                    <circle cx="58" cy="124" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
                         style="animation-delay:1s" />
-                    <text x="210" y="30" text-anchor="middle" fill="rgba(0,229,160,.7)" font-size="7"
+                    <text x="210" y="30" text-anchor="middle" fill="rgba(0,229,160,.65)" font-size="7"
                         font-family="JetBrains Mono">AWS</text>
-                    <text x="374" y="120" fill="rgba(0,229,160,.7)" font-size="7"
+                    <text x="374" y="122" fill="rgba(0,229,160,.65)" font-size="7"
                         font-family="JetBrains Mono">n8n</text>
-                    <text x="20" y="120" fill="rgba(0,229,160,.7)" font-size="7"
+                    <text x="16" y="122" fill="rgba(0,229,160,.65)" font-size="7"
                         font-family="JetBrains Mono">Docker</text>
-                    <!-- Spokes: Software layer -->
-                    <line x1="268" y1="210" x2="378" y2="210" stroke="rgba(167,139,250,.18)" stroke-width="1" />
-                    <line x1="152" y1="210" x2="42" y2="210" stroke="rgba(167,139,250,.18)" stroke-width="1" />
-                    <!-- Animated signals software -->
+                    <!-- Software spokes -->
+                    <line x1="268" y1="210" x2="378" y2="210" stroke="rgba(167,139,250,.15)" stroke-width="1" />
+                    <line x1="152" y1="210" x2="42" y2="210" stroke="rgba(167,139,250,.15)" stroke-width="1" />
+                    <line x1="210" y1="188" x2="255" y2="104" stroke="rgba(167,139,250,.1)" stroke-width="1" />
+                    <!-- Animated software -->
                     <line x1="268" y1="210" x2="378" y2="210" stroke="#a78bfa" stroke-width="1.5"
-                        stroke-dasharray="8,60" style="animation:da2 3s linear infinite" />
-                    <line x1="152" y1="210" x2="42" y2="210" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="8,60"
+                        stroke-dasharray="7,62" style="animation:da2 3s linear infinite" />
+                    <line x1="152" y1="210" x2="42" y2="210" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="7,62"
                         style="animation:da2 3s linear infinite;animation-delay:.8s" />
                     <circle cx="380" cy="210" r="4" fill="none" stroke="#a78bfa" stroke-width="1.5" class="pd"
                         style="animation-delay:.3s" />
                     <circle cx="40" cy="210" r="4" fill="none" stroke="#a78bfa" stroke-width="1.5" class="pd"
                         style="animation-delay:.9s" />
-                    <text x="390" y="213" fill="rgba(167,139,250,.7)" font-size="7"
+                    <text x="390" y="213" fill="rgba(167,139,250,.65)" font-size="7"
                         font-family="JetBrains Mono">API</text>
-                    <text x="2" y="213" fill="rgba(167,139,250,.7)" font-size="7"
+                    <text x="2" y="213" fill="rgba(167,139,250,.65)" font-size="7"
                         font-family="JetBrains Mono">RAG</text>
-                    <!-- Spokes: Hardware layer -->
-                    <line x1="210" y1="234" x2="210" y2="378" stroke="rgba(0,212,255,.18)" stroke-width="1" />
-                    <line x1="260" y1="258" x2="345" y2="330" stroke="rgba(0,212,255,.18)" stroke-width="1" />
-                    <line x1="160" y1="258" x2="75" y2="330" stroke="rgba(0,212,255,.18)" stroke-width="1" />
-                    <!-- Animated signals hardware -->
-                    <line x1="210" y1="234" x2="210" y2="378" stroke="#00d4ff" stroke-width="1.5"
-                        stroke-dasharray="8,70" style="animation:da3 3.5s linear infinite" />
+                    <!-- Hardware spokes -->
+                    <line x1="210" y1="232" x2="210" y2="378" stroke="rgba(0,212,255,.15)" stroke-width="1" />
+                    <line x1="258" y1="258" x2="344" y2="328" stroke="rgba(0,212,255,.15)" stroke-width="1" />
+                    <line x1="162" y1="258" x2="76" y2="328" stroke="rgba(0,212,255,.15)" stroke-width="1" />
+                    <!-- Animated hardware -->
+                    <line x1="210" y1="232" x2="210" y2="378" stroke="#00d4ff" stroke-width="1.5"
+                        stroke-dasharray="7,72" style="animation:da3 3.5s linear infinite" />
                     <circle cx="210" cy="380" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
                         style="animation-delay:.4s" />
-                    <circle cx="347" cy="332" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
+                    <circle cx="346" cy="330" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
                         style="animation-delay:1s" />
-                    <circle cx="73" cy="332" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
+                    <circle cx="74" cy="330" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
                         style="animation-delay:1.6s" />
-                    <text x="210" y="396" text-anchor="middle" fill="rgba(0,212,255,.7)" font-size="7"
+                    <text x="210" y="396" text-anchor="middle" fill="rgba(0,212,255,.65)" font-size="7"
                         font-family="JetBrains Mono">STM32</text>
-                    <text x="352" y="340" fill="rgba(0,212,255,.7)" font-size="7"
+                    <text x="350" y="338" fill="rgba(0,212,255,.65)" font-size="7"
                         font-family="JetBrains Mono">FPGA</text>
-                    <text x="36" y="340" fill="rgba(0,212,255,.7)" font-size="7"
+                    <text x="34" y="338" fill="rgba(0,212,255,.65)" font-size="7"
                         font-family="JetBrains Mono">ESP32</text>
                 </svg>
             </div>
         </div>
     </section>
 
-    <!-- TRANSITION: Hero → Cloud/AI -->
+    <!-- TRANSITION SVG -->
     <div class="transition-zone">
-        <svg class="transition-svg" height="320" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet">
-            <!-- Cloud nodes top row -->
-            <rect x="60" y="18" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
-            <text x="104" y="33" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+        <svg class="t-svg" height="320" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet">
+            <!-- Cloud tier -->
+            <rect x="55" y="16" width="86" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
+            <text x="98" y="30" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">AWS</text>
-            <text x="104" y="46" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="98" y="43" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">LIGHTSAIL</text>
-            <circle cx="104" cy="18" r="3" fill="#00e5a0" class="pd" />
-
-            <rect x="200" y="8" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
-            <text x="244" y="23" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+            <circle cx="98" cy="16" r="3" fill="#00e5a0" class="pd" />
+            <rect x="196" y="8" width="86" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
+            <text x="239" y="22" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">DOCKER</text>
-            <text x="244" y="36" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="239" y="35" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">CONTAINERS</text>
-            <circle cx="244" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:.4s" />
-
-            <rect x="345" y="4" width="100" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
-            <text x="395" y="19" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+            <circle cx="239" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:.4s" />
+            <rect x="340" y="4" width="98" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
+            <text x="389" y="18" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">CLOUDFLARE</text>
-            <text x="395" y="32" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="389" y="31" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">TUNNELS</text>
-            <circle cx="395" cy="4" r="3" fill="#00e5a0" class="pd" style="animation-delay:.8s" />
-
-            <rect x="500" y="8" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
-            <text x="544" y="23" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+            <circle cx="389" cy="4" r="3" fill="#00e5a0" class="pd" style="animation-delay:.8s" />
+            <rect x="496" y="8" width="86" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
+            <text x="539" y="22" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">SUPABASE</text>
-            <text x="544" y="36" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="539" y="35" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">pgvector</text>
-            <circle cx="544" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:.5s" />
-
-            <rect x="648" y="18" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
-            <text x="692" y="33" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+            <circle cx="539" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:.6s" />
+            <rect x="640" y="16" width="86" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
+            <text x="683" y="30" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">n8n</text>
-            <text x="692" y="46" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="683" y="43" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">WORKFLOWS</text>
-            <circle cx="692" cy="18" r="3" fill="#00e5a0" class="pd" style="animation-delay:1s" />
-
-            <rect x="795" y="8" width="88" height="38" rx="2" fill="#0a0a0d" stroke="#161820" stroke-width="1" />
-            <text x="839" y="23" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
+            <circle cx="683" cy="16" r="3" fill="#00e5a0" class="pd" style="animation-delay:1s" />
+            <rect x="784" y="8" width="86" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
+            <text x="827" y="22" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">PINECONE</text>
-            <text x="839" y="36" text-anchor="middle" fill="#2e2e38" font-size="7" font-family="JetBrains Mono">VECTOR
+            <text x="827" y="35" text-anchor="middle" fill="#333" font-size="7" font-family="JetBrains Mono">VECTOR
                 DB</text>
-            <circle cx="839" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:1.3s" />
-
+            <circle cx="827" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:1.3s" />
             <!-- Cloud interconnects -->
-            <path d="M148,37 Q174,24 200,27" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+            <path d="M141,34 Q168,22 196,26" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
                 stroke-dasharray="4,4" />
-            <path d="M288,27 Q316,16 345,23" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+            <path d="M282,26 Q311,16 340,22" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
                 stroke-dasharray="4,4" />
-            <path d="M445,23 Q472,16 500,27" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+            <path d="M438,22 Q467,16 496,26" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
                 stroke-dasharray="4,4" />
-            <path d="M588,27 Q620,22 648,37" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+            <path d="M582,26 Q611,22 640,34" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
                 stroke-dasharray="4,4" />
-            <path d="M736,37 Q765,24 795,27" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
+            <path d="M726,34 Q755,22 784,26" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
                 stroke-dasharray="4,4" />
-            <!-- Animated cloud signals -->
-            <path d="M148,37 Q174,24 200,27" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
-                stroke-dasharray="12,55" style="animation:da 4s linear infinite" />
-            <path d="M288,27 Q316,16 345,23" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
-                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:.6s" />
-            <path d="M445,23 Q472,16 500,27" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
-                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:1.2s" />
-            <path d="M588,27 Q620,22 648,37" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
-                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:1.8s" />
-            <path d="M736,37 Q765,24 795,27" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".7"
-                stroke-dasharray="12,55" style="animation:da 4s linear infinite;animation-delay:2.4s" />
-
-            <!-- Cloud descends to Software -->
-            <path d="M104,56 Q104,152 220,180" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".08"
+            <path d="M141,34 Q168,22 196,26" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".65"
+                stroke-dasharray="11,55" style="animation:da 4s linear infinite" />
+            <path d="M282,26 Q311,16 340,22" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".65"
+                stroke-dasharray="11,55" style="animation:da 4s linear infinite;animation-delay:.7s" />
+            <path d="M438,22 Q467,16 496,26" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".65"
+                stroke-dasharray="11,55" style="animation:da 4s linear infinite;animation-delay:1.4s" />
+            <path d="M582,26 Q611,22 640,34" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".65"
+                stroke-dasharray="11,55" style="animation:da 4s linear infinite;animation-delay:2.1s" />
+            <path d="M726,34 Q755,22 784,26" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".65"
+                stroke-dasharray="11,55" style="animation:da 4s linear infinite;animation-delay:2.8s" />
+            <!-- Cloud → Software -->
+            <path d="M98,52 Q98,148 216,182" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".07"
                 stroke-dasharray="5,5" />
-            <path d="M395,42 Q395,120 395,180" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".08"
+            <path d="M389,40 Q389,118 389,182" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".07"
                 stroke-dasharray="5,5" />
-            <path d="M692,56 Q692,140 570,180" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".08"
+            <path d="M683,52 Q683,138 562,182" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".07"
                 stroke-dasharray="5,5" />
-            <path d="M104,56 Q104,152 220,180" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".45"
-                stroke-dasharray="16,100" style="animation:da2 5s linear infinite" />
-            <path d="M395,42 Q395,120 395,180" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".45"
-                stroke-dasharray="16,100" style="animation:da2 5s linear infinite;animation-delay:1s" />
-            <path d="M692,56 Q692,140 570,180" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".45"
-                stroke-dasharray="16,100" style="animation:da2 5s linear infinite;animation-delay:2s" />
-
-            <text x="500" y="172" text-anchor="middle" fill="#1c1c24" font-size="8" font-family="JetBrains Mono"
+            <path d="M98,52 Q98,148 216,182" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".42"
+                stroke-dasharray="14,100" style="animation:da2 5s linear infinite" />
+            <path d="M389,40 Q389,118 389,182" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".42"
+                stroke-dasharray="14,100" style="animation:da2 5s linear infinite;animation-delay:1s" />
+            <path d="M683,52 Q683,138 562,182" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".42"
+                stroke-dasharray="14,100" style="animation:da2 5s linear infinite;animation-delay:2s" />
+            <text x="500" y="174" text-anchor="middle" fill="#1a1a22" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="2">CLOUD → SOFTWARE_LAYER</text>
-
-            <!-- Software nodes middle row -->
-            <rect x="120" y="188" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
-            <text x="164" y="203" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+            <!-- Software tier -->
+            <rect x="116" y="188" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="159" y="202" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">LANGGRAPH</text>
-            <text x="164" y="216" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="159" y="215" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">AGENTS</text>
-            <circle cx="164" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.3s" />
-
-            <rect x="264" y="182" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
-            <text x="308" y="197" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+            <circle cx="159" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.3s" />
+            <rect x="256" y="182" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="299" y="196" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">FASTAPI</text>
-            <text x="308" y="210" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="299" y="209" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">PYTHON</text>
-            <circle cx="308" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:.7s" />
-
-            <rect x="402" y="178" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
-            <text x="446" y="193" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+            <circle cx="299" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:.7s" />
+            <rect x="396" y="178" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="439" y="192" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">RAG</text>
-            <text x="446" y="206" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="439" y="205" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">PIPELINES</text>
-            <circle cx="446" cy="178" r="3" fill="#a78bfa" class="pd" style="animation-delay:.1s" />
-
-            <rect x="540" y="182" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
-            <text x="584" y="197" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+            <circle cx="439" cy="178" r="3" fill="#a78bfa" class="pd" style="animation-delay:.1s" />
+            <rect x="536" y="182" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="579" y="196" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">CELERY</text>
-            <text x="584" y="210" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="579" y="209" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">ASYNC</text>
-            <circle cx="584" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:1.1s" />
-
-            <rect x="680" y="188" width="88" height="38" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
-            <text x="724" y="203" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
+            <circle cx="579" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:1.1s" />
+            <rect x="676" y="188" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
+            <text x="719" y="202" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">REDIS</text>
-            <text x="724" y="216" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="719" y="215" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">CACHE</text>
-            <circle cx="724" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.6s" />
-
+            <circle cx="719" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.6s" />
             <!-- Software interconnects -->
-            <path d="M208,207 Q236,202 264,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
-                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:.3s" />
-            <path d="M352,201 Q377,197 402,197" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
-                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:.9s" />
-            <path d="M490,197 Q515,199 540,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
-                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:1.5s" />
-            <path d="M628,201 Q654,202 680,207" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".55"
-                stroke-dasharray="10,40" style="animation:da 3.5s linear infinite;animation-delay:2.1s" />
-
-            <!-- Software descends to Hardware -->
-            <path d="M164,226 Q150,282 230,302" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".08"
+            <path d="M202,206 Q229,202 256,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
+                stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:.3s" />
+            <path d="M342,201 Q369,197 396,197" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
+                stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:.9s" />
+            <path d="M482,197 Q509,199 536,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
+                stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:1.5s" />
+            <path d="M622,201 Q649,202 676,206" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
+                stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:2.1s" />
+            <!-- Software → Hardware -->
+            <path d="M159,224 Q145,278 226,300" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".07"
                 stroke-dasharray="5,5" />
-            <path d="M446,216 Q446,270 446,302" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".08"
+            <path d="M439,214 Q439,268 439,300" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".07"
                 stroke-dasharray="5,5" />
-            <path d="M724,226 Q724,270 660,302" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".08"
+            <path d="M719,224 Q719,268 652,300" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".07"
                 stroke-dasharray="5,5" />
-            <path d="M164,226 Q150,282 230,302" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".4"
-                stroke-dasharray="14,90" style="animation:da3 4s linear infinite" />
-            <path d="M446,216 Q446,270 446,302" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".4"
-                stroke-dasharray="14,90" style="animation:da3 4s linear infinite;animation-delay:1.3s" />
-            <path d="M724,226 Q724,270 660,302" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".4"
-                stroke-dasharray="14,90" style="animation:da3 4s linear infinite;animation-delay:2.6s" />
-
-            <text x="500" y="296" text-anchor="middle" fill="#151518" font-size="8" font-family="JetBrains Mono"
+            <path d="M159,224 Q145,278 226,300" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".38"
+                stroke-dasharray="12,90" style="animation:da3 4s linear infinite" />
+            <path d="M439,214 Q439,268 439,300" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".38"
+                stroke-dasharray="12,90" style="animation:da3 4s linear infinite;animation-delay:1.3s" />
+            <path d="M719,224 Q719,268 652,300" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".38"
+                stroke-dasharray="12,90" style="animation:da3 4s linear infinite;animation-delay:2.6s" />
+            <text x="500" y="294" text-anchor="middle" fill="#14141a" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="2">SOFTWARE → SILICON_LAYER</text>
-
-            <!-- Hardware nodes bottom row -->
-            <rect x="170" y="306" width="88" height="38" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
-            <text x="214" y="321" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+            <!-- Hardware tier -->
+            <rect x="166" y="304" width="86" height="36" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="209" y="318" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">STM32</text>
-            <text x="214" y="334" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="209" y="331" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">MICROCONTROL</text>
-            <circle cx="214" cy="306" r="3" fill="#00d4ff" class="pd" style="animation-delay:.4s" />
-
-            <rect x="356" y="312" width="88" height="38" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
-            <text x="400" y="327" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+            <circle cx="209" cy="304" r="3" fill="#00d4ff" class="pd" style="animation-delay:.4s" />
+            <rect x="353" y="310" width="86" height="36" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="396" y="324" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">FPGA</text>
-            <text x="400" y="340" text-anchor="middle" fill="#2e2e38" font-size="7"
+            <text x="396" y="337" text-anchor="middle" fill="#333" font-size="7"
                 font-family="JetBrains Mono">VERILOG</text>
-            <circle cx="400" cy="312" r="3" fill="#00d4ff" class="pd" style="animation-delay:.9s" />
-
-            <rect x="542" y="306" width="88" height="38" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
-            <text x="586" y="321" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+            <circle cx="396" cy="310" r="3" fill="#00d4ff" class="pd" style="animation-delay:.9s" />
+            <rect x="540" y="304" width="86" height="36" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="583" y="318" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">ESP32</text>
-            <text x="586" y="334" text-anchor="middle" fill="#2e2e38" font-size="7" font-family="JetBrains Mono">IoT
+            <text x="583" y="331" text-anchor="middle" fill="#333" font-size="7" font-family="JetBrains Mono">IoT
                 BRIDGE</text>
-            <circle cx="586" cy="306" r="3" fill="#00d4ff" class="pd" style="animation-delay:1.4s" />
-
+            <circle cx="583" cy="304" r="3" fill="#00d4ff" class="pd" style="animation-delay:1.4s" />
             <!-- Hardware interconnects -->
-            <path d="M258,325 Q307,330 356,331" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".5"
-                stroke-dasharray="8,36" style="animation:da3 3s linear infinite;animation-delay:.5s" />
-            <path d="M444,331 Q493,328 542,325" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".5"
-                stroke-dasharray="8,36" style="animation:da3 3s linear infinite;animation-delay:1.3s" />
-
-            <text x="500" y="356" text-anchor="middle" fill="#0d0d10" font-size="8" font-family="JetBrains Mono"
+            <path d="M252,322 Q302,327 353,328" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".48"
+                stroke-dasharray="7,36" style="animation:da3 3s linear infinite;animation-delay:.5s" />
+            <path d="M439,328 Q489,325 540,322" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".48"
+                stroke-dasharray="7,36" style="animation:da3 3s linear infinite;animation-delay:1.3s" />
+            <text x="500" y="356" text-anchor="middle" fill="#0e0e12" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="3">SILICON // FULL_STACK_ACTIVE</text>
         </svg>
     </div>
 
-    <!-- AI / CLOUD LAYER -->
+    <!-- AI/CLOUD LAYER -->
     <section id="ai-cloud" class="layer lg">
-        <div class="l-head">
-            <div class="l-tag tg">// LAYER_0 — AI & CLOUD</div>
-            <h2 class="l-title">AI & Cloud</h2>
-            <p class="l-sub">Production agentic systems, self-hosted infrastructure, multi-LLM orchestration. This is
-                the primary stack.</p>
-        </div>
+        <div class="l-tag tg">// LAYER_0 — AI & CLOUD</div>
+        <h2 class="l-title">AI & Cloud</h2>
+        <p class="l-sub">Production agentic systems, self-hosted infrastructure, multi-LLM orchestration. The primary
+            stack.</p>
         <div class="cards">
             <div class="card" onclick="openModal('vapi')">
-                <div class="card-accent"></div>
+                <div class="card-bar"></div>
                 <div class="c-id">// 0xVAPI · VOICE AGENT</div>
                 <div class="c-name">Intelligent Voice Receptionist</div>
-                <div class="c-desc">Real-time Voice AI agent handling phone calls with sub-second latency. Connected to
-                    GoHighLevel CRM for live appointment booking with latency masking.</div>
+                <div class="c-desc">Real-time Voice AI handling live phone calls with sub-second latency masking.
+                    Connected to GoHighLevel CRM via n8n — checks availability, creates contacts, and books appointments
+                    autonomously mid-conversation.</div>
                 <div class="c-tags"><span class="c-tag">Vapi.ai</span><span class="c-tag">n8n</span><span
                         class="c-tag">Supabase</span><span class="c-tag">GoHighLevel</span><span
                         class="c-tag">RAG</span></div>
-                <span class="card-arrow">VIEW PROJECT →</span>
+                <span class="c-arrow">VIEW PROJECT →</span>
             </div>
             <div class="card" onclick="openModal('sms')">
-                <div class="card-accent"></div>
+                <div class="card-bar"></div>
                 <div class="c-id">// 0xSMS · AGENTIC BOT</div>
                 <div class="c-name">Context-Aware SMS Agent</div>
-                <div class="c-desc">Stateful SMS bot with 15-message sliding window memory, human-like typing delays,
-                    and semantic HANDOFF guardrails routing to human operators.</div>
+                <div class="c-desc">Stateful SMS bot with 15-message sliding window memory in Supabase. Human-like
+                    typing delay algorithm, Google Drive → vector store auto-sync pipeline, and semantic HANDOFF
+                    guardrails routing unknown topics to human operators.</div>
                 <div class="c-tags"><span class="c-tag">n8n</span><span class="c-tag">Supabase</span><span
                         class="c-tag">Twilio</span><span class="c-tag">Google Drive API</span></div>
-                <span class="card-arrow">VIEW PROJECT →</span>
+                <span class="c-arrow">VIEW PROJECT →</span>
             </div>
         </div>
     </section>
 
     <!-- SOFTWARE LAYER -->
     <section id="software" class="layer lp">
-        <div class="l-head">
-            <div class="l-tag tp">// LAYER_1 — SOFTWARE & PIPELINES</div>
-            <h2 class="l-title">Software & Pipelines</h2>
-            <p class="l-sub">Async processing engines, agentic workflows, API architecture.</p>
-        </div>
+        <div class="l-tag tp">// LAYER_1 — SOFTWARE & PIPELINES</div>
+        <h2 class="l-title">Software & Pipelines</h2>
+        <p class="l-sub">Agentic workflows, async processing engines, API architecture.</p>
         <div class="cards">
             <div class="card" onclick="openModal('sleepscribe')">
-                <div class="card-accent"></div>
+                <div class="card-bar"></div>
                 <div class="c-id">// 0xSLEEP · LANGGRAPH</div>
                 <div class="c-name">SleepScribe</div>
-                <div class="c-desc">Intelligent data analysis agent. Non-linear LangGraph state machines that
-                    dynamically critique, refine, and execute reporting tasks autonomously without human intervention.
-                </div>
+                <div class="c-desc">Data analysis agent using non-linear LangGraph state machines. The agent critiques
+                    its own analysis, identifies errors, refines its approach, and re-executes — producing accurate
+                    structured reports autonomously without human checkpoints.</div>
                 <div class="c-tags"><span class="c-tag">LangGraph</span><span class="c-tag">Groq</span><span
                         class="c-tag">Python</span><span class="c-tag">Agentic AI</span></div>
-                <span class="card-arrow">VIEW PROJECT →</span>
+                <span class="c-arrow">VIEW PROJECT →</span>
             </div>
             <div class="card" onclick="openModal('voicelens')">
-                <div class="card-accent"></div>
-                <div class="c-id">// 0xVOICE · PIPELINE</div>
-                <div class="c-name">VoiceLens <span style="font-size:9px;color:var(--mid)">— Coming Soon</span></div>
-                <div class="c-desc">Production-grade multi-speaker audio analysis and voice-to-action pipeline. Celery +
-                    Redis async engine handles heavy audio workloads without blocking the UI.</div>
+                <div class="card-bar"></div>
+                <div class="c-id">// 0xVOICE · ASYNC PIPELINE</div>
+                <div class="c-name">VoiceLens <span style="font-size:9px;color:#555">— In Development</span></div>
+                <div class="c-desc">Production-grade multi-speaker audio analysis pipeline. Celery task queues + Redis
+                    broker handle heavy audio workloads asynchronously — zero UI blocking regardless of processing load.
+                </div>
                 <div class="c-tags"><span class="c-tag">FastAPI</span><span class="c-tag">Celery</span><span
                         class="c-tag">Redis</span><span class="c-tag">Voice AI</span></div>
-                <span class="card-arrow">VIEW PROJECT →</span>
+                <span class="c-arrow">VIEW PROJECT →</span>
             </div>
         </div>
     </section>
 
     <!-- HARDWARE LAYER -->
     <section id="hardware" class="layer lc">
-        <div class="l-head">
-            <div class="l-tag tc">// LAYER_2 — HARDWARE & EMBEDDED</div>
-            <h2 class="l-title">Hardware & Embedded</h2>
-            <p class="l-sub">The foundation. Understanding what happens on the wire before writing the API.</p>
-        </div>
+        <div class="l-tag tc">// LAYER_2 — HARDWARE & EMBEDDED</div>
+        <h2 class="l-title">Hardware & Embedded</h2>
+        <p class="l-sub">The foundation. Understanding what's happening on the wire before writing the API.</p>
         <div class="hw-quote">
-            <p class="hw-q">"Most AI engineers have never touched a microcontroller. I have. That changes how you think
-                about latency, memory constraints, and real-time systems."</p>
+            <p class="hw-q">"Most AI engineers have never touched a microcontroller. I have — and it changes how you
+                think about latency, memory constraints, and real-time systems."</p>
             <div class="hw-pills">
                 <span class="hw-pill">STM32</span><span class="hw-pill">ESP32</span><span class="hw-pill">UART</span>
-                <span class="hw-pill">SPI/DMA</span><span class="hw-pill">Verilog</span><span
+                <span class="hw-pill">SPI / DMA</span><span class="hw-pill">Verilog</span><span
                     class="hw-pill">FPGA</span>
-                <span class="hw-pill">C/C++</span><span class="hw-pill">Interrupts</span>
+                <span class="hw-pill">C / C++</span><span class="hw-pill">Interrupts</span>
             </div>
         </div>
         <div class="cards">
             <div class="card" onclick="openModal('iot')">
-                <div class="card-accent"></div>
+                <div class="card-bar"></div>
                 <div class="c-id">// 0xIOT · ECEN260 FINAL</div>
                 <div class="c-name">IoT Home Control System</div>
-                <div class="c-desc">Full-duplex IoT bridge (ECEN 260 final project). Telegram → n8n → Python serial
-                    bridge → STM32. DMA-optimized SPI renders images on ST7735 LCD without blocking real-time
-                    interrupts.</div>
+                <div class="c-desc">Full-duplex IoT bridge — ECEN 260 final project. Telegram commands travel cloud →
+                    n8n → Python serial bridge → STM32 Nucleo-L476RG. DMA-optimized SPI renders full images on ST7735
+                    LCD asynchronously without blocking real-time LED interrupts.</div>
                 <div class="c-tags"><span class="c-tag">STM32</span><span class="c-tag">C++</span><span
                         class="c-tag">UART</span><span class="c-tag">DMA/SPI</span><span class="c-tag">n8n</span><span
                         class="c-tag">Python</span></div>
-                <span class="card-arrow">VIEW PROJECT →</span>
+                <span class="c-arrow">VIEW PROJECT →</span>
             </div>
             <div class="card" onclick="openModal('fpga')">
-                <div class="card-accent"></div>
+                <div class="card-bar"></div>
                 <div class="c-id">// 0xFPGA · DIGITAL LOGIC</div>
                 <div class="c-name">FPGA Digital Logic Design</div>
-                <div class="c-desc">Suite of Verilog modules on Basys3 FPGA — from 7-segment decoders and 8-bit
-                    multipliers to a full capstone reaction game with LFSR, RAM-based high score system, and 11-state
-                    FSM.</div>
+                <div class="c-desc">Suite of Verilog modules on Basys3 FPGA — culminating in a reaction game with LFSR
+                    pseudo-random generation, onboard RAM high-score persistence, scrolling text engine, and an 11-state
+                    FSM managing full gameplay loops.</div>
                 <div class="c-tags"><span class="c-tag">Verilog</span><span class="c-tag">FPGA</span><span
                         class="c-tag">Vivado</span><span class="c-tag">FSM</span><span class="c-tag">LFSR</span></div>
-                <span class="card-arrow">VIEW PROJECT →</span>
+                <span class="c-arrow">VIEW PROJECT →</span>
             </div>
         </div>
     </section>
@@ -1629,11 +1965,19 @@
     <section id="synthesis" class="synthesis">
         <div class="syn-badge">ACTIVE_BUILD</div>
         <h2 class="syn-title">Multi-Tenant AI Agent Platform</h2>
-        <p class="syn-sub">// Production RAG system with intelligent handoffs — cloud architecture, software pipelines,
-            and hardware intuition working together. Self-hosted on AWS. Live now.</p>
+        <p class="syn-sub">Production RAG system with intelligent handoffs — cloud architecture, software pipelines, and
+            hardware intuition working together. Self-hosted on AWS Lightsail. Live now.</p>
+        <div class="demo-callout">
+            <div class="demo-callout-left">
+                This system is live. Try it right now.
+                <span>demo.alexturner-portfolio.com</span>
+            </div>
+            <button class="demo-callout-btn"
+                onclick="window.open('https://demo.alexturner-portfolio.com','_blank')">OPEN LIVE DEMO →</button>
+        </div>
         <div class="arch-box">
             <div class="arch-top">
-                <div class="arch-lbl">// LIVE SYSTEM ARCHITECTURE</div>
+                <div class="arch-lbl">// LIVE SYSTEM ARCHITECTURE — 9-TABLE SUPABASE BACKEND</div>
                 <div class="arch-status">SYSTEM ONLINE</div>
             </div>
             <div class="nodes">
@@ -1649,104 +1993,106 @@
                 </div>
                 <div class="anode">
                     <div class="anode-dot"></div>
-                    <div class="anode-sys">pgvector</div>
+                    <div class="anode-sys">pgvector · 768-dim</div>
                     <div class="anode-name">RAG Pipeline</div>
                 </div>
                 <div class="anode">
                     <div class="anode-dot"></div>
-                    <div class="anode-sys">Claude/GPT/Gemini</div>
+                    <div class="anode-sys">Claude/GPT/Gemini/Groq</div>
                     <div class="anode-name">LLM Router</div>
                 </div>
                 <div class="anode">
                     <div class="anode-dot"></div>
                     <div class="anode-sys">Supabase</div>
-                    <div class="anode-name">PostgreSQL DB</div>
+                    <div class="anode-name">PostgreSQL + RLS</div>
                 </div>
                 <div class="anode">
                     <div class="anode-dot"></div>
                     <div class="anode-sys">AWS + Cloudflare</div>
-                    <div class="anode-name">Infrastructure</div>
+                    <div class="anode-name">Self-Hosted Infra</div>
                 </div>
-            </div>
-            <div class="syn-btns">
-                <!-- DEMO_URL: update when domain finalizes -->
-                <a href="https://demo.alexturner-portfolio.com" class="syn-btn" target="_blank">// LIVE_DEMO →</a>
-                <a href="https://github.com/AlexTurnerDev" class="syn-btn" target="_blank">// GITHUB →</a>
             </div>
         </div>
     </section>
 
     <!-- SKILLS -->
-    <div class="skills">
-        <div class="sk-col">
-            <div class="sk-head">LANGUAGES</div>
-            <div class="sk-item">Python</div>
-            <div class="sk-item">C / C++</div>
-            <div class="sk-item">JavaScript / TypeScript</div>
-            <div class="sk-item">Verilog</div>
-            <div class="sk-item">Rust</div>
-            <div class="sk-item">Assembly</div>
+    <div class="skills-wrap">
+        <div class="skills-head">
+            <div class="l-tag tg" style="margin-bottom:0">// TECHNICAL_STACK</div>
         </div>
-        <div class="sk-col">
-            <div class="sk-head">AI / ML</div>
-            <div class="sk-item">LangGraph / LangChain</div>
-            <div class="sk-item">RAG Pipelines</div>
-            <div class="sk-item">pgvector / Pinecone</div>
-            <div class="sk-item">Claude, GPT-4, Gemini</div>
-            <div class="sk-item">Groq / Llama</div>
-            <div class="sk-item">OpenCV</div>
-        </div>
-        <div class="sk-col">
-            <div class="sk-head">BACKEND / CLOUD</div>
-            <div class="sk-item">FastAPI</div>
-            <div class="sk-item">Docker</div>
-            <div class="sk-item">AWS Lightsail</div>
-            <div class="sk-item">Supabase / PostgreSQL</div>
-            <div class="sk-item">Celery / Redis</div>
-            <div class="sk-item">Cloudflare</div>
-        </div>
-        <div class="sk-col">
-            <div class="sk-head">HARDWARE</div>
-            <div class="sk-item">STM32 / ESP32</div>
-            <div class="sk-item">UART / SPI / DMA</div>
-            <div class="sk-item">FPGA / Verilog</div>
-            <div class="sk-item">Circuit Design</div>
-            <div class="sk-item">Fusion 360</div>
-            <div class="sk-item">Raspberry Pi</div>
+        <div class="skills-grid">
+            <div>
+                <div class="sk-head">LANGUAGES</div>
+                <div class="sk-item">Python</div>
+                <div class="sk-item">C / C++</div>
+                <div class="sk-item">JavaScript / TypeScript</div>
+                <div class="sk-item">Verilog</div>
+                <div class="sk-item">Rust</div>
+                <div class="sk-item">Assembly</div>
+            </div>
+            <div>
+                <div class="sk-head">AI / ML</div>
+                <div class="sk-item">LangGraph / LangChain</div>
+                <div class="sk-item">RAG Pipelines</div>
+                <div class="sk-item">pgvector / Pinecone</div>
+                <div class="sk-item">Claude, GPT-4, Gemini</div>
+                <div class="sk-item">Groq / Llama</div>
+                <div class="sk-item">OpenCV</div>
+            </div>
+            <div>
+                <div class="sk-head">BACKEND / CLOUD</div>
+                <div class="sk-item">FastAPI</div>
+                <div class="sk-item">Docker</div>
+                <div class="sk-item">AWS Lightsail</div>
+                <div class="sk-item">Supabase / PostgreSQL</div>
+                <div class="sk-item">Celery / Redis</div>
+                <div class="sk-item">Cloudflare</div>
+            </div>
+            <div>
+                <div class="sk-head">HARDWARE</div>
+                <div class="sk-item">STM32 / ESP32</div>
+                <div class="sk-item">UART / SPI / DMA</div>
+                <div class="sk-item">FPGA / Verilog</div>
+                <div class="sk-item">Circuit Design</div>
+                <div class="sk-item">Fusion 360</div>
+                <div class="sk-item">Raspberry Pi</div>
+            </div>
         </div>
     </div>
 
     <!-- CERTS -->
-    <div class="certs">
+    <div class="certs-wrap">
         <div class="cert">
-            <img class="cert-icon" src="assets/Achievements/aws-cloud-quest-cloud-practitioner-training-badge.png"
+            <img class="cert-badge-img" src="assets/Achievements/aws-cloud-quest-cloud-practitioner-training-badge.png"
                 alt="AWS Cloud Practitioner"
-                style="width:40px;height:40px;object-fit:contain;background:#0d0d11;padding:4px">
+                onerror="this.outerHTML='<div class=cert-badge-placeholder>AWS<br>CLF</div>'">
             <div>
                 <div class="cert-name">AWS Cloud Practitioner</div>
                 <div class="cert-type" style="color:var(--amber)">CERTIFICATION · FEB 2026</div>
             </div>
         </div>
         <div class="cert">
-            <img class="cert-icon" src="assets/Achievements/aws-educate-introduction-to-generative-ai-training-.png"
-                alt="AWS Generative AI"
-                style="width:40px;height:40px;object-fit:contain;background:#0d0d11;padding:4px">
+            <img class="cert-badge-img"
+                src="assets/Achievements/aws-educate-introduction-to-generative-ai-training-.png"
+                alt="AWS Generative AI" onerror="this.outerHTML='<div class=cert-badge-placeholder>AWS<br>AI</div>'">
             <div>
                 <div class="cert-name">AWS Generative AI</div>
                 <div class="cert-type" style="color:var(--mid)">TRAINING BADGE · FEB 2026</div>
             </div>
         </div>
-        <div class="cert cert-more" style="min-width:0">
-            <div style="font-size:9px;color:var(--muted);letter-spacing:.12em">MORE INCOMING</div>
+        <div class="cert"
+            style="min-width:160px;background:var(--gd);border-color:var(--gb);justify-content:center;flex-direction:column;gap:5px;text-align:center">
+            <div style="font-size:9px;color:#444;letter-spacing:.12em">MORE INCOMING</div>
             <div style="font-size:9px;color:var(--green);letter-spacing:.1em">IN PROGRESS</div>
         </div>
     </div>
 
     <!-- CONTACT -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact-wrap">
         <div class="con-tag">OUTPUT — CONTACT_GATEWAY</div>
         <h2 class="con-title">Let's Build Something</h2>
-        <p class="con-sub">Open to remote AI engineering roles. Graduating 2026. Available for interviews now.</p>
+        <p class="con-sub">Open to part-time and contract AI engineering roles. BYU-Idaho Computer Engineering student,
+            graduating 2026. If you're building something interesting with AI — let's talk.</p>
         <div class="con-grid">
             <div class="con-item">
                 <div class="con-key">EMAIL</div>
@@ -1762,30 +2108,25 @@
             </div>
         </div>
         <div class="con-btns">
-            <button class="btn-primary" onclick="window.open('assets/docs/resume.pdf')">↓ DOWNLOAD RESUME</button>
-            <a href="https://github.com/AlexTurnerDev" class="btn-secondary" target="_blank">// GITHUB →</a>
-            <a href="mailto:alex@alexturner-portfolio.com" class="btn-secondary">// EMAIL →</a>
+            <a href="mailto:alex@alexturner-portfolio.com" class="connect-btn">LET'S CONNECT →</a>
+            <a href="https://github.com/AlexTurnerDev" class="gh-btn" target="_blank">// GITHUB →</a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <div
-        style="text-align:center;padding:24px;border-top:1px solid var(--wire);font-size:9px;color:var(--muted);letter-spacing:.12em">
+    <div class="footer">
         © 2026 ALEX TURNER &nbsp;·&nbsp;
-        <a href="privacy.html" style="color:var(--muted)">PRIVACY</a> &nbsp;·&nbsp;
-        <a href="terms.html" style="color:var(--muted)">TERMS</a>
+        <a href="privacy.html">PRIVACY</a> &nbsp;·&nbsp;
+        <a href="terms.html">TERMS</a>
     </div>
 
     <!-- MODAL -->
     <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
-        <div class="modal-box" style="position:relative">
-            <button class="modal-close" style="position:absolute;top:12px;right:12px;z-index:10"
-                onclick="closeModal()">✕ CLOSE</button>
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">✕ CLOSE</button>
             <div class="modal-left">
-                <div class="modal-header">
-                    <div class="modal-id" id="m-id"></div>
-                    <div class="modal-title" id="m-title"></div>
-                </div>
+                <div class="modal-id" id="m-id"></div>
+                <div class="modal-title" id="m-title"></div>
                 <div class="modal-desc" id="m-desc"></div>
                 <div class="modal-tags" id="m-tags"></div>
                 <div class="modal-links" id="m-links"></div>
@@ -1795,152 +2136,123 @@
     </div>
 
     <script>
+        const R2 = 'https://assets.alexturner-portfolio.com';
+
         const DATA = {
             vapi: {
-                id: '// 0xVAPI · VOICE AGENT',
-                title: 'Intelligent Voice Receptionist',
-                color: '#00e5a0',
-                desc: `Engineered a voice AI agent capable of handling real-time phone calls with near-human latency. The agent connects to the GoHighLevel CRM API via n8n to check availability, create contacts, and book appointments in real-time.\n\n• Latency Masking: Implemented "filler phrases" and optimistic tool execution to mask the delay of external API calls, making responses feel instantaneous.\n\n• Tool Use: Custom JavaScript middleware parses relative dates ("Next Tuesday") into ISO timestamps. Modular tool definitions route conversations autonomously to the correct backend workflow.\n\n• Post-Call Pipeline: Asynchronous LLM-powered call summarization automatically structures and files call summaries.`,
-                tags: ['Vapi.ai', 'n8n', 'Supabase', 'GoHighLevel', 'RAG'],
+                id: '// 0xVAPI · VOICE AGENT', title: 'Intelligent Voice Receptionist', color: '#00e5a0',
+                desc: `Engineered a voice AI agent handling real-time phone calls with near-human response latency.\n\n• Latency Masking: Implemented filler phrases and optimistic tool execution to mask external API call delays — responses feel instantaneous even when writing to the CRM.\n\n• Live CRM Integration: Connected to GoHighLevel via n8n — checks real availability, creates contacts, and books appointments mid-conversation without human intervention.\n\n• Custom Middleware: JavaScript node parses relative dates ("Next Tuesday") into ISO timestamps for reliable calendar writes.\n\n• Post-Call Pipeline: Async LLM-powered summarization automatically structures and files call summaries after every interaction.`,
+                tags: ['Vapi.ai', 'n8n', 'Supabase', 'GoHighLevel', 'RAG', 'JavaScript'],
                 links: [],
                 media: [
-                    { type: 'video', src: 'assets/videos/AI_VapiAgentDemo.mp4', cap: 'Watch the agent handle a natural interruption and execute a real-time write operation to the CRM with sub-second latency.' },
-                    { type: 'audio', src: 'assets/Audio/AI_VapiAgent_Audio.wav', cap: 'Raw latency test — high-fidelity recording demonstrating sub-second response time and natural turn-taking during a complex booking scenario.' },
-                    { type: 'img', src: 'assets/images/AI_VapiAgent_VapiTools.png', cap: 'Modular tool definitions allowing the AI to autonomously route conversations to the correct backend workflow.' },
+                    { type: 'video', src: `${R2}/AI_VapiAgentDemo.mp4`, cap: 'Agent handles a natural interruption and executes a real-time CRM write with sub-second latency.' },
+                    { type: 'audio', src: `${R2}/AI_VapiAgent_Audio.wav`, cap: 'Raw latency test — stereo recording demonstrating sub-second response time during a complex booking scenario.' },
+                    { type: 'img', src: 'assets/images/AI_VapiAgent_VapiTools.png', cap: 'Modular tool definitions allowing autonomous conversation routing to the correct backend workflow.' },
                     { type: 'img', src: 'assets/images/AI_VapiAgent_BookAppointmentWorkflow.png', cap: 'Transactional booking workflow syncing CRM data with sub-second latency.' },
-                    { type: 'img', src: 'assets/images/AI_VapiAgent_SummaryWorkflow.png', cap: 'Asynchronous post-call pipeline using an LLM to structure and file call summaries automatically.' },
+                    { type: 'img', src: 'assets/images/AI_VapiAgent_SummaryWorkflow.png', cap: 'Async post-call pipeline using an LLM to structure and file call summaries automatically.' },
                 ]
             },
             sms: {
-                id: '// 0xSMS · AGENTIC BOT',
-                title: 'Context-Aware SMS Agent',
-                color: '#00e5a0',
-                desc: `Architected a robust conversational SMS interface solving "hallucination risk" for local service businesses.\n\n• Context Retention: Sliding window memory system in Supabase retaining the last 15 messages — the agent remembers names, specific problems, and conversation context across sessions.\n\n• Human-Like UX: Variable latency algorithm delays responses based on message length, mimicking natural human typing speed.\n\n• Automated Knowledge Base: Google Drive sync pipeline — uploading files to a specific folder automatically updates the vector store embeddings.\n\n• Semantic Guardrails: System prompt protocol where the LLM flags unknown topics with HANDOFF codes. A deterministic router detects these flags and physically redirects the query to Telegram for human-in-the-loop review.`,
-                tags: ['n8n', 'Supabase', 'Twilio', 'Google Drive API', 'RAG'],
-                links: [{ label: '// Live Demo →', url: 'https://demo.alexturner-portfolio.com', primary: true }],
+                id: '// 0xSMS · AGENTIC BOT', title: 'Context-Aware SMS Agent', color: '#00e5a0',
+                desc: `Architected a stateful SMS conversational agent solving hallucination risk for local service businesses.\n\n• Sliding Window Memory: Supabase stores the last 15 messages per customer — the agent remembers names, specific problems, and context across sessions without a database query overhead.\n\n• Human-Like UX: Variable latency algorithm delays responses proportional to message length, mimicking natural typing speed.\n\n• Auto-Syncing Knowledge Base: Uploading files to a specific Google Drive folder automatically triggers embedding regeneration and vector store updates — zero manual intervention.\n\n• Semantic Guardrails: System prompt protocol flags unknown topics with HANDOFF codes. A deterministic router detects flags and physically redirects to Telegram for human-in-the-loop review — preventing hallucination at the architecture level.`,
+                tags: ['n8n', 'Supabase', 'Twilio', 'Google Drive API', 'RAG', 'pgvector'],
+                links: [{ label: '// Open Live Demo →', url: 'https://demo.alexturner-portfolio.com', primary: true }],
                 media: [
-                    { type: 'arch', cap: 'System Architecture' },
-                    { type: 'img', src: 'assets/images/AI_TextingBot_n8n.png', cap: 'Event-driven architecture: the semantic router workflow connecting Twilio, Supabase memory, and the RAG knowledge base.' },
-                    { type: 'img', src: 'assets/images/AI_TextingBot_Telegram.png', cap: 'Dual-channel routing: AI answers the customer (top) while instantly escalating safety risks to the owner (bottom).' },
-                    { type: 'img', src: 'assets/images/Portfolio_RAG_Agent.png', cap: 'Automated ingestion pipeline: detects Google Drive changes, calculates file deltas, and updates Supabase embeddings instantly.' },
+                    { type: 'arch' },
+                    { type: 'img', src: 'assets/images/AI_TextingBot_n8n.png', cap: 'Event-driven architecture — semantic router connecting Twilio, Supabase memory, and the RAG knowledge base.' },
+                    { type: 'img', src: 'assets/images/AI_TextingBot_Telegram.png', cap: 'Dual-channel routing: AI answers the customer while instantly escalating to the owner for safety-critical queries.' },
+                    { type: 'img', src: 'assets/images/Portfolio_RAG_Agent.png', cap: 'Automated ingestion pipeline — detects Google Drive changes, calculates deltas, and updates Supabase embeddings instantly.' },
                 ]
             },
             sleepscribe: {
-                id: '// 0xSLEEP · LANGGRAPH',
-                title: 'SleepScribe',
-                color: '#a78bfa',
-                desc: `Intelligent data analysis agent built with LangGraph agentic state machines.\n\nThe pipeline ingests multi-source unstructured data, processes it through LangGraph's non-linear state machine architecture, autonomously critiques its own analysis for accuracy, refines the approach, and produces structured data reports — without human intervention at any stage.\n\nKey design choice: LangGraph over LangChain for its ability to handle loops, conditionals, and human-in-the-loop validation points within the agent graph. This makes the system robust to bad data and unexpected inputs rather than failing silently.`,
+                id: '// 0xSLEEP · LANGGRAPH', title: 'SleepScribe', color: '#a78bfa',
+                desc: `Intelligent data analysis agent built on LangGraph's non-linear state machine architecture.\n\nThe pipeline ingests multi-source unstructured data, processes it through a graph of agentic nodes, then autonomously evaluates its own outputs — critiquing for accuracy, identifying gaps, and re-running analysis with refined parameters until quality thresholds are met.\n\nKey design decision: LangGraph over LangChain specifically for its loop and conditional branch support. This makes the agent robust to bad data and unexpected inputs rather than failing silently — a critical difference for production reliability.`,
                 tags: ['LangGraph', 'Groq', 'Python', 'Agentic AI', 'Data Analysis'],
                 links: [],
-                media: [
-                    { type: 'note', cap: 'Assets for this project are being prepared. Check back soon or visit GitHub for the source code.' }
-                ]
+                media: [{ type: 'note', txt: 'Project assets being prepared. Source available on GitHub.' }]
             },
             voicelens: {
-                id: '// 0xVOICE · PIPELINE',
-                title: 'VoiceLens',
-                color: '#a78bfa',
-                desc: `Production-grade multi-speaker audio analysis and voice-to-action pipeline.\n\nRole: Backend Lead — architected the asynchronous processing engine from the ground up.\n\nCelery workers handle heavy audio processing workloads in the background, with Redis as the message broker and result cache. FastAPI provides the non-blocking API layer so the frontend is never stalled waiting for audio processing results.\n\nThis project demonstrates production async architecture patterns: task queues, worker pools, result backends, and failure handling.`,
+                id: '// 0xVOICE · ASYNC PIPELINE', title: 'VoiceLens', color: '#a78bfa',
+                desc: `Production-grade multi-speaker audio analysis and voice-to-action pipeline.\n\nRole: Backend Lead — architected the async processing engine from scratch.\n\nCelery workers handle heavy audio processing in the background with Redis as the message broker and result cache. FastAPI provides the non-blocking API layer — the frontend never stalls waiting for audio processing regardless of queue depth or file size.\n\nDemonstrates production async architecture patterns: task queues, worker pools, result backends, and graceful failure handling.`,
                 tags: ['FastAPI', 'Celery', 'Redis', 'Voice AI', 'Python'],
                 links: [{ label: '// Live Demo — Coming Soon', url: '#', primary: false }],
-                media: [
-                    { type: 'note', cap: 'Live demo is being hosted. Full project page coming soon.' }
-                ]
+                media: [{ type: 'note', txt: 'Live demo being hosted. Full project page coming soon.' }]
             },
             iot: {
-                id: '// 0xIOT · ECEN260 FINAL',
-                title: 'IoT Home Control System',
-                color: '#00d4ff',
-                desc: `ECEN 260 (Microprocessor Based System Design) final project — a full-duplex IoT bridge connecting a smartphone to embedded STM32 hardware via the cloud.\n\n• Protocol Translation: n8n workflow listens to Telegram webhooks and parses multi-modal commands (text, audio, images). Commands are serialized and sent via UART to a Python serial bridge running on a laptop.\n\n• DMA Image Rendering: Images sent via Telegram are received by the STM32 and rendered on an ST7735 1.8" LCD using DMA (Direct Memory Access) over SPI. DMA offloads the massive pixel array transfer from the CPU, allowing the processor to handle real-time lighting interrupts simultaneously.\n\n• Use Cases: Remote LED control, image display, audio-triggered commands. Designed as a household assistant — "JARVIS-style" responses from an AI agent confirm actions.`,
+                id: '// 0xIOT · ECEN260 FINAL', title: 'IoT Home Control System', color: '#00d4ff',
+                desc: `ECEN 260 (Microprocessor Based System Design) final project — a full-duplex IoT pipeline connecting a smartphone to embedded STM32 hardware via the cloud.\n\n• Protocol Chain: Telegram webhook → n8n workflow → Python serial bridge (USB-UART) → STM32 Nucleo-L476RG → LED/LCD output.\n\n• DMA Image Rendering: Images sent via Telegram are received by the STM32 and rendered on an ST7735 1.8" LCD using Direct Memory Access over SPI. DMA offloads pixel array transfer from the CPU entirely — real-time lighting interrupts continue unaffected during full image renders.\n\n• Multi-Modal Input: Text, audio (transcribed), and images all handled through the same pipeline with separate command routing.\n\n• AI Response Layer: STM32 triggers an AI agent response acknowledging every command in a JARVIS-style manner.`,
                 tags: ['STM32', 'Nucleo-L476RG', 'C++', 'UART', 'DMA', 'SPI', 'n8n', 'Python', 'Telegram'],
                 links: [
                     { label: '// View Source Code →', url: 'https://github.com/awesomedude33/ecen-260-final-project/tree/main', primary: true },
                     { label: '// View Technical Report (PDF)', url: 'assets/docs/STM_final_project.pdf', primary: false }
                 ],
                 media: [
-                    { type: 'video', src: 'assets/videos/AI_assistant_demo.mp4', orient: 'vertical', cap: 'Live hardware demo — controlling lights and rendering images on the ST7735 display via Telegram.' },
-                    { type: 'video', src: 'assets/videos/AI_assistant_explanation.mp4', cap: 'Deep dive — STM32 architecture, DMA logic, and the full system data flow explained.' },
-                    { type: 'img', src: 'assets/images/AI_assistant_n8n.png', cap: 'n8n workflow orchestrating Telegram, Vision AI, and serial communication to the microcontroller.' },
+                    { type: 'video', src: `${R2}/AI_assistant_demo.mp4`, orient: 'v', cap: 'Live hardware demo — LED control and image rendering on ST7735 display via Telegram.' },
+                    { type: 'video', src: `${R2}/AI_assistant_explanation.mp4`, cap: 'System deep dive — STM32 architecture, DMA logic, and full data flow explained.' },
+                    { type: 'img', src: 'assets/images/AI_assistant_n8n.png', cap: 'n8n workflow orchestrating Telegram, Vision AI, and UART serial communication.' },
                 ]
             },
             fpga: {
-                id: '// 0xFPGA · DIGITAL LOGIC',
-                title: 'FPGA Digital Logic Design',
-                color: '#00d4ff',
-                desc: `Suite of Verilog hardware modules designed and verified on the Basys3 FPGA (Artix-7) using Xilinx Vivado. Each project builds on the previous — from basic decoders to a full capstone game.`,
-                tags: ['Verilog', 'Basys3 FPGA', 'Artix-7', 'Vivado', 'Xilinx'],
+                id: '// 0xFPGA · DIGITAL LOGIC', title: 'FPGA Digital Logic Design', color: '#00d4ff',
+                desc: `Suite of Verilog hardware modules designed, simulated, and deployed on Basys3 FPGA (Artix-7) using Xilinx Vivado. Each builds toward the capstone.`,
+                tags: ['Verilog', 'Basys3 FPGA', 'Artix-7', 'Vivado', 'Xilinx', 'SystemVerilog'],
                 links: [{ label: '// View Source Code on GitHub →', url: 'https://github.com/AlexTurnerDev/portfolio-site/tree/main/projects/Verlog', primary: true }],
                 media: [{ type: 'verilog' }]
             }
         };
 
         function openModal(id) {
-            const d = DATA[id];
-            if (!d) return;
+            const d = DATA[id]; if (!d) return;
             document.getElementById('m-id').textContent = d.id;
             document.getElementById('m-id').style.color = d.color;
             document.getElementById('m-title').textContent = d.title;
             document.getElementById('m-desc').textContent = d.desc;
-
-            // Tags
-            const tagsEl = document.getElementById('m-tags');
-            tagsEl.innerHTML = d.tags.map(t => `<span class="modal-tag" style="color:${d.color};border-color:${d.color}33;background:${d.color}10">${t}</span>`).join('');
-
-            // Links
-            const linksEl = document.getElementById('m-links');
-            linksEl.innerHTML = d.links.map(l => `<a href="${l.url}" class="modal-link${l.primary ? '' : ' secondary'}" target="_blank">${l.label}</a>`).join('');
-
-            // Media
-            const mediaEl = document.getElementById('m-media');
-            let html = '';
-            if (d.media) {
-                d.media.forEach(m => {
-                    if (m.type === 'video') {
-                        html += `<div class="media-item"><video controls ${m.orient === 'vertical' ? 'style="max-height:240px;margin:0 auto"' : ''}><source src="${m.src}"></video><div class="media-caption">${m.cap}</div></div>`;
-                    } else if (m.type === 'img') {
-                        html += `<div class="media-item"><img src="${m.src}" alt="${m.cap}" loading="lazy"><div class="media-caption">${m.cap}</div></div>`;
-                    } else if (m.type === 'audio') {
-                        html += `<div class="media-item"><audio controls style="width:100%;padding:8px"><source src="${m.src}"></audio><div class="media-caption">${m.cap}</div></div>`;
-                    } else if (m.type === 'note') {
-                        html += `<div style="background:var(--bg2);border:1px solid var(--wire);padding:20px;font-size:11px;color:var(--mid);font-family:'DM Sans',sans-serif;line-height:1.6">${m.cap}</div>`;
-                    } else if (m.type === 'arch') {
-                        html += `<div class="arch-svg-wrap"><div class="arch-svg-label">// SMS AGENT ARCHITECTURE</div>
+            document.getElementById('m-tags').innerHTML = d.tags.map(t => `<span class="modal-tag" style="color:${d.color};border-color:${d.color}33;background:${d.color}0f">${t}</span>`).join('');
+            const lEl = document.getElementById('m-links');
+            lEl.innerHTML = d.links.length ? d.links.map(l => `<a href="${l.url}" class="modal-link${l.primary ? '' : ' sec'}" target="_blank">${l.label}</a>`).join('') : '';
+            lEl.style.display = d.links.length ? 'flex' : 'none';
+            // media
+            let h = '';
+            (d.media || []).forEach(m => {
+                if (m.type === 'video') {
+                    const vs = m.orient === 'v' ? 'style="max-height:260px;margin:0 auto"' : '';
+                    h += `<div class="media-item"><video controls ${vs} preload="none"><source src="${m.src}"></video><div class="media-cap">${m.cap}</div></div>`;
+                } else if (m.type === 'img') {
+                    h += `<div class="media-item"><img src="${m.src}" alt="" loading="lazy"><div class="media-cap">${m.cap}</div></div>`;
+                } else if (m.type === 'audio') {
+                    h += `<div class="media-item"><audio controls preload="none" style="width:100%;padding:8px"><source src="${m.src}"></audio><div class="media-cap">${m.cap}</div></div>`;
+                } else if (m.type === 'note') {
+                    h += `<div class="media-note">${m.txt}</div>`;
+                } else if (m.type === 'arch') {
+                    h += `<div class="arch-modal-svg"><div class="arch-modal-lbl">// SMS AGENT ARCHITECTURE</div>
 <svg width="100%" viewBox="0 0 320 200">
-  <rect x="10" y="10" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
-  <text x="50" y="30" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">CUSTOMER SMS</text>
-  <rect x="120" y="10" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
-  <text x="160" y="30" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">TWILIO</text>
-  <rect x="230" y="10" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
-  <text x="270" y="30" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">n8n ROUTER</text>
-  <rect x="60" y="85" width="80" height="30" rx="2" fill="#0d0a18" stroke="#181424"/>
-  <text x="100" y="105" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">RAG + LLM</text>
-  <rect x="180" y="85" width="80" height="30" rx="2" fill="#0d0a18" stroke="#181424"/>
-  <text x="220" y="105" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">SUPABASE MEM</text>
-  <rect x="120" y="155" width="80" height="30" rx="2" fill="#0a0a0d" stroke="#1a1a20"/>
-  <text x="160" y="170" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">RESPONSE / HANDOFF</text>
-  <line x1="90" y1="40" x2="120" y2="40" stroke="#00e5a0" stroke-width="1" marker-end="url(#arr)"/>
-  <line x1="200" y1="40" x2="230" y2="40" stroke="#00e5a0" stroke-width="1"/>
-  <line x1="270" y1="40" x2="270" y2="85" stroke="#00e5a0" stroke-width="1" opacity=".4"/>
-  <line x1="160" y1="40" x2="160" y2="85" stroke="#00e5a0" stroke-width="1" opacity=".6"/>
-  <line x1="100" y1="115" x2="100" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".5"/>
-  <line x1="100" y1="155" x2="120" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".5"/>
-  <line x1="220" y1="115" x2="160" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".4" stroke-dasharray="3,3"/>
-  <text x="280" y="130" fill="#ff6b6b" font-size="6" font-family="JetBrains Mono">HANDOFF</text>
-  <text x="280" y="142" fill="#ff6b6b" font-size="6" font-family="JetBrains Mono">→ TELEGRAM</text>
+<rect x="8" y="10" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="48" y="28" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">CUSTOMER SMS</text>
+<rect x="120" y="10" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="160" y="28" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">TWILIO</text>
+<rect x="232" y="10" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="272" y="28" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">n8n ROUTER</text>
+<rect x="56" y="80" width="80" height="28" rx="2" fill="#0d0a18" stroke="#181424"/><text x="96" y="98" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">RAG + LLM</text>
+<rect x="184" y="80" width="80" height="28" rx="2" fill="#0d0a18" stroke="#181424"/><text x="224" y="98" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">SUPABASE MEM</text>
+<rect x="120" y="155" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="160" y="173" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">RESPONSE</text>
+<rect x="240" y="130" width="72" height="22" rx="2" fill="#180808" stroke="#2a1010"/><text x="276" y="145" text-anchor="middle" fill="#ff6b6b" font-size="6.5" font-family="JetBrains Mono">HANDOFF→TEL</text>
+<line x1="88" y1="38" x2="120" y2="38" stroke="#00e5a0" stroke-width="1" opacity=".5"/>
+<line x1="200" y1="38" x2="232" y2="38" stroke="#00e5a0" stroke-width="1" opacity=".5"/>
+<line x1="160" y1="38" x2="160" y2="80" stroke="#00e5a0" stroke-width="1" opacity=".4"/>
+<line x1="96" y1="108" x2="96" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".4"/>
+<line x1="96" y1="155" x2="120" y2="169" stroke="#a78bfa" stroke-width="1" opacity=".4"/>
+<line x1="224" y1="108" x2="276" y2="130" stroke="#ff6b6b" stroke-width="1" opacity=".4" stroke-dasharray="3,3"/>
+<line x1="272" y1="38" x2="272" y2="80" stroke="#00e5a0" stroke-width="1" opacity=".3"/>
+<line x1="272" y1="80" x2="224" y2="80" stroke="#00e5a0" stroke-width="1" opacity=".3"/>
 </svg>
-<div class="media-caption" style="margin-top:0">Signal flow: Customer SMS → Twilio → n8n semantic router → RAG + Supabase memory → Response (or HANDOFF to human operator)</div></div>`;
-                    } else if (m.type === 'verilog') {
-                        html += `<div class="verilog-list">
-<div class="vl-item"><div class="vl-title">// REACTION GAUNTLET (CAPSTONE)</div><div class="vl-desc">Fast-paced "Bop-It" style reaction game. LFSR-based pseudo-random command generation, RAM-backed high score system, scrolling text engine across 4-digit display, and 11-state FSM managing gameplay loops, menus, and memory I/O.</div></div>
-<div class="vl-item"><div class="vl-title">// TRAFFIC LIGHT FSM</div><div class="vl-desc">Moore FSM controlling a 4-way intersection with parameterized timers (3s, 10s, 15s). Modular design: separate timer, clock divider (100MHz → 1Hz), and top-level state machine modules.</div></div>
-<div class="vl-item"><div class="vl-title">// 8-BIT SIGNED MULTIPLIER</div><div class="vl-desc">Shift-and-add partial product accumulation supporting signed 2's complement arithmetic. Handles negative integer multiplication (e.g. -4 × 6 = -24) using the signed Verilog keyword.</div></div>
-<div class="vl-item"><div class="vl-title">// 7-SEGMENT HEX DECODER</div><div class="vl-desc">BCD-to-7-segment decoder for Basys3 FPGA. Case-statement lookup maps 4-bit binary inputs to active-low segment patterns. Includes testbench simulation and waveform verification.</div></div>
+<div class="media-cap" style="margin-top:0">Customer SMS → Twilio → n8n semantic router → RAG + Supabase memory → Response or HANDOFF to human operator via Telegram</div></div>`;
+                } else if (m.type === 'verilog') {
+                    h += `<div class="vl-list">
+<div class="vl-item"><div class="vl-title">// REACTION GAUNTLET — CAPSTONE</div><div class="vl-desc">Fast-paced reaction game on Basys3 FPGA. 4-bit LFSR generates unpredictable command sequences. 16x16 onboard RAM persists high scores. Scrolling text engine with custom character lookup table. 11 FSM states managing gameplay, menus, and memory I/O.</div></div>
+<div class="vl-item"><div class="vl-title">// TRAFFIC LIGHT FSM</div><div class="vl-desc">Moore FSM controlling a 4-way intersection with parameterized timers (3s, 10s, 15s). Modular design: separate reusable timer module, 100MHz→1Hz clock divider, and top-level state machine. Clean separation of concerns.</div></div>
+<div class="vl-item"><div class="vl-title">// 8-BIT SIGNED MULTIPLIER</div><div class="vl-desc">Shift-and-add partial product accumulation supporting signed 2's complement arithmetic. Correctly handles negative integer multiplication using the Verilog signed keyword — e.g. -4 × 6 = -24 displayed on 16 LEDs.</div></div>
+<div class="vl-item"><div class="vl-title">// 7-SEGMENT HEX DECODER</div><div class="vl-desc">BCD-to-7-segment decoder on Basys3. Case-statement lookup maps 4-bit binary inputs to active-low segment patterns. Includes full testbench with ModelSim waveform verification before hardware deployment.</div></div>
 </div>`;
-                    }
-                });
-            }
-            mediaEl.innerHTML = html;
-
+                }
+            });
+            document.getElementById('m-media').innerHTML = h;
             document.getElementById('modal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
@@ -1951,22 +2263,72 @@
             document.getElementById('m-media').innerHTML = '';
         }
 
-        // Nav active state on scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-links a');
+        // Scroll to section
+        function scrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }) }
+
+        // Scroll progress bar
         window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(s => {
-                if (window.scrollY >= s.offsetTop - 80) current = s.id;
+            const el = document.documentElement;
+            const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+            document.getElementById('progress').style.width = pct + '%';
+            updateSidebar();
+            updateNav();
+        }, { passive: true });
+
+        // Sidebar active state
+        const sectionMap = [
+            { id: 'hero', node: 0, cls: 'active-w' },
+            { id: 'ai-cloud', node: 1, cls: 'active-g' },
+            { id: 'software', node: 2, cls: 'active-p' },
+            { id: 'hardware', node: 3, cls: 'active-c' },
+            { id: 'synthesis', node: 4, cls: 'active-g' },
+            { id: 'contact', node: 5, cls: 'active-w' },
+        ];
+        const sbNodes = document.querySelectorAll('.sb-node');
+
+        function updateSidebar() {
+            let current = 0;
+            sectionMap.forEach((s, i) => {
+                const el = document.getElementById(s.id);
+                if (el && window.scrollY >= el.offsetTop - 120) current = i;
+            });
+            sbNodes.forEach(n => n.className = 'sb-node');
+            sbNodes[current].classList.add(sectionMap[current].cls);
+        }
+
+        // Nav active links
+        const navLinks = document.querySelectorAll('.nav-links a');
+        function updateNav() {
+            let cur = '';
+            document.querySelectorAll('section[id]').forEach(s => {
+                if (window.scrollY >= s.offsetTop - 80) cur = s.id;
             });
             navLinks.forEach(a => {
-                a.classList.remove('active');
-                if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+                a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
             });
-        });
+        }
 
-        // Escape key closes modal
+        // Counter animation
+        function animateCounters() {
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const target = +el.dataset.count;
+                const dur = 1200; const step = dur / 60;
+                let current = 0;
+                const inc = target / 60;
+                const timer = setInterval(() => {
+                    current = Math.min(current + inc, target);
+                    el.textContent = Math.round(current);
+                    if (current >= target) clearInterval(timer);
+                }, step);
+            });
+        }
+        setTimeout(animateCounters, 800);
+
+        // Escape closes modal
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal() });
+
+        // Init sidebar
+        updateSidebar();
     </script>
 </body>
 
