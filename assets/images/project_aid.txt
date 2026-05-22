@@ -1,0 +1,74 @@
+// 2. PROJECT DATA
+        const projects = [
+            {
+                id: 'ai-assistant',
+                category: 'system',
+                title: 'IoT Home Control System',
+                tags: ['STM32', 'Python', 'C++', 'UART', 'n8n'],
+                shortDesc: 'Hybrid Cloud-to-Edge architecture bridging Telegram with embedded STM32 hardware.',
+                longDesc: `Architected a full-duplex IoT bridge allowing remote control of embedded hardware via a high-latency cloud interface.
+                            • <b>Protocol Translation:</b> Engineered a custom n8n pipeline to parse multi-modal commands (Voice/Text/Image) and serialize them for UART transmission via a Python serial bridge.
+                            • <b>Resource Optimization:</b> Implemented DMA (Direct Memory Access) and SPI to render images asynchronously on an ST7735 display without blocking real-time lighting interrupts.`,
+                gallery: [
+                    { type: 'image', src: 'assets/images/AI_assistant_n8n.png', caption: 'n8n Workflow - Orchestrating Telegram, Vision AI, and Serial Communication' },
+                    { type: 'video', src: 'assets/videos/AI_assistant_demo.mp4', orientation: 'vertical', caption: 'Live Hardware Demo - Controlling lights and display via Telegram' },
+                    { type: 'video', src: 'assets/videos/AI_assistant_explanation.mp4', caption: 'Deep Dive - Understanding the STM32 Architecture & DMA Logic' },
+                ],
+                links: [
+                    { label: 'View Source Code', url: 'https://github.com/AlexTurnerDev/portfolio-site/tree/main/projects/STM/personal%20assistant', icon: 'fab fa-github', isGithub: true },
+                    { label: 'View Technical Report', url: 'assets/docs/260 Final_Project (1).pdf', icon: 'fas fa-file-pdf' }
+                ]
+            },
+            {
+                id: 'verilog-design',
+                category: 'system',
+                title: 'FPGA Digital Logic Design',
+                tags: ['Verilog', 'State Machines', 'Counters', 'Vivado'],
+                shortDesc: 'Complex digital logic circuits designed and simulated for FPGA architecture.',
+                longDesc: `Designed and verified high-speed digital logic modules using Verilog and SystemVerilog.
+                            • <b>Hardware Description:</b> Implemented finite state machines (FSM) and data path logic for real-time processing tasks.
+                            • <b>Simulation & Verification:</b> Utilized ModelSim for rigorous test-benching to ensure timing constraints and signal integrity before hardware synthesis.
+                            • <b>Optimization:</b> Optimized logic gate usage (LUTs) to minimize resource consumption on the target FPGA fabric.`,
+                links: [
+                    { label: 'View Verilog Code', url: 'https://github.com/AlexTurnerDev/portfolio-site/tree/main/projects/Verlog', icon: 'fab fa-github', isGithub: true }
+                ]
+            },
+            {
+                id: 'vapi-agent',
+                category: 'ai',
+                title: 'Intelligent Voice Receptionist',
+                tags: ['Vapi.ai', 'Supabase', 'n8n', 'RAG', 'GoHighLevel'],
+                shortDesc: 'Real-time Voice AI agent with sub-second latency, handling appointments and complex queries.',
+                longDesc: `Engineered a voice agent capable of handling real-time phone calls with near-human latency masking.
+                        • <b>Latency Masking:</b> Implemented "filler phrases" and optimistic tool execution to mask the delay of external API calls.
+                        • <b>Tool Use:</b> Connected the agent to the <b>GoHighLevel CRM API</b> via n8n to check availability, create contacts, and book appointments in real-time.`, // UPDATED THIS LINE
+                gallery: [
+                    { type: 'video', src: 'assets/videos/AI_VapiAgentDemo.mp4', caption: 'Watch the agent handle a natural interruption (context switching) and execute a real-time write operation to the CRM with sub-second latency.' },
+                    { type: 'audio', src: 'assets/audio/AI_VapiAgent_Audio.wav', caption: 'Raw Latency Test Caption: "High-fidelity stereo recording demonstrating the Vapi engine\'s sub-second response time and natural turn-taking capabilities during a complex booking scenario.' },
+                    { type: 'image', src: 'assets/images/AI_VapiAgent_VapiTools.png', caption: 'Modular tool definitions that allow the AI to autonomously route conversations to the correct backend workflow.' },
+                    { type: 'image', src: 'assets/images/AI_VapiAgent_GetDateNode.png', caption: 'Custom JavaScript middleware I wrote to parse relative dates (e.g., \'Next Tuesday\') into ISO timestamps.' },
+                    { type: 'image', src: 'assets/images/AI_VapiAgent_SummaryWorkflow.png', caption: 'An asynchronous post-call pipeline that uses an LLM to structure and file the call summary automatically.' },
+                    { type: 'image', src: 'assets/images/AI_VapiAgent_BookAppointmentWorkflow.png', caption: 'The transactional workflow that executes the booking and syncs CRM data with sub-second latency.' },
+                ],
+                links: []
+            },
+            {
+                id: 'ai-textingbot',
+                category: 'system',
+                title: 'Context-Aware SMS Agent',
+                tags: ['n8n', 'Supabase', 'Twilio', 'Google Drive API'],
+                shortDesc: 'Stateful SMS bot with 15-message memory, human-like typing delays, and A2P compliance routing.',
+                longDesc: `Architected a robust conversational interface designed to solve "Hallucination Risk" for local service businesses.
+                            • <b>Context Retention:</b> Implemented a "Sliding Window" memory system in Supabase that retains the last 15 messages, allowing the bot to recall details like names and specific problems (e.g., "My dog Cooper").
+                            • <b>Human-Like UX:</b> Engineered a variable latency algorithm that delays responses based on message length, mimicking natural human typing speed.
+                            • <b>Automated Knowledge Base:</b> Built a syncing pipeline where uploading files to a specific Google Drive folder automatically updates the vector store embeddings.
+                            • <b>Semantic Guardrails:</b> Engineered a "System Prompt" protocol where the LLM flags unknown topics with <code>HANDOFF</code> codes. A deterministic router detects these flags and physically redirects the query to Telegram for Human-in-the-Loop review.`,
+                gallery: [
+                    { type: 'video', src: 'assets/videos/AI_TextingBot_Demo.mp4', orientation: 'vertical', caption: 'User Experience - Handling complex scheduling via SMS with human-like latency.' },
+                    { type: 'image', src: 'assets/images/AI_TextingBot_Telegram.png', caption: 'Dual-Channel Routing: The AI answers the customer (top) but instantly escalates safety risks to the owner (bottom) to avoid hallucinations.' },
+                    { type: 'image', src: 'assets/images/AI_TextingBot_n8n.png', caption: 'Event-Driven Architecture: The "Semantic Router" workflow connecting Twilio, Supabase Memory, and the RAG Knowledge Base.' },
+                    { type: 'image', src: 'assets/images/Portfolio_RAG_Agent.png', caption: 'Automated Ingestion Pipeline: A background worker that detects changes in Google Drive, calculates file deltas, and updates Supabase embeddings instantly.' },
+                ],
+                links: []
+            },
+        ];
