@@ -78,12 +78,13 @@
             position: fixed;
             top: 0;
             left: 0;
-            height: 2px;
+            height: 4px;
             background: var(--green);
             z-index: 9999;
             width: 0%;
             transition: width .08s linear;
-            pointer-events: none
+            pointer-events: none;
+            box-shadow: 0 0 8px rgba(0, 229, 160, .6)
         }
 
         /* SIDEBAR */
@@ -196,19 +197,19 @@
             left: 52px;
             right: 0;
             z-index: 300;
-            height: 52px;
+            height: 60px;
             padding: 0 clamp(20px, 4vw, 48px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(6, 6, 8, .88);
+            background: rgba(6, 6, 8, .92);
             backdrop-filter: blur(24px);
-            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
         }
 
         .nav-brand {
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 700;
             color: var(--white);
             letter-spacing: .07em
         }
@@ -223,9 +224,9 @@
         }
 
         .nav-links a {
-            font-size: 9px;
-            letter-spacing: .16em;
-            color: var(--mid);
+            font-size: 11px;
+            letter-spacing: .14em;
+            color: #999;
             text-transform: uppercase;
             text-decoration: none;
             transition: color .2s
@@ -237,12 +238,12 @@
         }
 
         .nav-connect {
-            font-size: 9px;
-            font-weight: 500;
-            letter-spacing: .12em;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .1em;
             color: var(--green);
             border: 1px solid var(--gb);
-            padding: 7px 16px;
+            padding: 9px 20px;
             background: var(--gd);
             text-decoration: none;
             transition: all .2s;
@@ -292,7 +293,7 @@
             position: relative;
             z-index: 2;
             display: grid;
-            grid-template-columns: 48fr 52fr;
+            grid-template-columns: 1fr 1fr;
             gap: clamp(32px, 5vw, 72px);
             align-items: center;
             width: 100%;
@@ -375,8 +376,8 @@
         }
 
         .hero-tag {
-            font-size: 9px;
-            letter-spacing: .24em;
+            font-size: 11px;
+            letter-spacing: .18em;
             color: var(--green);
             margin-bottom: 16px;
             display: flex;
@@ -399,8 +400,8 @@
         }
 
         .hero-photo {
-            width: 52px;
-            height: 52px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gb);
@@ -440,8 +441,8 @@
         }
 
         .hero-hook {
-            font-size: 14px;
-            color: #888;
+            font-size: 15px;
+            color: #aaa;
             line-height: 1.78;
             margin-bottom: 28px;
             max-width: 460px;
@@ -459,11 +460,11 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            font-size: 9px;
-            letter-spacing: .14em;
+            font-size: 11px;
+            letter-spacing: .12em;
             color: var(--green);
             border: 1px solid var(--gb);
-            padding: 5px 12px;
+            padding: 7px 14px;
             background: var(--gd);
             margin-bottom: 24px
         }
@@ -542,9 +543,9 @@
         }
 
         .stat-label {
-            font-size: 8px;
-            letter-spacing: .12em;
-            color: var(--mid);
+            font-size: 10px;
+            letter-spacing: .1em;
+            color: #888;
             margin-top: 3px
         }
 
@@ -656,9 +657,9 @@
         }
 
         .l-tag {
-            font-size: 9px;
-            letter-spacing: .22em;
-            margin-bottom: 8px;
+            font-size: 11px;
+            letter-spacing: .18em;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px
@@ -704,8 +705,8 @@
         }
 
         .l-sub {
-            font-size: 13px;
-            color: #888;
+            font-size: 14px;
+            color: #aaa;
             line-height: 1.65;
             max-width: 640px;
             font-family: 'DM Sans', sans-serif;
@@ -732,12 +733,14 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transition: border-color .2s, background .2s
+            transition: all .25s
         }
 
         .card:hover {
             background: var(--bg3);
-            border-color: var(--wire2)
+            border-color: var(--green);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0, 229, 160, .12)
         }
 
         .card-bar {
@@ -749,8 +752,8 @@
         }
 
         .c-id {
-            font-size: 8px;
-            letter-spacing: .18em;
+            font-size: 10px;
+            letter-spacing: .14em;
             margin-bottom: 10px
         }
 
@@ -763,8 +766,8 @@
         }
 
         .c-desc {
-            font-size: 12px;
-            color: #888;
+            font-size: 13px;
+            color: #aaa;
             line-height: 1.68;
             margin-bottom: 14px;
             font-family: 'DM Sans', sans-serif
@@ -777,8 +780,8 @@
         }
 
         .c-tag {
-            font-size: 8px;
-            padding: 3px 8px;
+            font-size: 10px;
+            padding: 4px 10px;
             border: 1px solid;
             letter-spacing: .04em
         }
@@ -789,14 +792,31 @@
             right: 16px;
             font-size: 9px;
             color: var(--mid);
-            opacity: 0;
-            transition: opacity .2s
+            opacity: .5;
+            transition: all .2s;
+            letter-spacing: .1em
         }
 
-        .card:hover .c-arrow {
-            opacity: 1
+        .c-click-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            letter-spacing: .1em;
+            color: var(--mid);
+            border: 1px solid var(--muted, #2a2a35);
+            padding: 5px 12px;
+            margin-top: 12px;
+            transition: all .25s
         }
 
+        .card:hover .c-click-hint {
+            color: var(--green);
+            border-color: var(--gb);
+            background: var(--gd)
+        }
+
+        /* arrow replaced by c-click-hint */
         /* layer color tokens */
         .lg .card-bar {
             background: var(--green)
@@ -1014,15 +1034,15 @@
         }
 
         .anode-sys {
-            font-size: 8px;
+            font-size: 10px;
             color: var(--green);
             margin-bottom: 4px;
             letter-spacing: .1em
         }
 
         .anode-name {
-            font-size: 11px;
-            color: #999;
+            font-size: 13px;
+            color: #bbb;
             font-family: 'DM Sans', sans-serif
         }
 
@@ -1060,8 +1080,8 @@
         }
 
         .sk-head {
-            font-size: 9px;
-            letter-spacing: .18em;
+            font-size: 11px;
+            letter-spacing: .14em;
             color: var(--green);
             margin-bottom: 12px;
             padding-bottom: 8px;
@@ -1069,9 +1089,9 @@
         }
 
         .sk-item {
-            font-size: 12px;
-            color: #999;
-            padding: 4px 0;
+            font-size: 13px;
+            color: #bbb;
+            padding: 5px 0;
             border-bottom: 1px solid var(--wire);
             font-family: 'DM Sans', sans-serif
         }
@@ -1123,16 +1143,16 @@
         }
 
         .cert-name {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--white);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             font-family: 'DM Sans', sans-serif;
             font-weight: 600
         }
 
         .cert-type {
-            font-size: 8px;
-            letter-spacing: .12em
+            font-size: 10px;
+            letter-spacing: .1em
         }
 
         /* CONTACT */
@@ -1142,10 +1162,10 @@
         }
 
         .con-tag {
-            font-size: 9px;
-            letter-spacing: .22em;
+            font-size: 11px;
+            letter-spacing: .18em;
             color: var(--green);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px
@@ -1168,8 +1188,8 @@
         }
 
         .con-sub {
-            font-size: 13px;
-            color: #888;
+            font-size: 15px;
+            color: #bbb;
             margin-bottom: 24px;
             font-family: 'DM Sans', sans-serif;
             line-height: 1.65;
@@ -1196,15 +1216,15 @@
         }
 
         .con-key {
-            font-size: 8px;
-            letter-spacing: .15em;
-            color: var(--mid);
+            font-size: 10px;
+            letter-spacing: .14em;
+            color: #aaa;
             margin-bottom: 6px
         }
 
         .con-val {
-            font-size: 12px;
-            color: #bbb;
+            font-size: 14px;
+            color: var(--white);
             font-family: 'DM Sans', sans-serif
         }
 
@@ -1238,10 +1258,10 @@
             align-items: center;
             gap: 8px;
             background: transparent;
-            color: #bbb;
+            color: var(--green);
             padding: 14px 24px;
-            border: 1px solid var(--wire2);
-            font-size: 10px;
+            border: 1px solid var(--gb);
+            font-size: 11px;
             letter-spacing: .1em;
             text-decoration: none;
             transition: all .2s;
@@ -1544,7 +1564,8 @@
             <a href="#synthesis">FEATURED</a>
             <a href="#contact">CONTACT</a>
         </div>
-        <a href="mailto:alex@alexturner-portfolio.com" class="nav-connect">LET'S CONNECT →</a>
+        <a href="mailto:alex@alexturner-portfolio.com" class="nav-connect" style="font-size:11px;font-weight:700">✉
+            LET'S CONNECT</a>
     </nav>
 
     <!-- HERO -->
@@ -1593,7 +1614,7 @@
                         <div class="stat-label">CERTIFIED</div>
                     </div>
                     <div>
-                        <div class="stat-val" data-count="2026" data-prefix="">0</div>
+                        <div class="stat-val" data-count="2027" data-prefix="">0</div>
                         <div class="stat-label">GRADUATING</div>
                     </div>
                 </div>
@@ -1872,7 +1893,7 @@
                 <div class="c-tags"><span class="c-tag">Vapi.ai</span><span class="c-tag">n8n</span><span
                         class="c-tag">Supabase</span><span class="c-tag">GoHighLevel</span><span
                         class="c-tag">RAG</span></div>
-                <span class="c-arrow">VIEW PROJECT →</span>
+                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
             <div class="card" onclick="openModal('sms')">
                 <div class="card-bar"></div>
@@ -1883,7 +1904,7 @@
                     guardrails routing unknown topics to human operators.</div>
                 <div class="c-tags"><span class="c-tag">n8n</span><span class="c-tag">Supabase</span><span
                         class="c-tag">Twilio</span><span class="c-tag">Google Drive API</span></div>
-                <span class="c-arrow">VIEW PROJECT →</span>
+                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
         </div>
     </section>
@@ -1903,7 +1924,7 @@
                     structured reports autonomously without human checkpoints.</div>
                 <div class="c-tags"><span class="c-tag">LangGraph</span><span class="c-tag">Groq</span><span
                         class="c-tag">Python</span><span class="c-tag">Agentic AI</span></div>
-                <span class="c-arrow">VIEW PROJECT →</span>
+                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
             <div class="card" onclick="openModal('voicelens')">
                 <div class="card-bar"></div>
@@ -1914,7 +1935,7 @@
                 </div>
                 <div class="c-tags"><span class="c-tag">FastAPI</span><span class="c-tag">Celery</span><span
                         class="c-tag">Redis</span><span class="c-tag">Voice AI</span></div>
-                <span class="c-arrow">VIEW PROJECT →</span>
+                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
         </div>
     </section>
@@ -1945,7 +1966,7 @@
                 <div class="c-tags"><span class="c-tag">STM32</span><span class="c-tag">C++</span><span
                         class="c-tag">UART</span><span class="c-tag">DMA/SPI</span><span class="c-tag">n8n</span><span
                         class="c-tag">Python</span></div>
-                <span class="c-arrow">VIEW PROJECT →</span>
+                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
             <div class="card" onclick="openModal('fpga')">
                 <div class="card-bar"></div>
@@ -1956,7 +1977,7 @@
                     FSM managing full gameplay loops.</div>
                 <div class="c-tags"><span class="c-tag">Verilog</span><span class="c-tag">FPGA</span><span
                         class="c-tag">Vivado</span><span class="c-tag">FSM</span><span class="c-tag">LFSR</span></div>
-                <span class="c-arrow">VIEW PROJECT →</span>
+                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
         </div>
     </section>
@@ -2091,8 +2112,8 @@
     <section id="contact" class="contact-wrap">
         <div class="con-tag">OUTPUT — CONTACT_GATEWAY</div>
         <h2 class="con-title">Let's Build Something</h2>
-        <p class="con-sub">Open to part-time and contract AI engineering roles. BYU-Idaho Computer Engineering student,
-            graduating 2026. If you're building something interesting with AI — let's talk.</p>
+        <p class="con-sub">Open to part-time and contract AI engineering roles. BYU-Idaho Software Engineering student,
+            graduating 2027. If you're building something interesting with AI — let's talk.</p>
         <div class="con-grid">
             <div class="con-item">
                 <div class="con-key">EMAIL</div>
@@ -2100,7 +2121,9 @@
             </div>
             <div class="con-item">
                 <div class="con-key">GITHUB</div>
-                <div class="con-val">github.com/AlexTurnerDev</div>
+                <div class="con-val"><a href="https://github.com/AlexTurnerDev" target="_blank"
+                        style="color:var(--green);text-decoration:none;border-bottom:1px solid var(--gb)">github.com/AlexTurnerDev</a>
+                </div>
             </div>
             <div class="con-item">
                 <div class="con-key">LOCATION</div>
@@ -2115,7 +2138,7 @@
 
     <!-- FOOTER -->
     <div class="footer">
-        © 2026 ALEX TURNER &nbsp;·&nbsp;
+        © 2027 ALEX TURNER &nbsp;·&nbsp;
         <a href="privacy.html">PRIVACY</a> &nbsp;·&nbsp;
         <a href="terms.html">TERMS</a>
     </div>
@@ -2284,14 +2307,23 @@
             { id: 'synthesis', node: 4, cls: 'active-g' },
             { id: 'contact', node: 5, cls: 'active-w' },
         ];
+        // Also watch footer for contact completion
+        const contactSection = document.getElementById('contact');
         const sbNodes = document.querySelectorAll('.sb-node');
 
         function updateSidebar() {
             let current = 0;
-            sectionMap.forEach((s, i) => {
-                const el = document.getElementById(s.id);
-                if (el && window.scrollY >= el.offsetTop - 120) current = i;
-            });
+            const scrollBottom = window.scrollY + window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            // If near bottom of page, force contact active
+            if (scrollBottom >= docHeight - 60) {
+                current = 5;
+            } else {
+                sectionMap.forEach((s, i) => {
+                    const el = document.getElementById(s.id);
+                    if (el && window.scrollY >= el.offsetTop - 120) current = i;
+                });
+            }
             sbNodes.forEach(n => n.className = 'sb-node');
             sbNodes[current].classList.add(sectionMap[current].cls);
         }
