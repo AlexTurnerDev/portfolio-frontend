@@ -100,7 +100,7 @@
             flex-direction: column;
             align-items: center;
             padding: 80px 0 20px;
-            z-index: 400;
+            z-index: 400
         }
 
         .sb-section {
@@ -118,7 +118,7 @@
             align-items: center;
             padding: 10px 0;
             position: relative;
-            cursor: pointer;
+            cursor: pointer
         }
 
         .sb-dot {
@@ -177,7 +177,7 @@
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity .15s;
+            transition: opacity .15s
         }
 
         .sb-node:hover .sb-tip {
@@ -204,7 +204,7 @@
             justify-content: space-between;
             background: rgba(6, 6, 8, .92);
             backdrop-filter: blur(24px);
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            border-bottom: 1px solid rgba(255, 255, 255, .08)
         }
 
         .nav-brand {
@@ -247,6 +247,7 @@
             background: var(--gd);
             text-decoration: none;
             transition: all .2s;
+            cursor: pointer
         }
 
         .nav-connect:hover {
@@ -266,17 +267,15 @@
             display: flex;
             align-items: center;
             position: relative;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .hero-grid {
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background-image:
-                linear-gradient(rgba(0, 229, 160, .035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 229, 160, .035) 1px, transparent 1px);
-            background-size: 52px 52px;
+            background-image: linear-gradient(rgba(0, 229, 160, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 160, .035) 1px, transparent 1px);
+            background-size: 52px 52px
         }
 
         .hero-glow {
@@ -310,7 +309,6 @@
             }
         }
 
-        /* hero entrance animations */
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -455,7 +453,6 @@
             font-weight: 500
         }
 
-        /* status pill */
         .status-pill {
             display: inline-flex;
             align-items: center;
@@ -526,7 +523,6 @@
             color: var(--white)
         }
 
-        /* stats */
         .hero-stats {
             display: flex;
             gap: clamp(16px, 3vw, 32px);
@@ -786,17 +782,6 @@
             letter-spacing: .04em
         }
 
-        .c-arrow {
-            position: absolute;
-            bottom: 14px;
-            right: 16px;
-            font-size: 9px;
-            color: var(--mid);
-            opacity: .5;
-            transition: all .2s;
-            letter-spacing: .1em
-        }
-
         .c-click-hint {
             display: inline-flex;
             align-items: center;
@@ -816,7 +801,94 @@
             background: var(--gd)
         }
 
-        /* arrow replaced by c-click-hint */
+        /* DEMO CARD — special treatment */
+        .card-demo {
+            background: var(--bg3);
+            border: 1px solid var(--gb) !important
+        }
+
+        .card-demo:hover {
+            border-color: var(--green) !important;
+            box-shadow: 0 8px 40px rgba(0, 229, 160, .18) !important
+        }
+
+        .card-demo .card-bar {
+            background: var(--green)
+        }
+
+        .card-demo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 8px;
+            letter-spacing: .16em;
+            color: var(--green);
+            border: 1px solid var(--gb);
+            padding: 3px 8px;
+            background: var(--gd);
+            margin-bottom: 12px
+        }
+
+        .card-demo-badge::before {
+            content: '●';
+            font-size: 6px;
+            animation: blink 1.5s infinite
+        }
+
+        .card-demo-open {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            color: var(--bg);
+            background: var(--green);
+            padding: 10px 20px;
+            border: none;
+            margin-top: 12px;
+            transition: all .2s
+        }
+
+        .card-demo-open:hover {
+            background: #00ffb3
+        }
+
+        /* COMING SOON CARD */
+        .card-soon {
+            background: var(--bg3);
+            border: 1px solid var(--pb) !important;
+            cursor: default
+        }
+
+        .card-soon:hover {
+            border-color: var(--purple) !important;
+            box-shadow: 0 8px 32px rgba(167, 139, 250, .12) !important;
+            transform: translateY(-2px) !important
+        }
+
+        .card-soon .card-bar {
+            background: var(--purple)
+        }
+
+        .card-soon-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 8px;
+            letter-spacing: .16em;
+            color: var(--purple);
+            border: 1px solid var(--pb);
+            padding: 3px 8px;
+            background: var(--pd);
+            margin-bottom: 12px
+        }
+
+        .card-soon-badge::before {
+            content: '◐';
+            font-size: 8px
+        }
+
         /* layer color tokens */
         .lg .card-bar {
             background: var(--green)
@@ -935,7 +1007,6 @@
             font-family: 'DM Sans', sans-serif
         }
 
-        /* demo callout */
         .demo-callout {
             background: var(--bg3);
             border: 1px solid var(--gb);
@@ -1247,6 +1318,7 @@
             letter-spacing: .14em;
             text-decoration: none;
             transition: all .2s;
+            cursor: pointer
         }
 
         .connect-btn:hover {
@@ -1264,7 +1336,7 @@
             font-size: 11px;
             letter-spacing: .1em;
             text-decoration: none;
-            transition: all .2s;
+            transition: all .2s
         }
 
         .gh-btn:hover {
@@ -1280,15 +1352,6 @@
             font-size: 9px;
             color: #444;
             letter-spacing: .1em
-        }
-
-        .footer a {
-            color: #444;
-            text-decoration: none
-        }
-
-        .footer a:hover {
-            color: var(--green)
         }
 
         /* MODAL */
@@ -1511,6 +1574,265 @@
             font-family: 'DM Sans', sans-serif;
             line-height: 1.6
         }
+
+        /* CHAT WIDGET */
+        #chat-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 500;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px
+        }
+
+        #chat-bubble {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--green);
+            border: 2px solid rgba(0, 229, 160, .4);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 229, 160, .35);
+            transition: all .3s;
+            flex-shrink: 0
+        }
+
+        #chat-bubble:hover {
+            background: #00ffb3;
+            box-shadow: 0 0 28px rgba(0, 229, 160, .5)
+        }
+
+        #chat-bubble svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--bg)
+        }
+
+        #chat-panel {
+            width: 340px;
+            background: var(--bg2);
+            border: 1px solid var(--gb);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, .6);
+            overflow: hidden;
+            transition: all .35s;
+            max-height: 480px
+        }
+
+        #chat-panel.collapsed {
+            display: none
+        }
+
+        .chat-header {
+            background: var(--bg3);
+            border-bottom: 1px solid var(--wire);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .chat-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 1.5s infinite;
+            flex-shrink: 0
+        }
+
+        .chat-header-title {
+            font-size: 10px;
+            letter-spacing: .12em;
+            color: var(--white)
+        }
+
+        .chat-header-sub {
+            font-size: 8px;
+            color: var(--mid);
+            margin-top: 1px;
+            letter-spacing: .06em
+        }
+
+        .chat-min {
+            background: transparent;
+            border: none;
+            color: var(--mid);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 2px 6px;
+            transition: color .2s
+        }
+
+        .chat-min:hover {
+            color: var(--white)
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 200px;
+            max-height: 300px
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 3px
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--wire2)
+        }
+
+        .msg {
+            max-width: 88%;
+            padding: 9px 12px;
+            font-size: 12px;
+            line-height: 1.55;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .msg.bot {
+            background: var(--bg3);
+            border: 1px solid var(--wire);
+            color: var(--text);
+            align-self: flex-start;
+            border-left: 2px solid var(--green)
+        }
+
+        .msg.usr {
+            background: var(--gd);
+            border: 1px solid var(--gb);
+            color: var(--white);
+            align-self: flex-end
+        }
+
+        .msg.sys {
+            background: transparent;
+            border: 1px solid var(--wire2);
+            color: var(--mid);
+            align-self: center;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: .06em;
+            text-align: center;
+            padding: 5px 10px
+        }
+
+        .chat-typing {
+            display: none;
+            align-self: flex-start;
+            padding: 9px 12px;
+            background: var(--bg3);
+            border: 1px solid var(--wire);
+            border-left: 2px solid var(--green)
+        }
+
+        .chat-typing span {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: typing-dot 1.2s infinite
+        }
+
+        .chat-typing span:nth-child(2) {
+            animation-delay: .2s
+        }
+
+        .chat-typing span:nth-child(3) {
+            animation-delay: .4s
+        }
+
+        @keyframes typing-dot {
+
+            0%,
+            80%,
+            100% {
+                opacity: .2
+            }
+
+            40% {
+                opacity: 1
+            }
+        }
+
+        .chat-input-row {
+            border-top: 1px solid var(--wire);
+            padding: 10px 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        #chat-input {
+            flex: 1;
+            background: var(--bg3);
+            border: 1px solid var(--wire2);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            padding: 8px 10px;
+            outline: none;
+            resize: none;
+            height: 36px;
+            transition: border-color .2s
+        }
+
+        #chat-input:focus {
+            border-color: var(--gb)
+        }
+
+        #chat-input::placeholder {
+            color: #555
+        }
+
+        #chat-send {
+            background: var(--green);
+            border: none;
+            color: var(--bg);
+            padding: 8px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            transition: all .2s;
+            height: 36px;
+            white-space: nowrap
+        }
+
+        #chat-send:hover {
+            background: #00ffb3
+        }
+
+        .chat-footer {
+            font-size: 8px;
+            color: #333;
+            text-align: center;
+            padding: 6px;
+            letter-spacing: .06em;
+            border-top: 1px solid var(--wire)
+        }
     </style>
 </head>
 
@@ -1564,8 +1886,7 @@
             <a href="#synthesis">FEATURED</a>
             <a href="#contact">CONTACT</a>
         </div>
-        <a href="mailto:alex@alexturner-portfolio.com" class="nav-connect" style="font-size:11px;font-weight:700">✉
-            LET'S CONNECT</a>
+        <button class="nav-connect" onclick="openEmail()">✉ LET'S CONNECT</button>
     </nav>
 
     <!-- HERO -->
@@ -1594,7 +1915,7 @@
                         systems</em> — from LangGraph agents and multi-tenant RAG pipelines to self-hosted cloud
                     infrastructure and embedded hardware.</p>
                 <div class="hero-btns fade-up-5">
-                    <a href="mailto:alex@alexturner-portfolio.com" class="connect-btn">LET'S CONNECT →</a>
+                    <button class="connect-btn" onclick="openEmail()">LET'S CONNECT →</button>
                     <a href="https://github.com/AlexTurnerDev" class="gh-btn" target="_blank">// GITHUB</a>
                     <button class="btn-ghost"
                         onclick="document.getElementById('ai-cloud').scrollIntoView({behavior:'smooth'})">EXPLORE THE
@@ -1614,12 +1935,11 @@
                         <div class="stat-label">CERTIFIED</div>
                     </div>
                     <div>
-                        <div class="stat-val" data-count="2027" data-prefix="">0</div>
+                        <div class="stat-val" data-count="2027">0</div>
                         <div class="stat-label">GRADUATING</div>
                     </div>
                 </div>
             </div>
-
             <!-- ORBIT -->
             <div class="hero-orbit fade-in-orbit">
                 <svg width="420" height="420" viewBox="0 0 420 420">
@@ -1629,7 +1949,6 @@
                         </pattern>
                     </defs>
                     <rect width="420" height="420" fill="url(#pgrid)" />
-                    <!-- Rings -->
                     <circle cx="210" cy="210" r="170" fill="none" stroke="rgba(0,229,160,.07)" stroke-width="1"
                         stroke-dasharray="4,8" />
                     <g class="r1">
@@ -1648,22 +1967,18 @@
                         <circle cx="210" cy="210" r="58" fill="none" stroke="rgba(0,212,255,.4)" stroke-width="1.5"
                             stroke-dasharray="10,92" />
                     </g>
-                    <!-- Center -->
                     <circle cx="210" cy="210" r="22" fill="#08080c" stroke="rgba(0,229,160,.45)" stroke-width="1" />
                     <circle cx="210" cy="210" r="8" fill="#00e5a0" opacity=".65" class="pd" />
                     <text x="210" y="246" text-anchor="middle" fill="rgba(0,229,160,.55)" font-size="7"
                         font-family="JetBrains Mono" letter-spacing="1">SYNTHESIS</text>
-                    <!-- Cloud spokes -->
                     <line x1="210" y1="188" x2="210" y2="42" stroke="rgba(0,229,160,.15)" stroke-width="1" />
                     <line x1="210" y1="188" x2="360" y2="126" stroke="rgba(0,229,160,.15)" stroke-width="1" />
                     <line x1="210" y1="188" x2="60" y2="126" stroke="rgba(0,229,160,.15)" stroke-width="1" />
                     <line x1="210" y1="188" x2="42" y2="210" stroke="rgba(0,229,160,.1)" stroke-width="1" />
-                    <!-- Animated signals -->
                     <line x1="210" y1="188" x2="210" y2="42" stroke="#00e5a0" stroke-width="1.5" stroke-dasharray="8,90"
                         style="animation:da 4s linear infinite" />
                     <line x1="210" y1="188" x2="360" y2="126" stroke="#00e5a0" stroke-width="1.5"
                         stroke-dasharray="8,90" style="animation:da 4s linear infinite;animation-delay:1.3s" />
-                    <!-- Cloud nodes -->
                     <circle cx="210" cy="40" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd" />
                     <circle cx="362" cy="124" r="4" fill="none" stroke="#00e5a0" stroke-width="1.5" class="pd"
                         style="animation-delay:.5s" />
@@ -1675,11 +1990,8 @@
                         font-family="JetBrains Mono">n8n</text>
                     <text x="16" y="122" fill="rgba(0,229,160,.65)" font-size="7"
                         font-family="JetBrains Mono">Docker</text>
-                    <!-- Software spokes -->
                     <line x1="268" y1="210" x2="378" y2="210" stroke="rgba(167,139,250,.15)" stroke-width="1" />
                     <line x1="152" y1="210" x2="42" y2="210" stroke="rgba(167,139,250,.15)" stroke-width="1" />
-                    <line x1="210" y1="188" x2="255" y2="104" stroke="rgba(167,139,250,.1)" stroke-width="1" />
-                    <!-- Animated software -->
                     <line x1="268" y1="210" x2="378" y2="210" stroke="#a78bfa" stroke-width="1.5"
                         stroke-dasharray="7,62" style="animation:da2 3s linear infinite" />
                     <line x1="152" y1="210" x2="42" y2="210" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="7,62"
@@ -1692,19 +2004,11 @@
                         font-family="JetBrains Mono">API</text>
                     <text x="2" y="213" fill="rgba(167,139,250,.65)" font-size="7"
                         font-family="JetBrains Mono">RAG</text>
-                    <!-- Hardware spokes -->
                     <line x1="210" y1="232" x2="210" y2="378" stroke="rgba(0,212,255,.15)" stroke-width="1" />
-                    <line x1="258" y1="258" x2="344" y2="328" stroke="rgba(0,212,255,.15)" stroke-width="1" />
-                    <line x1="162" y1="258" x2="76" y2="328" stroke="rgba(0,212,255,.15)" stroke-width="1" />
-                    <!-- Animated hardware -->
                     <line x1="210" y1="232" x2="210" y2="378" stroke="#00d4ff" stroke-width="1.5"
                         stroke-dasharray="7,72" style="animation:da3 3.5s linear infinite" />
                     <circle cx="210" cy="380" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
                         style="animation-delay:.4s" />
-                    <circle cx="346" cy="330" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
-                        style="animation-delay:1s" />
-                    <circle cx="74" cy="330" r="4" fill="none" stroke="#00d4ff" stroke-width="1.5" class="pd"
-                        style="animation-delay:1.6s" />
                     <text x="210" y="396" text-anchor="middle" fill="rgba(0,212,255,.65)" font-size="7"
                         font-family="JetBrains Mono">STM32</text>
                     <text x="350" y="338" fill="rgba(0,212,255,.65)" font-size="7"
@@ -1719,7 +2023,6 @@
     <!-- TRANSITION SVG -->
     <div class="transition-zone">
         <svg class="t-svg" height="320" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet">
-            <!-- Cloud tier -->
             <rect x="55" y="16" width="86" height="36" rx="2" fill="#09090d" stroke="#18181e" stroke-width="1" />
             <text x="98" y="30" text-anchor="middle" fill="#00e5a0" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">AWS</text>
@@ -1756,7 +2059,6 @@
             <text x="827" y="35" text-anchor="middle" fill="#333" font-size="7" font-family="JetBrains Mono">VECTOR
                 DB</text>
             <circle cx="827" cy="8" r="3" fill="#00e5a0" class="pd" style="animation-delay:1.3s" />
-            <!-- Cloud interconnects -->
             <path d="M141,34 Q168,22 196,26" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
                 stroke-dasharray="4,4" />
             <path d="M282,26 Q311,16 340,22" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".12"
@@ -1777,13 +2079,6 @@
                 stroke-dasharray="11,55" style="animation:da 4s linear infinite;animation-delay:2.1s" />
             <path d="M726,34 Q755,22 784,26" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".65"
                 stroke-dasharray="11,55" style="animation:da 4s linear infinite;animation-delay:2.8s" />
-            <!-- Cloud → Software -->
-            <path d="M98,52 Q98,148 216,182" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".07"
-                stroke-dasharray="5,5" />
-            <path d="M389,40 Q389,118 389,182" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".07"
-                stroke-dasharray="5,5" />
-            <path d="M683,52 Q683,138 562,182" stroke="#00e5a0" stroke-width="1" fill="none" opacity=".07"
-                stroke-dasharray="5,5" />
             <path d="M98,52 Q98,148 216,182" stroke="#00e5a0" stroke-width="1.5" fill="none" opacity=".42"
                 stroke-dasharray="14,100" style="animation:da2 5s linear infinite" />
             <path d="M389,40 Q389,118 389,182" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".42"
@@ -1792,7 +2087,6 @@
                 stroke-dasharray="14,100" style="animation:da2 5s linear infinite;animation-delay:2s" />
             <text x="500" y="174" text-anchor="middle" fill="#1a1a22" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="2">CLOUD → SOFTWARE_LAYER</text>
-            <!-- Software tier -->
             <rect x="116" y="188" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
             <text x="159" y="202" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">LANGGRAPH</text>
@@ -1813,17 +2107,16 @@
             <circle cx="439" cy="178" r="3" fill="#a78bfa" class="pd" style="animation-delay:.1s" />
             <rect x="536" y="182" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
             <text x="579" y="196" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
-                letter-spacing="1">CELERY</text>
-            <text x="579" y="209" text-anchor="middle" fill="#333" font-size="7"
-                font-family="JetBrains Mono">ASYNC</text>
+                letter-spacing="1">WHISPER</text>
+            <text x="579" y="209" text-anchor="middle" fill="#333" font-size="7" font-family="JetBrains Mono">AUDIO
+                AI</text>
             <circle cx="579" cy="182" r="3" fill="#a78bfa" class="pd" style="animation-delay:1.1s" />
             <rect x="676" y="188" width="86" height="36" rx="2" fill="#0d0a18" stroke="#181424" stroke-width="1" />
             <text x="719" y="202" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono"
-                letter-spacing="1">REDIS</text>
+                letter-spacing="1">GEMINI</text>
             <text x="719" y="215" text-anchor="middle" fill="#333" font-size="7"
-                font-family="JetBrains Mono">CACHE</text>
+                font-family="JetBrains Mono">SUMMARY</text>
             <circle cx="719" cy="188" r="3" fill="#a78bfa" class="pd" style="animation-delay:.6s" />
-            <!-- Software interconnects -->
             <path d="M202,206 Q229,202 256,201" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
                 stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:.3s" />
             <path d="M342,201 Q369,197 396,197" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
@@ -1832,13 +2125,6 @@
                 stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:1.5s" />
             <path d="M622,201 Q649,202 676,206" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity=".5"
                 stroke-dasharray="9,40" style="animation:da 3.5s linear infinite;animation-delay:2.1s" />
-            <!-- Software → Hardware -->
-            <path d="M159,224 Q145,278 226,300" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".07"
-                stroke-dasharray="5,5" />
-            <path d="M439,214 Q439,268 439,300" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".07"
-                stroke-dasharray="5,5" />
-            <path d="M719,224 Q719,268 652,300" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".07"
-                stroke-dasharray="5,5" />
             <path d="M159,224 Q145,278 226,300" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".38"
                 stroke-dasharray="12,90" style="animation:da3 4s linear infinite" />
             <path d="M439,214 Q439,268 439,300" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".38"
@@ -1847,26 +2133,24 @@
                 stroke-dasharray="12,90" style="animation:da3 4s linear infinite;animation-delay:2.6s" />
             <text x="500" y="294" text-anchor="middle" fill="#14141a" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="2">SOFTWARE → SILICON_LAYER</text>
-            <!-- Hardware tier -->
-            <rect x="166" y="304" width="86" height="36" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
-            <text x="209" y="318" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+            <rect x="116" y="304" width="86" height="36" rx="2" fill="#060912" stroke="#10121e" stroke-width="1" />
+            <text x="159" y="318" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">STM32</text>
-            <text x="209" y="331" text-anchor="middle" fill="#333" font-size="7"
-                font-family="JetBrains Mono">MICROCONTROL</text>
-            <circle cx="209" cy="304" r="3" fill="#00d4ff" class="pd" style="animation-delay:.4s" />
-            <rect x="353" y="310" width="86" height="36" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
-            <text x="396" y="324" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
+            <text x="159" y="331" text-anchor="middle" fill="#333" font-size="7"
+                font-family="JetBrains Mono">NUCLEO</text>
+            <circle cx="159" cy="304" r="3" fill="#00d4ff" class="pd" style="animation-delay:.2s" />
+            <rect x="396" y="300" width="86" height="36" rx="2" fill="#060912" stroke="#10121e" stroke-width="1" />
+            <text x="439" y="314" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">FPGA</text>
-            <text x="396" y="337" text-anchor="middle" fill="#333" font-size="7"
-                font-family="JetBrains Mono">VERILOG</text>
-            <circle cx="396" cy="310" r="3" fill="#00d4ff" class="pd" style="animation-delay:.9s" />
-            <rect x="540" y="304" width="86" height="36" rx="2" fill="#080d10" stroke="#0e1c20" stroke-width="1" />
+            <text x="439" y="327" text-anchor="middle" fill="#333" font-size="7"
+                font-family="JetBrains Mono">BASYS3</text>
+            <circle cx="439" cy="300" r="3" fill="#00d4ff" class="pd" style="animation-delay:.8s" />
+            <rect x="540" y="304" width="86" height="36" rx="2" fill="#060912" stroke="#10121e" stroke-width="1" />
             <text x="583" y="318" text-anchor="middle" fill="#00d4ff" font-size="8" font-family="JetBrains Mono"
                 letter-spacing="1">ESP32</text>
             <text x="583" y="331" text-anchor="middle" fill="#333" font-size="7" font-family="JetBrains Mono">IoT
                 BRIDGE</text>
             <circle cx="583" cy="304" r="3" fill="#00d4ff" class="pd" style="animation-delay:1.4s" />
-            <!-- Hardware interconnects -->
             <path d="M252,322 Q302,327 353,328" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".48"
                 stroke-dasharray="7,36" style="animation:da3 3s linear infinite;animation-delay:.5s" />
             <path d="M439,328 Q489,325 540,322" stroke="#00d4ff" stroke-width="1.5" fill="none" opacity=".48"
@@ -1895,16 +2179,18 @@
                         class="c-tag">RAG</span></div>
                 <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
-            <div class="card" onclick="openModal('sms')">
+            <!-- LIVE DEMO CARD -->
+            <div class="card card-demo" onclick="window.open('https://demo.alexturner-portfolio.com','_blank')">
                 <div class="card-bar"></div>
-                <div class="c-id">// 0xSMS · AGENTIC BOT</div>
-                <div class="c-name">Context-Aware SMS Agent</div>
-                <div class="c-desc">Stateful SMS bot with 15-message sliding window memory in Supabase. Human-like
-                    typing delay algorithm, Google Drive → vector store auto-sync pipeline, and semantic HANDOFF
-                    guardrails routing unknown topics to human operators.</div>
-                <div class="c-tags"><span class="c-tag">n8n</span><span class="c-tag">Supabase</span><span
-                        class="c-tag">Twilio</span><span class="c-tag">Google Drive API</span></div>
-                <div class="c-click-hint">CLICK TO EXPLORE →</div>
+                <div class="card-demo-badge">LIVE SYSTEM</div>
+                <div class="c-id" style="color:var(--green)">// 0xPLATFORM · MULTI-TENANT AI</div>
+                <div class="c-name">Multi-Tenant AI Agent Platform</div>
+                <div class="c-desc">Production RAG system powering AI agents across multiple clients. 9-table Supabase
+                    backend with pgvector semantic search, dynamic LLM routing across Claude/GPT-4/Gemini/Groq, human
+                    handoff detection, rate limiting, and full audit logging — self-hosted on AWS Lightsail.</div>
+                <div class="c-tags"><span class="c-tag">FastAPI</span><span class="c-tag">Supabase</span><span
+                        class="c-tag">pgvector</span><span class="c-tag">n8n</span><span class="c-tag">AWS</span></div>
+                <button class="card-demo-open">OPEN LIVE DEMO →</button>
             </div>
         </div>
     </section>
@@ -1926,16 +2212,19 @@
                         class="c-tag">Python</span><span class="c-tag">Agentic AI</span></div>
                 <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
-            <div class="card" onclick="openModal('voicelens')">
+            <!-- VOICELENS COMING SOON CARD -->
+            <div class="card card-soon">
                 <div class="card-bar"></div>
-                <div class="c-id">// 0xVOICE · ASYNC PIPELINE</div>
-                <div class="c-name">VoiceLens <span style="font-size:9px;color:#555">— In Development</span></div>
-                <div class="c-desc">Production-grade multi-speaker audio analysis pipeline. Celery task queues + Redis
-                    broker handle heavy audio workloads asynchronously — zero UI blocking regardless of processing load.
+                <div class="card-soon-badge">COMING SOON</div>
+                <div class="c-id" style="color:var(--purple)">// 0xVOICE · ASYNC PIPELINE</div>
+                <div class="c-name">VoiceLens</div>
+                <div class="c-desc">Multi-speaker audio analysis and transcription platform. Records or ingests audio,
+                    runs OpenAI Whisper for transcription and pyannote speaker diarization in parallel — then lets you
+                    label each voice before generating a structured Gemini AI summary. Celery task queues + Redis broker
+                    handle processing asynchronously so the UI never blocks regardless of file size.</div>
+                <div class="c-tags"><span class="c-tag">FastAPI</span><span class="c-tag">Whisper</span><span
+                        class="c-tag">pyannote</span><span class="c-tag">React</span><span class="c-tag">Gemini</span>
                 </div>
-                <div class="c-tags"><span class="c-tag">FastAPI</span><span class="c-tag">Celery</span><span
-                        class="c-tag">Redis</span><span class="c-tag">Voice AI</span></div>
-                <div class="c-click-hint">CLICK TO EXPLORE →</div>
             </div>
         </div>
     </section>
@@ -2066,7 +2355,7 @@
                 <div class="sk-item">Docker</div>
                 <div class="sk-item">AWS Lightsail</div>
                 <div class="sk-item">Supabase / PostgreSQL</div>
-                <div class="sk-item">Celery / Redis</div>
+                <div class="sk-item">n8n Workflows</div>
                 <div class="sk-item">Cloudflare</div>
             </div>
             <div>
@@ -2084,7 +2373,7 @@
     <!-- CERTS -->
     <div class="certs-wrap">
         <div class="cert">
-            <img class="cert-badge-img" src="assets/Achievements/aws-cloud-quest-cloud-practitioner-training-badge.png"
+            <img class="cert-badge-img" src="assets/Acheivments/aws-cloud-quest-cloud-practitioner-training-badge.png"
                 alt="AWS Cloud Practitioner"
                 onerror="this.outerHTML='<div class=cert-badge-placeholder>AWS<br>CLF</div>'">
             <div>
@@ -2093,8 +2382,7 @@
             </div>
         </div>
         <div class="cert">
-            <img class="cert-badge-img"
-                src="assets/Achievements/aws-educate-introduction-to-generative-ai-training-.png"
+            <img class="cert-badge-img" src="assets/Acheivments/aws-educate-introduction-to-generative-ai-training-.png"
                 alt="AWS Generative AI" onerror="this.outerHTML='<div class=cert-badge-placeholder>AWS<br>AI</div>'">
             <div>
                 <div class="cert-name">AWS Generative AI</div>
@@ -2131,17 +2419,13 @@
             </div>
         </div>
         <div class="con-btns">
-            <a href="mailto:alex@alexturner-portfolio.com" class="connect-btn">LET'S CONNECT →</a>
+            <button class="connect-btn" onclick="openEmail()">LET'S CONNECT →</button>
             <a href="https://github.com/AlexTurnerDev" class="gh-btn" target="_blank">// GITHUB →</a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <div class="footer">
-        © 2027 ALEX TURNER &nbsp;·&nbsp;
-        <a href="privacy.html">PRIVACY</a> &nbsp;·&nbsp;
-        <a href="terms.html">TERMS</a>
-    </div>
+    <div class="footer">© 2027 ALEX TURNER</div>
 
     <!-- MODAL -->
     <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
@@ -2158,9 +2442,48 @@
         </div>
     </div>
 
+    <!-- CHAT WIDGET -->
+    <div id="chat-widget">
+        <div id="chat-panel">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <div class="chat-dot"></div>
+                    <div>
+                        <div class="chat-header-title">ASK ALEX'S AI</div>
+                        <div class="chat-header-sub">Powered by the platform above</div>
+                    </div>
+                </div>
+                <button class="chat-min" onclick="collapseChat()" title="Minimise">−</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="msg bot">Hey! I'm Alex's AI agent — the same system powering his client demos. Ask me
+                    anything about his projects, skills, or availability.</div>
+            </div>
+            <div class="chat-typing" id="chat-typing">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="chat-input-row">
+                <input id="chat-input" type="text" placeholder="Ask me anything..." maxlength="500" autocomplete="off">
+                <button id="chat-send" onclick="sendChat()">SEND</button>
+            </div>
+            <div class="chat-footer">DEMO · Rapid Flow Plumbing knowledge base</div>
+        </div>
+        <div id="chat-bubble" onclick="expandChat()" title="Chat with Alex's AI">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+            </svg>
+        </div>
+    </div>
+
     <script>
         const R2 = 'https://assets.alexturner-portfolio.com';
 
+        // ── EMAIL ──────────────────────────────────────────────────────────────
+        function openEmail() {
+            window.location.href = 'mailto:alex@alexturner-portfolio.com?subject=Let%E2%80%99s%20Connect%20%E2%80%94%20Saw%20Your%20Portfolio';
+        }
+
+        // ── MODAL DATA ─────────────────────────────────────────────────────────
         const DATA = {
             vapi: {
                 id: '// 0xVAPI · VOICE AGENT', title: 'Intelligent Voice Receptionist', color: '#00e5a0',
@@ -2175,31 +2498,12 @@
                     { type: 'img', src: 'assets/images/AI_VapiAgent_SummaryWorkflow.png', cap: 'Async post-call pipeline using an LLM to structure and file call summaries automatically.' },
                 ]
             },
-            sms: {
-                id: '// 0xSMS · AGENTIC BOT', title: 'Context-Aware SMS Agent', color: '#00e5a0',
-                desc: `Architected a stateful SMS conversational agent solving hallucination risk for local service businesses.\n\n• Sliding Window Memory: Supabase stores the last 15 messages per customer — the agent remembers names, specific problems, and context across sessions without a database query overhead.\n\n• Human-Like UX: Variable latency algorithm delays responses proportional to message length, mimicking natural typing speed.\n\n• Auto-Syncing Knowledge Base: Uploading files to a specific Google Drive folder automatically triggers embedding regeneration and vector store updates — zero manual intervention.\n\n• Semantic Guardrails: System prompt protocol flags unknown topics with HANDOFF codes. A deterministic router detects flags and physically redirects to Telegram for human-in-the-loop review — preventing hallucination at the architecture level.`,
-                tags: ['n8n', 'Supabase', 'Twilio', 'Google Drive API', 'RAG', 'pgvector'],
-                links: [{ label: '// Open Live Demo →', url: 'https://demo.alexturner-portfolio.com', primary: true }],
-                media: [
-                    { type: 'arch' },
-                    { type: 'img', src: 'assets/images/AI_TextingBot_n8n.png', cap: 'Event-driven architecture — semantic router connecting Twilio, Supabase memory, and the RAG knowledge base.' },
-                    { type: 'img', src: 'assets/images/AI_TextingBot_Telegram.png', cap: 'Dual-channel routing: AI answers the customer while instantly escalating to the owner for safety-critical queries.' },
-                    { type: 'img', src: 'assets/images/Portfolio_RAG_Agent.png', cap: 'Automated ingestion pipeline — detects Google Drive changes, calculates deltas, and updates Supabase embeddings instantly.' },
-                ]
-            },
             sleepscribe: {
                 id: '// 0xSLEEP · LANGGRAPH', title: 'SleepScribe', color: '#a78bfa',
                 desc: `Intelligent data analysis agent built on LangGraph's non-linear state machine architecture.\n\nThe pipeline ingests multi-source unstructured data, processes it through a graph of agentic nodes, then autonomously evaluates its own outputs — critiquing for accuracy, identifying gaps, and re-running analysis with refined parameters until quality thresholds are met.\n\nKey design decision: LangGraph over LangChain specifically for its loop and conditional branch support. This makes the agent robust to bad data and unexpected inputs rather than failing silently — a critical difference for production reliability.`,
                 tags: ['LangGraph', 'Groq', 'Python', 'Agentic AI', 'Data Analysis'],
                 links: [],
                 media: [{ type: 'note', txt: 'Project assets being prepared. Source available on GitHub.' }]
-            },
-            voicelens: {
-                id: '// 0xVOICE · ASYNC PIPELINE', title: 'VoiceLens', color: '#a78bfa',
-                desc: `Production-grade multi-speaker audio analysis and voice-to-action pipeline.\n\nRole: Backend Lead — architected the async processing engine from scratch.\n\nCelery workers handle heavy audio processing in the background with Redis as the message broker and result cache. FastAPI provides the non-blocking API layer — the frontend never stalls waiting for audio processing regardless of queue depth or file size.\n\nDemonstrates production async architecture patterns: task queues, worker pools, result backends, and graceful failure handling.`,
-                tags: ['FastAPI', 'Celery', 'Redis', 'Voice AI', 'Python'],
-                links: [{ label: '// Live Demo — Coming Soon', url: '#', primary: false }],
-                media: [{ type: 'note', txt: 'Live demo being hosted. Full project page coming soon.' }]
             },
             iot: {
                 id: '// 0xIOT · ECEN260 FINAL', title: 'IoT Home Control System', color: '#00d4ff',
@@ -2234,39 +2538,13 @@
             const lEl = document.getElementById('m-links');
             lEl.innerHTML = d.links.length ? d.links.map(l => `<a href="${l.url}" class="modal-link${l.primary ? '' : ' sec'}" target="_blank">${l.label}</a>`).join('') : '';
             lEl.style.display = d.links.length ? 'flex' : 'none';
-            // media
             let h = '';
             (d.media || []).forEach(m => {
-                if (m.type === 'video') {
-                    const vs = m.orient === 'v' ? 'style="max-height:260px;margin:0 auto"' : '';
-                    h += `<div class="media-item"><video controls ${vs} preload="none"><source src="${m.src}"></video><div class="media-cap">${m.cap}</div></div>`;
-                } else if (m.type === 'img') {
-                    h += `<div class="media-item"><img src="${m.src}" alt="" loading="lazy"><div class="media-cap">${m.cap}</div></div>`;
-                } else if (m.type === 'audio') {
-                    h += `<div class="media-item"><audio controls preload="none" style="width:100%;padding:8px"><source src="${m.src}"></audio><div class="media-cap">${m.cap}</div></div>`;
-                } else if (m.type === 'note') {
-                    h += `<div class="media-note">${m.txt}</div>`;
-                } else if (m.type === 'arch') {
-                    h += `<div class="arch-modal-svg"><div class="arch-modal-lbl">// SMS AGENT ARCHITECTURE</div>
-<svg width="100%" viewBox="0 0 320 200">
-<rect x="8" y="10" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="48" y="28" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">CUSTOMER SMS</text>
-<rect x="120" y="10" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="160" y="28" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">TWILIO</text>
-<rect x="232" y="10" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="272" y="28" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">n8n ROUTER</text>
-<rect x="56" y="80" width="80" height="28" rx="2" fill="#0d0a18" stroke="#181424"/><text x="96" y="98" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">RAG + LLM</text>
-<rect x="184" y="80" width="80" height="28" rx="2" fill="#0d0a18" stroke="#181424"/><text x="224" y="98" text-anchor="middle" fill="#a78bfa" font-size="7" font-family="JetBrains Mono">SUPABASE MEM</text>
-<rect x="120" y="155" width="80" height="28" rx="2" fill="#09090d" stroke="#18181e"/><text x="160" y="173" text-anchor="middle" fill="#00e5a0" font-size="7" font-family="JetBrains Mono">RESPONSE</text>
-<rect x="240" y="130" width="72" height="22" rx="2" fill="#180808" stroke="#2a1010"/><text x="276" y="145" text-anchor="middle" fill="#ff6b6b" font-size="6.5" font-family="JetBrains Mono">HANDOFF→TEL</text>
-<line x1="88" y1="38" x2="120" y2="38" stroke="#00e5a0" stroke-width="1" opacity=".5"/>
-<line x1="200" y1="38" x2="232" y2="38" stroke="#00e5a0" stroke-width="1" opacity=".5"/>
-<line x1="160" y1="38" x2="160" y2="80" stroke="#00e5a0" stroke-width="1" opacity=".4"/>
-<line x1="96" y1="108" x2="96" y2="155" stroke="#a78bfa" stroke-width="1" opacity=".4"/>
-<line x1="96" y1="155" x2="120" y2="169" stroke="#a78bfa" stroke-width="1" opacity=".4"/>
-<line x1="224" y1="108" x2="276" y2="130" stroke="#ff6b6b" stroke-width="1" opacity=".4" stroke-dasharray="3,3"/>
-<line x1="272" y1="38" x2="272" y2="80" stroke="#00e5a0" stroke-width="1" opacity=".3"/>
-<line x1="272" y1="80" x2="224" y2="80" stroke="#00e5a0" stroke-width="1" opacity=".3"/>
-</svg>
-<div class="media-cap" style="margin-top:0">Customer SMS → Twilio → n8n semantic router → RAG + Supabase memory → Response or HANDOFF to human operator via Telegram</div></div>`;
-                } else if (m.type === 'verilog') {
+                if (m.type === 'video') { const vs = m.orient === 'v' ? 'style="max-height:260px;margin:0 auto"' : ''; h += `<div class="media-item"><video controls ${vs} preload="none"><source src="${m.src}"></video><div class="media-cap">${m.cap}</div></div>`; }
+                else if (m.type === 'img') { h += `<div class="media-item"><img src="${m.src}" alt="" loading="lazy"><div class="media-cap">${m.cap}</div></div>`; }
+                else if (m.type === 'audio') { h += `<div class="media-item"><audio controls preload="none" style="width:100%;padding:8px"><source src="${m.src}"></audio><div class="media-cap">${m.cap}</div></div>`; }
+                else if (m.type === 'note') { h += `<div class="media-note">${m.txt}</div>`; }
+                else if (m.type === 'verilog') {
                     h += `<div class="vl-list">
 <div class="vl-item"><div class="vl-title">// REACTION GAUNTLET — CAPSTONE</div><div class="vl-desc">Fast-paced reaction game on Basys3 FPGA. 4-bit LFSR generates unpredictable command sequences. 16x16 onboard RAM persists high scores. Scrolling text engine with custom character lookup table. 11 FSM states managing gameplay, menus, and memory I/O.</div></div>
 <div class="vl-item"><div class="vl-title">// TRAFFIC LIGHT FSM</div><div class="vl-desc">Moore FSM controlling a 4-way intersection with parameterized timers (3s, 10s, 15s). Modular design: separate reusable timer module, 100MHz→1Hz clock divider, and top-level state machine. Clean separation of concerns.</div></div>
@@ -2280,25 +2558,18 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('open');
-            document.body.style.overflow = '';
-            document.getElementById('m-media').innerHTML = '';
-        }
+        function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; document.getElementById('m-media').innerHTML = ''; }
 
-        // Scroll to section
+        // ── SCROLL & NAV ───────────────────────────────────────────────────────
         function scrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }) }
 
-        // Scroll progress bar
         window.addEventListener('scroll', () => {
             const el = document.documentElement;
             const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
             document.getElementById('progress').style.width = pct + '%';
-            updateSidebar();
-            updateNav();
+            updateSidebar(); updateNav();
         }, { passive: true });
 
-        // Sidebar active state
         const sectionMap = [
             { id: 'hero', node: 0, cls: 'active-w' },
             { id: 'ai-cloud', node: 1, cls: 'active-g' },
@@ -2307,60 +2578,116 @@
             { id: 'synthesis', node: 4, cls: 'active-g' },
             { id: 'contact', node: 5, cls: 'active-w' },
         ];
-        // Also watch footer for contact completion
-        const contactSection = document.getElementById('contact');
         const sbNodes = document.querySelectorAll('.sb-node');
 
         function updateSidebar() {
             let current = 0;
             const scrollBottom = window.scrollY + window.innerHeight;
             const docHeight = document.documentElement.scrollHeight;
-            // If near bottom of page, force contact active
-            if (scrollBottom >= docHeight - 60) {
-                current = 5;
-            } else {
-                sectionMap.forEach((s, i) => {
-                    const el = document.getElementById(s.id);
-                    if (el && window.scrollY >= el.offsetTop - 120) current = i;
-                });
-            }
+            if (scrollBottom >= docHeight - 60) { current = 5; }
+            else { sectionMap.forEach((s, i) => { const el = document.getElementById(s.id); if (el && window.scrollY >= el.offsetTop - 120) current = i; }); }
             sbNodes.forEach(n => n.className = 'sb-node');
             sbNodes[current].classList.add(sectionMap[current].cls);
         }
 
-        // Nav active links
         const navLinks = document.querySelectorAll('.nav-links a');
         function updateNav() {
+            // Find which section is most prominent in the viewport
             let cur = '';
+            const vh = window.innerHeight;
+            let bestScore = -1;
             document.querySelectorAll('section[id]').forEach(s => {
-                if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+                const rect = s.getBoundingClientRect();
+                const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+                if (visible > bestScore) { bestScore = visible; cur = s.id; }
             });
-            navLinks.forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
-            });
+            // Also treat contact as active when near bottom
+            const scrollBottom = window.scrollY + window.innerHeight;
+            if (scrollBottom >= document.documentElement.scrollHeight - 80) cur = 'contact';
+            navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
         }
 
-        // Counter animation
+        // ── COUNTERS ───────────────────────────────────────────────────────────
         function animateCounters() {
             document.querySelectorAll('[data-count]').forEach(el => {
                 const target = +el.dataset.count;
-                const dur = 1200; const step = dur / 60;
-                let current = 0;
-                const inc = target / 60;
-                const timer = setInterval(() => {
-                    current = Math.min(current + inc, target);
-                    el.textContent = Math.round(current);
-                    if (current >= target) clearInterval(timer);
-                }, step);
+                const dur = 1200; let current = 0; const inc = target / 60;
+                const timer = setInterval(() => { current = Math.min(current + inc, target); el.textContent = Math.round(current); if (current >= target) clearInterval(timer); }, dur / 60);
             });
         }
         setTimeout(animateCounters, 800);
 
-        // Escape closes modal
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal() });
-
-        // Init sidebar
         updateSidebar();
+
+        // ── CHAT WIDGET ────────────────────────────────────────────────────────
+        const API_ENDPOINT = 'https://www.alexturner-portfolio.com/demo/message';
+        const DEMO_CLIENT_ID = 'f8a1b2c3-d4e5-6789-abcd-ef0123456789'; // Rapid Flow Plumbing UUID
+        const SESSION_ID = 'portfolio-' + Math.random().toString(36).slice(2, 10);
+
+        const chatPanel = document.getElementById('chat-panel');
+        const chatBubble = document.getElementById('chat-bubble');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatTyping = document.getElementById('chat-typing');
+        const chatInput = document.getElementById('chat-input');
+
+        // Auto-collapse after 5 seconds
+        let autoCollapseTimer = setTimeout(collapseChat, 5000);
+
+        function collapseChat() {
+            chatPanel.classList.add('collapsed');
+            chatBubble.style.display = 'flex';
+        }
+        function expandChat() {
+            chatPanel.classList.remove('collapsed');
+            chatBubble.style.display = 'none';
+            chatInput.focus();
+        }
+
+        chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); } });
+        // Cancel auto-collapse if user interacts with widget
+        chatInput.addEventListener('focus', () => clearTimeout(autoCollapseTimer));
+
+        function appendMsg(type, text) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + type;
+            div.textContent = text;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() { chatTyping.style.display = 'flex'; chatMessages.scrollTop = chatMessages.scrollHeight; }
+        function hideTyping() { chatTyping.style.display = 'none'; }
+
+        async function sendChat() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            chatInput.value = '';
+            appendMsg('usr', text);
+            showTyping();
+            try {
+                const res = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ client_id: DEMO_CLIENT_ID, customer_id: SESSION_ID, message: text })
+                });
+                hideTyping();
+                if (!res.ok) throw new Error('API error');
+                const data = await res.json();
+                // Handle chunked or single response
+                const chunks = data.chunks || [{ text: data.response || data.message || 'No response.', wait_seconds: 0 }];
+                for (let i = 0; i < chunks.length; i++) {
+                    if (i > 0) await new Promise(r => setTimeout(r, (chunks[i - 1].wait_seconds || 1) * 1000));
+                    appendMsg('bot', chunks[i].text || '');
+                }
+                if (data.handoff_needed) {
+                    appendMsg('sys', '⚡ Routing to human operator...');
+                }
+            } catch (err) {
+                hideTyping();
+                appendMsg('sys', 'Connection error — please try again.');
+            }
+        }
     </script>
 </body>
 
