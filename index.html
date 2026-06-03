@@ -1944,7 +1944,7 @@
         <h2 class="l-title">Software & Pipelines</h2>
         <p class="l-sub">Agentic workflows, async processing engines, API architecture.</p>
         <div class="cards">
-            <div class="card" onclick="openModal('sleepscribe')">
+            <!--<div class="card" onclick="openModal('sleepscribe')">
                 <div class="card-bar"></div>
                 <div class="c-id">// 0xSLEEP · LANGGRAPH</div>
                 <div class="c-name">SleepScribe</div>
@@ -1954,7 +1954,7 @@
                 <div class="c-tags"><span class="c-tag">LangGraph</span><span class="c-tag">Groq</span><span
                         class="c-tag">Python</span><span class="c-tag">Agentic AI</span></div>
                 <div class="c-click-hint">CLICK TO EXPLORE →</div>
-            </div>
+            </div>-->
             <!-- VOICELENS COMING SOON CARD -->
             <div class="card card-soon">
                 <div class="card-bar"></div>
@@ -2078,9 +2078,9 @@
                 <div class="sk-head">LANGUAGES</div>
                 <div class="sk-item">Python</div>
                 <div class="sk-item">C / C++</div>
+                <div class="sk-item">HTML + CSS</div>
                 <div class="sk-item">JavaScript / TypeScript</div>
                 <div class="sk-item">Verilog</div>
-                <div class="sk-item">Rust</div>
                 <div class="sk-item">Assembly</div>
             </div>
             <div>
@@ -2108,7 +2108,7 @@
                 <div class="sk-item">FPGA / Verilog</div>
                 <div class="sk-item">Circuit Design</div>
                 <div class="sk-item">Fusion 360</div>
-                <div class="sk-item">Raspberry Pi</div>
+                <div class="sk-item">Arduino</div>
             </div>
         </div>
     </div>
@@ -2204,13 +2204,13 @@
                     { type: 'img', src: 'assets/images/AI_VapiAgent_SummaryWorkflow.png', cap: 'Async post-call pipeline using an LLM to structure and file call summaries automatically.' },
                 ]
             },
-            sleepscribe: {
-                id: '// 0xSLEEP · LANGGRAPH', title: 'SleepScribe', color: '#a78bfa',
+            /*sleepscribe: {
+               id: '// 0xSLEEP · LANGGRAPH', title: 'SleepScribe', color: '#a78bfa',
                 desc: `Intelligent data analysis agent built on LangGraph's non-linear state machine architecture.\n\nThe pipeline ingests multi-source unstructured data, processes it through a graph of agentic nodes, then autonomously evaluates its own outputs — critiquing for accuracy, identifying gaps, and re-running analysis with refined parameters until quality thresholds are met.\n\nKey design decision: LangGraph over LangChain specifically for its loop and conditional branch support. This makes the agent robust to bad data and unexpected inputs rather than failing silently — a critical difference for production reliability.`,
                 tags: ['LangGraph', 'Groq', 'Python', 'Agentic AI', 'Data Analysis'],
                 links: [],
                 media: [{ type: 'note', txt: 'Project assets being prepared. Source available on GitHub.' }]
-            },
+            },*/
             iot: {
                 id: '// 0xIOT · ECEN260 FINAL', title: 'IoT Home Control System', color: '#00d4ff',
                 desc: `ECEN 260 (Microprocessor Based System Design) final project — a full-duplex IoT pipeline connecting a smartphone to embedded STM32 hardware via the cloud.\n\n• Protocol Chain: Telegram webhook → n8n workflow → Python serial bridge (USB-UART) → STM32 Nucleo-L476RG → LED/LCD output.\n\n• DMA Image Rendering: Images sent via Telegram are received by the STM32 and rendered on an ST7735 1.8" LCD using Direct Memory Access over SPI. DMA offloads pixel array transfer from the CPU entirely — real-time lighting interrupts continue unaffected during full image renders.\n\n• Multi-Modal Input: Text, audio (transcribed), and images all handled through the same pipeline with separate command routing.\n\n• AI Response Layer: STM32 triggers an AI agent response acknowledging every command in a JARVIS-style manner.`,
